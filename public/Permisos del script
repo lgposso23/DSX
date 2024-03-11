@@ -1,0 +1,5 @@
+npm i socket.io
+npm i http
+npm i dgram
+npm i express
+npm i mysql
