@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor de Datos</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <select id="seleccionMenu">
+        <option value="mapa">Mapa</option>
+        <option value="basededatos">Base de datos</option>
+    </select>
+    <table>
+        <tr>
+            <th>Latitud:</th>
+            <td><span id="latitudValue">Esperando datos...</span></td>
+            <th>Longitud:</th>
+            <td><span id="longitudValue">Esperando datos...</span></td>
+            <th>Fecha:</th>
+            <td><span id="fechaValue">Esperando datos...</span></td>
+            <th>Hora:</th>
+            <td><span id="timestampValue">Esperando datos...</span></td>
+        </tr>
+    </table>
+    <div id="tablaContainer" style="display: none;">
+        <table id="datosTabla">
+            <thead>
+                <tr>
+                    <th>Latitud</th>
+                    <th>Longitud</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+        </table>
+    </div>
+    <div id="mapid" style="width: 1250px; height: 550px;"></div>
+</body>
+</html>
