@@ -1,8 +1,11 @@
 version: 0.0
 os: linux
 files:
-  - source: /server.js
-    destination: /home/ubuntu/server.js
+  - source: server.js
+    destination: /home/ubuntu/
+  - source: public
+    destination: /home/ubuntu/
+    recursive: true
 hooks:
   ApplicationStop:
     - location: scripts/stop_server.sh
