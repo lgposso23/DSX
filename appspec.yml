@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /server.js
-    destination: /home/ubuntu/
+    destination: /
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
