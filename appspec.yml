@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /server.js
-    destination: /home/ubuntu
+    destination: /home/ubuntu/server.js
 hooks:
   ApplicationStop:
     - location: scripts/stop_server.sh
