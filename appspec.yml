@@ -1,9 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: server.js
-    destination: /home/ubuntu/server.js
-    overwrite: true
+  - source: /server.js
+    destination: /home/ubuntu/
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
