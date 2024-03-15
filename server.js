@@ -32,29 +32,47 @@ io.on('connection', (socket) => {
 });
 
 // Maneja los mensajes recibidos por el servidor UDP
+// Maneja los mensajes recibidos por el servidor UDP
 udpServer.on('message', (msg, rinfo) => {
-    console.log(`Servidor UDP recibio: ${msg} de ${rinfo.address}:${rinfo.port}`);
+    console.log(`Servidor UDP recibió: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
 
-    if(parts.length == 4) {
+    if (parts.length === 4) {
         const latitud = parts[0];
         const longitud = parts[1];
         const fecha = parts[2];
         const hora = parts[3];
 
-        const data = { latitud, longitud, fecha, hora };
-
-        // Guarda los datos en la base de datos
-        connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+        // Consulta el último dato en la base de datos
+        connection.query('SELECT * FROM ubicaciones ORDER BY id DESC LIMIT 1', (error, results, fields) => {
             if (error) {
-                console.error('Error al insertar en la base de datos:', error);
+                console.error('Error al consultar la base de datos:', error);
             } else {
-                console.log('Datos insertados correctamente en la base de datos');
+                // Verifica si hay resultados y si el último dato es igual al nuevo dato
+                if (results.length > 0 && 
+                    results[0].latitud === latitud && 
+                    results[0].longitud === longitud &&
+                    results[0].fecha === fecha &&
+                    results[0].hora === hora) {
+                    console.log('El último dato en la base de datos es igual al nuevo dato. Evitando inserción redundante.');
+                } else {
+                    const data = { latitud, longitud, fecha, hora };
+
+                    // Guarda los datos en la base de datos
+                    connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+                        if (error) {
+                            console.error('Error al insertar en la base de datos:', error);
+                        } else {
+                            console.log('Datos insertados correctamente en la base de datos');
+                        }
+                    });
+                    io.emit('updateData', { latitud, longitud, fecha, hora });
+                }
             }
         });
-        io.emit('updateData', { latitud, longitud, fecha, hora });
     }
 });
+
 
 app.get('/ultimos-datos', (req, res) => {
     connection.query('SELECT fecha, hora, latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 30', (error, results, fields) => {
