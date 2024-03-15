@@ -62,7 +62,7 @@ udpServer.on('message', (msg, rinfo) => {
                             console.log('Datos insertados correctamente en la base de datos');
                         }
                     });
-                    io.emit('updateData', { latitud, longitud, fecha, hora });
+                    
                 }
             }
         });
