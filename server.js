@@ -37,7 +37,7 @@ udpServer.on('message', (msg, rinfo) => {
     console.log(`Servidor UDP recibió: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
 
-    if (parts.length === 4) {
+    if (parts.length == 4) {
         const latitud = parts[0];
         const longitud = parts[1];
         const fecha = parts[2];
@@ -50,10 +50,10 @@ udpServer.on('message', (msg, rinfo) => {
             } else {
                 // Verifica si hay resultados y si el último dato es igual al nuevo dato
                 if (results.length > 0 && 
-                    results[0].latitud === latitud && 
-                    results[0].longitud === longitud &&
-                    results[0].fecha === fecha &&
-                    results[0].hora === hora) {
+                    results[0].latitud == latitud && 
+                    results[0].longitud == longitud &&
+                    results[0].fecha == fecha &&
+                    results[0].hora == hora) {
                     console.log('El último dato en la base de datos es igual al nuevo dato. Evitando inserción redundante.');
                 } else {
                     const data = { latitud, longitud, fecha, hora };
