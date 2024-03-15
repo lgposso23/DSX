@@ -1,8 +1,5 @@
 #!/bin/bash
-# Instalar dependencias de Node.js (si es necesario)
-# Este script se ejecuta antes de que el nuevo código se despliegue.
-npm install dgram
-npm install mysql
-npm install socket.io
-npm install express
-npm install http
+# Detiene el servidor node si está corriendo
+pkill node || true
+# Limpia el directorio de trabajo anterior
+rm -rf /home/ubuntu/myapp/*
