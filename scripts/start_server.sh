@@ -1,3 +1,5 @@
 #!/bin/bash
+cd /home/ubuntu/myapp
+
 # Iniciar el servidor Node.js
-sudo node server.js
+nohup node server.js > app.log 2>&1 &
