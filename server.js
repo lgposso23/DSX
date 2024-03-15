@@ -55,13 +55,13 @@ udpServer.on('message', (msg, rinfo) => {
                     const data = { latitud, longitud, fecha, hora };
 
                     // Guarda los datos en la base de datos
-                    connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
-                        if (error) {
-                            console.error('Error al insertar en la base de datos:', error);
-                        } else {
-                            console.log('Datos insertados correctamente en la base de datos');
-                        }
-                    });
+                    //connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+                        //if (error) {
+                            //console.error('Error al insertar en la base de datos:', error);
+                        //} else {
+                            //console.log('Datos insertados correctamente en la base de datos');
+                        //}
+                    //});
                     
                 }
             }
