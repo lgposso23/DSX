@@ -49,7 +49,11 @@ udpServer.on('message', (msg, rinfo) => {
                 console.error('Error al consultar la base de datos:', error);
             } else {
                 // Verifica si hay resultados y si el último dato es igual al nuevo dato
-                if (results.length > 0 && results[0].latitud === latitud && results[0].longitud === longitud && results[0].fecha === fecha && results[0].hora === hora) {
+                if (results.length > 0 && 
+                    parseFloat(results[0].latitud) === parseFloat(latitud) && 
+                    parseFloat(results[0].longitud) === parseFloat(longitud) && 
+                    results[0].fecha === fecha && 
+                    results[0].hora === hora) {
                     console.log('El último dato en la base de datos es igual al nuevo dato. Evitando inserción redundante.');
                 } else {
                     const data = { latitud, longitud, fecha, hora };
