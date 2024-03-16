@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
-    
+
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
 
@@ -13,22 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var mapaCentrado =false;
     var marker =L.marker([0,0]).addTo(mymap);
-    var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
 
-// Función para centrar el mapa en la última coordenada almacenada en la base de datos y dibujar el historial
-    function centrarMapaYDibujarHistorial() {
-        fetch('/ultimos-datos')
+        // Función para centrar el mapa en la última coordenada almacenada en la base de datos
+        function centrarMapaEnUltimaCoordenada() {
+            fetch('/ultimos-datos')
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    const historial = data.map(dato => [dato.latitud, dato.longitud]);
-                    polyline.setLatLngs(historial);
-                    if (!mapaCentrado) {
-                        const ultimoDato = data[0];
-                        mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 13);
-                        marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                        mapaCentrado = true;
-                    }
+                    const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 13);
+                    marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                    mapaCentrado = true;
                 }
             })
             .catch(error => {
@@ -36,8 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    centrarMapaYDibujarHistorial(); // Centrar el mapa al cargar la página y dibujar el historial
-
+    centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
+    
+    function DibujarHistorial() {
+        fetch('/ultimos-datos')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const historial = data.map(dato => [dato.latitud, dato.longitud]);
+                    polyline.setLatLngs(historial);
+                }
+            })
+    }
 
 function formatearFecha(fecha) {
     // Asegúrate de que la entrada sea un objeto Date
@@ -65,6 +70,7 @@ socket.on('updateData', function(data) {
         mymap.setView([data.latitud, data.longitud], 13);
         mapaCentrado = true;
     }
+    DibujarHistorial()
 });
 function mostrarTabla() {
     fetch('/ultimos-datos')
@@ -83,7 +89,7 @@ function mostrarTabla() {
 document.getElementById('seleccionMenu').addEventListener('change', (event) => {
     const seleccion = event.target.value;
     if (seleccion === 'mapa') {
-        centrarMapaYDibujarHistorial();
+        centrarMapaEnUltimaCoordenada();
         document.getElementById('tablaContainer').style.display = 'none'; // Ocultar la tabla
         document.getElementById('mapid').style.display = 'block'; // Mostrar el mapa
         // Limpiar intervalo de actualización si existe
