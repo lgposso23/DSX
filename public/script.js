@@ -35,6 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
+    // Función para mover el marcador y actualizar el historial
+function moverMarcadorYActualizarHistorial(latitud, longitud) {
+    // Mueve el marcador a la nueva ubicación
+    marker.setLatLng([latitud, longitud]);
+    
+    // Agrega la nueva ubicación al historial
+    ubicacionesHistorial.push([latitud, longitud]);
+    
+    // Actualiza la polilínea del historial con las nuevas ubicaciones
+    polyline.setLatLngs(ubicacionesHistorial);
+}
 
 function formatearFecha(fecha) {
     // Asegúrate de que la entrada sea un objeto Date
@@ -57,9 +68,7 @@ socket.on('updateData', function(data) {
     document.getElementById('fechaValue').textContent = data.fecha;
     document.getElementById('timestampValue').textContent = data.hora;
     // Actualiza las coordenadas del marcador
-    marker.setLatLng([data.latitud, data.longitud]);
-    ubicacionesHistorial.push([data.latitud, data.longitud]);
-    polyline.setLatLngs(ubicacionesHistorial);
+    moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
     if (!mapaCentrado) {
         mymap.setView([data.latitud, data.longitud], 13);
         mapaCentrado = true;
