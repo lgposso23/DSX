@@ -55,14 +55,14 @@ udpServer.on('message', (msg, rinfo) => {
                     const data = { latitud, longitud, fecha, hora };
 
                     // Guarda los datos en la base de datos
-                    //connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
-                        //if (error) {
-                            //console.error('Error al insertar en la base de datos:', error);
-                        //} else {
-                            //console.log('Datos insertados correctamente en la base de datos');
-                        //}
-                    //});
-                    //io.emit('updateData', { latitud, longitud, fecha, hora });
+                    connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+                        if (error) {
+                            console.error('Error al insertar en la base de datos:', error);
+                        } else {
+                            console.log('Datos insertados correctamente en la base de datos');
+                        }
+                    });
+                    io.emit('updateData', { latitud, longitud, fecha, hora });
                 }
             }
         });
@@ -83,7 +83,7 @@ app.get('/ultimos-datos', (req, res) => {
 });
 
 // Establece el puerto en el que el servidor UDP escuchará
-const UDP_PORT = 23001;
+const UDP_PORT = 2300;
 udpServer.bind(UDP_PORT, () => {
     console.log(`Servidor UDP escuchando en el puerto ${UDP_PORT}`);
 });
