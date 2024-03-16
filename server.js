@@ -83,7 +83,7 @@ app.get('/ultimos-datos', (req, res) => {
 });
 
 // Establece el puerto en el que el servidor UDP escuchará
-const UDP_PORT = 2300;
+const UDP_PORT = 23001;
 udpServer.bind(UDP_PORT, () => {
     console.log(`Servidor UDP escuchando en el puerto ${UDP_PORT}`);
 });
