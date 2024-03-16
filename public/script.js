@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
+    // Definir una variable para almacenar el historial de ubicaciones
+    const ubicacionesHistorial = [];
+
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
@@ -32,17 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
-    
-    function DibujarHistorial() {
-        fetch('/ultimos-datos')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const historial = data.map(dato => [dato.latitud, dato.longitud]);
-                    polyline.setLatLngs(historial);
-                }
-            })
-    }
 
 function formatearFecha(fecha) {
     // Asegúrate de que la entrada sea un objeto Date
@@ -66,7 +58,8 @@ socket.on('updateData', function(data) {
     document.getElementById('timestampValue').textContent = data.hora;
     // Actualiza las coordenadas del marcador
     marker.setLatLng([data.latitud, data.longitud]);
-    DibujarHistorial()
+    ubicacionesHistorial.push([data.latitud, data.longitud]);
+    polyline.setLatLngs(ubicacionesHistorial);
     if (!mapaCentrado) {
         mymap.setView([data.latitud, data.longitud], 13);
         mapaCentrado = true;
