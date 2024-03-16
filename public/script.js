@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
-    // Definir una variable para almacenar el historial de ubicaciones
-    const ubicacionesHistorial = [];
-
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
+    var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -38,13 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para mover el marcador y actualizar el historial
 function moverMarcadorYActualizarHistorial(latitud, longitud) {
     // Mueve el marcador a la nueva ubicación
-    marker.setLatLng([latitud, longitud]);
-    
+    marker.setLatLng([latitud, longitud]);    
     // Agrega la nueva ubicación al historial
-    ubicacionesHistorial.push([latitud, longitud]);
-    
-    // Actualiza la polilínea del historial con las nuevas ubicaciones
-    polyline.setLatLngs(ubicacionesHistorial);
+    polyline.addLatLng([latitud, longitud]);
 }
 
 function formatearFecha(fecha) {
