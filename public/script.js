@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
-
+    
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
 
@@ -13,17 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var mapaCentrado =false;
     var marker =L.marker([0,0]).addTo(mymap);
+    var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
 
-        // Función para centrar el mapa en la última coordenada almacenada en la base de datos
-        function centrarMapaEnUltimaCoordenada() {
-            fetch('/ultimos-datos')
+// Función para centrar el mapa en la última coordenada almacenada en la base de datos y dibujar el historial
+    function centrarMapaYDibujarHistorial() {
+        fetch('/ultimos-datos')
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 13);
-                    marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                    mapaCentrado = true;
+                    const historial = data.map(dato => [dato.latitud, dato.longitud]);
+                    polyline.setLatLngs(historial);
+                    if (!mapaCentrado) {
+                        const ultimoDato = data[0];
+                        mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 13);
+                        marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                        mapaCentrado = true;
+                    }
                 }
             })
             .catch(error => {
@@ -31,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
+    centrarMapaYDibujarHistorial(); // Centrar el mapa al cargar la página y dibujar el historial
+
 
 function formatearFecha(fecha) {
     // Asegúrate de que la entrada sea un objeto Date
@@ -77,7 +83,7 @@ function mostrarTabla() {
 document.getElementById('seleccionMenu').addEventListener('change', (event) => {
     const seleccion = event.target.value;
     if (seleccion === 'mapa') {
-        centrarMapaEnUltimaCoordenada();
+        centrarMapaYDibujarHistorial();
         document.getElementById('tablaContainer').style.display = 'none'; // Ocultar la tabla
         document.getElementById('mapid').style.display = 'block'; // Mostrar el mapa
         // Limpiar intervalo de actualización si existe
