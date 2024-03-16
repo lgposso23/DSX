@@ -66,11 +66,11 @@ socket.on('updateData', function(data) {
     document.getElementById('timestampValue').textContent = data.hora;
     // Actualiza las coordenadas del marcador
     marker.setLatLng([data.latitud, data.longitud]);
+    DibujarHistorial()
     if (!mapaCentrado) {
         mymap.setView([data.latitud, data.longitud], 13);
         mapaCentrado = true;
     }
-    DibujarHistorial()
 });
 function mostrarTabla() {
     fetch('/ultimos-datos')
