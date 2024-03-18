@@ -8,6 +8,7 @@ jobs:
             - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNS "./deploy.sh"
             - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNScamilo "./deploy.sh"
             - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNSsantiago "./deploy.sh"
+            - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNSricardo "./deploy.sh"
 
 workflows:
     deploy-to-ec2:
