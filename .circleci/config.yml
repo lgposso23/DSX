@@ -6,6 +6,8 @@ jobs:
             - image: arvindr226/alpine-ssh
         steps:
             - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNS "./deploy.sh"
+            - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNScamilo "./deploy.sh"
+            - run: ssh -oStrictHostKeyChecking=no -v $USER@$DNSsantiago "./deploy.sh"
 
 workflows:
     deploy-to-ec2:
