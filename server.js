@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
 });
 
 // Maneja los mensajes recibidos por el servidor UDP
-// Maneja los mensajes recibidos por el servidor UDP
 udpServer.on('message', (msg, rinfo) => {
     console.log(`Servidor UDP recibio: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
