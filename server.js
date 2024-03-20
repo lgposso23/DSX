@@ -69,7 +69,28 @@ app.get('/ultimos-datos', (req, res) => {
     });
 });
 
+// Agrega esta función para limpiar registros duplicados
+function limpiarRegistrosDuplicados() {
+    const query = `
+        DELETE t1 FROM ubicaciones t1
+        INNER JOIN ubicaciones t2 
+        WHERE t1.id < t2.id 
+        AND t1.latitud = t2.latitud 
+        AND t1.longitud = t2.longitud 
+        AND t1.fecha = t2.fecha 
+        AND t1.hora = t2.hora
+    `;    
+    connection.query(query, (error, results, fields) => {
+        if (error) {
+            console.error('Error al limpiar registros duplicados:', error);
+        } else {
+            console.log('Registros duplicados eliminados correctamente');
+        }
+    });
+}
 
+// Programa la ejecución de la función de limpieza cada 500ms
+const intervaloLimpieza = setInterval(limpiarRegistrosDuplicados, 500);
 
 // Establece el puerto en el que el servidor UDP escuchará
 const UDP_PORT = 23001;
