@@ -42,33 +42,17 @@ udpServer.on('message', (msg, rinfo) => {
         const fecha = parts[2];
         const hora = parts[3];
 
-        // Consulta el último dato en la base de datos
-        connection.query('SELECT fecha, hora, latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 1', (error, results, fields) => {
-            if (error) {
-                console.error('Error al consultar la base de datos:', error);
-            } else {
-                // Verifica si hay resultados y si el último dato es igual al nuevo dato
-                if (results.length > 0 && 
-                    parseFloat(results[0].latitud) === parseFloat(latitud) && 
-                    parseFloat(results[0].longitud) === parseFloat(longitud) && 
-                    results[0].fecha === fecha && 
-                    results[0].hora === hora) {
-                    console.log('El último dato en la base de datos es igual al nuevo dato. Evitando inserción redundante.');
-                } else {
-                    const data = { latitud, longitud, fecha, hora };
+        const data = { latitud, longitud, fecha, hora };
 
-                    // Guarda los datos en la base de datos
-                    connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
-                        if (error) {
-                            console.error('Error al insertar en la base de datos:', error);
-                        } else {
-                            console.log('Datos insertados correctamente en la base de datos');
-                        }
-                    });
-                    io.emit('updateData', { latitud, longitud, fecha, hora });
-                }
+        // Guarda los datos en la base de datos
+        connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+            if (error) {
+                console.error('Error al insertar en la base de datos:', error);
+            } else {
+                console.log('Datos insertados correctamente en la base de datos');
             }
         });
+        io.emit('updateData', { latitud, longitud, fecha, hora });
     }
 });
 
