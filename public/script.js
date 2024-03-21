@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 13);
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                     mapaCentrado = true;
                 }
@@ -68,35 +68,30 @@ socket.on('updateData', function(data) {
         mapaCentrado = true;
     }
 });
-function mostrarTabla() {
+function refreshTabla() {
     fetch('/ultimos-datos')
         .then(response => response.json())
         .then(data => {
             actualizarTabla(data);
-            document.getElementById('tablaContainer').style.display = 'block'; // Mostrar la tabla
-            document.getElementById('mapid').style.display = 'none'; // Ocultar el mapa
         })
         .catch(error => {
             console.error('Error al obtener los últimos datos:', error);
         });
 }
 
-// Escucha el evento change del menú desplegable
-document.getElementById('seleccionMenu').addEventListener('change', (event) => {
-    const seleccion = event.target.value;
-    if (seleccion === 'mapa') {
-        centrarMapaEnUltimaCoordenada();
-        document.getElementById('tablaContainer').style.display = 'none'; // Ocultar la tabla
-        document.getElementById('mapid').style.display = 'block'; // Mostrar el mapa
-        // Limpiar intervalo de actualización si existe
-        if (intervaloActualizacion) {
-            clearInterval(intervaloActualizacion);
-            intervaloActualizacion = null;
-        }
-    } else if (seleccion === 'basededatos') {
-        mostrarTabla();
-        intervaloActualizacion = setInterval(mostrarTabla, 1000);
-    }
+// Maneja el evento click del botón para ver el mapa
+document.getElementById('mapButton').addEventListener('click', () => {
+    centrarMapaEnUltimaCoordenada();
+    document.getElementById('tablaContainer').style.display = 'none'; // Ocultar la tabla
+    document.getElementById('mapid').style.display = 'block'; // Mostrar el mapa
+});
+
+// Maneja el evento click del botón para ver los datos de la base de datos
+document.getElementById('dataButton').addEventListener('click', () => {
+    document.getElementById('tablaContainer').style.display = 'block'; // Mostrar la tabla
+    document.getElementById('mapid').style.display = 'none'; // Ocultar el mapa
+    refreshTabla();
+    intervaloActualizacion = setInterval(refreshTabla, 1000);
 });
 
 // Función para actualizar la tabla con los datos recibidos
