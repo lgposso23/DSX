@@ -4,6 +4,8 @@ const http = require('http');
 const socketIo = require('socket.io');
 const dgram = require('dgram');
 const mysql = require('mysql');
+const path = require('path');
+
 
 // Configura la conexión a la base de datos
 const dbConfig = {
@@ -66,6 +68,30 @@ app.get('/ultimos-datos', (req, res) => {
             // Envía los datos recuperados como respuesta
             res.json(results);
         }
+    });
+});
+
+app.get('/historicos', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'historicos.html'));
+});
+
+app.get('/historicos-datos', (req, res) => {
+    const fechaInicio = req.query.fechaInicio;
+    const horaInicio = req.query.horaInicio;
+    const fechaFin = req.query.fechaFin;
+    const horaFin = req.query.horaFin;
+
+    // Construir la consulta SQL con los filtros de fecha y hora
+    const query = `SELECT latitud, longitud, fecha, hora FROM ubicaciones WHERE fecha >= ? AND hora >= ? AND fecha <= ? AND hora <= ?`;
+
+    // Ejecutar la consulta con los parámetros correspondientes
+    connection.query(query, [fechaInicio, horaInicio, fechaFin, horaFin], (error, results, fields) => {
+        if (error) {
+            console.error('Error al consultar la base de datos:', error);
+            res.status(500).json({ error: 'Error al consultar la base de datos' });
+            return;
+        }
+        res.json(results);
     });
 });
 
