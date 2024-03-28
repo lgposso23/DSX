@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechaInicio=${fechaInicio}&horaInicio=${horaInicio}&fechaFin=${fechaFin}&horaFin=${horaFin}`;
 
-        // Realizar la solicitud al servidor con Fetch API
+        // Realizar la solicitud al servidor
         fetch(url)
             .then(response => response.json())
             .then(data => {
