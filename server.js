@@ -8,7 +8,7 @@ const path = require('path');
 
 require('dotenv').config({ path: 'DSX/.env' });
 
-// Configura la conexión a la base de datos DSX
+// Configura la conexión a la base de datos
 const dbConfig = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
