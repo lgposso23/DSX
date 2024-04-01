@@ -4,14 +4,17 @@ const http = require('http');
 const socketIo = require('socket.io');
 const dgram = require('dgram');
 const mysql = require('mysql');
+const path = require('path');
+
+require('dotenv').config({ path: 'DSX/.env' });
 
 // Configura la conexión a la base de datos
 const dbConfig = {
-  host: 'dsx-db.c5kwa0eccnra.us-east-2.rds.amazonaws.com',
-  user: 'luisgaGOD',
-  password: 'Lujusumo232403*',
-  database: 'DSX'
-};
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+  };  
 
 const connection = mysql.createConnection(dbConfig);
 
@@ -32,7 +35,6 @@ io.on('connection', (socket) => {
 });
 
 // Maneja los mensajes recibidos por el servidor UDP
-// Maneja los mensajes recibidos por el servidor UDP
 udpServer.on('message', (msg, rinfo) => {
     console.log(`Servidor UDP recibio: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
@@ -43,33 +45,17 @@ udpServer.on('message', (msg, rinfo) => {
         const fecha = parts[2];
         const hora = parts[3];
 
-        // Consulta el último dato en la base de datos
-        connection.query('SELECT fecha, hora, latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 1', (error, results, fields) => {
-            if (error) {
-                console.error('Error al consultar la base de datos:', error);
-            } else {
-                // Verifica si hay resultados y si el último dato es igual al nuevo dato
-                if (results.length > 0 && 
-                    parseFloat(results[0].latitud) === parseFloat(latitud) && 
-                    parseFloat(results[0].longitud) === parseFloat(longitud) && 
-                    results[0].fecha === fecha && 
-                    results[0].hora === hora) {
-                    console.log('El último dato en la base de datos es igual al nuevo dato. Evitando inserción redundante.');
-                } else {
-                    const data = { latitud, longitud, fecha, hora };
+        const data = { latitud, longitud, fecha, hora };
 
-                    // Guarda los datos en la base de datos
-                    connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
-                        if (error) {
-                            console.error('Error al insertar en la base de datos:', error);
-                        } else {
-                            console.log('Datos insertados correctamente en la base de datos');
-                        }
-                    });
-                    io.emit('updateData', { latitud, longitud, fecha, hora });
-                }
+        // Guarda los datos en la base de datos
+        connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
+            if (error) {
+                console.error('Error al insertar en la base de datos:', error);
+            } else {
+                console.log('Datos insertados correctamente en la base de datos');
             }
         });
+        io.emit('updateData', { latitud, longitud, fecha, hora });
     }
 });
 
@@ -83,6 +69,29 @@ app.get('/ultimos-datos', (req, res) => {
             // Envía los datos recuperados como respuesta
             res.json(results);
         }
+    });
+});
+
+app.get('/historicos', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'historicos.html'));
+});
+
+app.get('/historicos-datos', (req, res) => {
+    const fechaInicio = req.query.fechaInicio;
+    const horaInicio = req.query.horaInicio;
+    const fechaFin = req.query.fechaFin;
+    const horaFin = req.query.horaFin;
+
+    // Construir la consulta SQL con los filtros de fecha y hora
+      const query = `SELECT latitud, longitud, fecha, hora FROM ubicaciones WHERE (fecha>? OR (fecha =? AND hora >= ? )) AND (fecha < ? OR (fecha =? AND hora <=?))`;
+    // Ejecutar la consulta con los parámetros correspondientes
+    connection.query(query, [fechaInicio, horaInicio, fechaFin, horaFin], (error, results, fields) => {
+        if (error) {
+            console.error('Error al consultar la base de datos:', error);
+            res.status(500).json({ error: 'Error al consultar la base de datos' });
+            return;
+        }
+        res.json(results);
     });
 });
 
