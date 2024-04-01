@@ -6,14 +6,15 @@ const dgram = require('dgram');
 const mysql = require('mysql');
 const path = require('path');
 
+require('dotenv').config({ path: 'DSX/.env' });
 
 // Configura la conexión a la base de datos
 const dbConfig = {
-  host: 'dsx-db.c5kwa0eccnra.us-east-2.rds.amazonaws.com',
-  user: 'luisgaGOD',
-  password: 'Lujusumo232403*',
-  database: 'DSX'
-};
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+  };  
 
 const connection = mysql.createConnection(dbConfig);
 
