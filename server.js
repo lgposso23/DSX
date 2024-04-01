@@ -83,7 +83,8 @@ app.get('/historicos-datos', (req, res) => {
     const horaFin = req.query.horaFin;
 
     // Construir la consulta SQL con los filtros de fecha y hora
-    const query = `SELECT latitud, longitud, fecha, hora FROM ubicaciones WHERE fecha >= ? AND hora >= ? AND fecha <= ? AND hora <= ?`;
+    const query = `SELECT latitud, longitud, fecha, hora FROM ubicaciones WHERE (fecha>? OR (fecha =? AND hora >= ? ))
+    AND (fecha < ? OR (fecha =? AND hora <=?))`;
 
     // Ejecutar la consulta con los parámetros correspondientes
     connection.query(query, [fechaInicio, horaInicio, fechaFin, horaFin], (error, results, fields) => {
