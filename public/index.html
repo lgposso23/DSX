@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Monitor de Datos_PLN</title>
+    <title>Monitor de Datos</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -10,19 +10,22 @@
     <style>
         table {
             border-collapse: collapse;
+            border: 1px solid black;
         }
         th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+            padding: 8px 15px;
+            text-align: center;
+            border-bottom: 1px solid black;
         }
     </style>
 </head>
 <body>
-    <select id="seleccionMenu">
-        <option value="mapa">Mapa</option>
-        <option value="basededatos">Base de datos</option>
-    </select>
+    <h1>Monitor en Tiempo Real</h1>
+    <div>
+        <button id="mapButton">Centrar mapa</button>
+        <button id="dataButton">Ver Base de Datos</button>
+        <button id="historicosButton">Consulta de Históricos</button>
+    </div>
     <table>
         <tr>
             <th>Latitud:</th>

@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Históricos</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="historicos.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px 15px;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta de Históricos</h1>
+    <div>
+        <label for="fechaInicio">Fecha de inicio:</label>
+        <input type="date" id="fechaInicio">
+        <label for="horaInicio">Hora de inicio:</label>
+        <input type="time" id="horaInicio">
+    </div>
+    <div>
+        <label for="fechaFin">Fecha de fin:</label>
+        <input type="date" id="fechaFin">
+        <label for="horaFin">Hora de fin:</label>
+        <input type="time" id="horaFin">
+    </div>
+    <button id="filtrarDatos">Filtrar</button>
+    </div>
+    <div id="mapid" style="width: 1250px; height: 550px;"></div>
+</body>
+</html>
+
