@@ -22,17 +22,13 @@
 <body>
     <h1>Consulta de Históricos</h1>
     <div>
-        <label for="fechaInicio">Fecha de inicio:</label>
-        <input type="date" id="fechaInicio">
-        <label for="horaInicio">Hora de inicio:</label>
-        <input type="time" id="horaInicio">
+        <label for="fechahoraInicio">Fecha y hora de inicio:</label>
+        <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
     </div>
     <div>
-        <label for="fechaFin">Fecha de fin:</label>
-        <input type="date" id="fechaFin">
-        <label for="horaFin">Hora de fin:</label>
-        <input type="time" id="horaFin">
-    </div>
+        <label for="fechahoraFin">Fecha y hora de final:</label>
+        <input type="datetime-local" id="fechahoraFin" name="fechahoraFin">
+    </div>    
     <button id="filtrarDatos">Filtrar</button>
     </div>
     <div id="mapid" style="width: 1250px; height: 550px;"></div>
