@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
 
-    function cargarDatosHistoricos(fechaInicio, horaInicio, fechaFin, horaFin) {
+    function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
-        const url = `/historicos-datos?fechaInicio=${fechaInicio}&horaInicio=${horaInicio}&fechaFin=${fechaFin}&horaFin=${horaFin}`;
+        const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}}`;
 
         // Realizar la solicitud al servidor
         fetch(url)
@@ -55,11 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
-        const fechaInicio = document.getElementById('fechaInicio').value;
-        const horaInicio = document.getElementById('horaInicio').value;
-        const fechaFin = document.getElementById('fechaFin').value;
-        const horaFin = document.getElementById('horaFin').value;
+        const fechahoraInicio = document.getElementById('fechahoraInicio').value;
+        const fechahoraFin = document.getElementById('fechahoraFin').value;
 
-        cargarDatosHistoricos(fechaInicio, horaInicio, fechaFin, horaFin);
+        cargarDatosHistoricos(fechahoraInicio, fechahoraFin);
     });
 });
