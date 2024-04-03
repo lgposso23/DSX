@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
+
     // Función para mover el marcador y actualizar el historial
     function moverMarcadorYActualizarHistorial(latitud, longitud) {
         // Mueve el marcador a la nueva ubicación
@@ -41,19 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         polyline.addLatLng([latitud, longitud]);
     }
 
-    function formatearFecha(fecha) {
-        // Asegúrate de que la entrada sea un objeto Date
-        if (!(fecha instanceof Date)) {
-            fecha = new Date(fecha);
-        }
-
-        // Obtén la fecha en formato YYYY-MM-DD
-        const fechaFormateada = fecha.toISOString().slice(0, 10);
-
-        return fechaFormateada;
-    }
-
-    let intervaloActualizacion = null;
     // Escucha el evento 'updateData' del servidor Socket.IO
     socket.on('updateData', function(data) {
         console.log('Datos recibidos del servidor:', data);
@@ -68,44 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mapaCentrado = true;
         }
     });
-    function refreshTabla() {
-        fetch('/ultimos-datos')
-            .then(response => response.json())
-            .then(data => {
-                actualizarTabla(data);
-            })
-            .catch(error => {
-                console.error('Error al obtener los últimos datos:', error);
-            });
-    }
 
     // Maneja el evento click del botón para ver el mapa
     document.getElementById('mapButton').addEventListener('click', () => {
         centrarMapaEnUltimaCoordenada();
-        document.getElementById('tablaContainer').style.display = 'none'; // Ocultar la tabla
-        document.getElementById('mapid').style.display = 'block'; // Mostrar el mapa
     });
 
-    // Maneja el evento click del botón para ver los datos de la base de datos
-    document.getElementById('dataButton').addEventListener('click', () => {
-        document.getElementById('tablaContainer').style.display = 'block'; // Mostrar la tabla
-        document.getElementById('mapid').style.display = 'none'; // Ocultar el mapa
-        refreshTabla();
-        intervaloActualizacion = setInterval(refreshTabla, 1000);
-    });
-
-    // Función para actualizar la tabla con los datos recibidos
-    function actualizarTabla(data) {
-        var tableBody = document.getElementById('tabla-body');
-        tableBody.innerHTML = '';
-        data.forEach(dato => {
-            var row = tableBody.insertRow();
-            row.insertCell(0).textContent = dato.latitud;
-            row.insertCell(1).textContent = dato.longitud;
-            row.insertCell(2).textContent = formatearFecha(dato.fecha); // Formatear la fecha
-            row.insertCell(3).textContent = dato.hora;
-        });
-    }
     const historicosBtn = document.getElementById('historicosButton');
     if (historicosBtn) {
         historicosBtn.addEventListener('click', () => {
