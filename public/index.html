@@ -1,16 +1,50 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Monitor de Datos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
+        body {
+            font-size: 16px; /* Ajuste del tamaño base de la fuente */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 1.5rem; /* Disminuir el tamaño del título */
+        }
+        button {
+            margin: 5px;
+            font-size: 1rem; /* Disminuir el tamaño de los botones */
+        }
+        #botonera {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #mapaYDatos {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        #mapid {
+            width: 90%; /* Hacer el mapa responsive */
+            height: 500px; /* Altura fija para el mapa */
+        }
         table {
             border-collapse: collapse;
             border: 1px solid black;
+            width: 100%; /* Hacer la tabla responsive */
+            max-width: 80%; /* Máximo ancho de la tabla */
+            margin-top: 20px;
         }
         th, td {
             padding: 8px 15px;
@@ -21,10 +55,11 @@
 </head>
 <body>
     <h1>Monitor en Tiempo Real</h1>
-    <div>
-        <button id="mapButton">Centrar mapa</button>
-        <button id="dataButton">Ver Base de Datos</button>
+    <div id="botonera">
         <button id="historicosButton">Consulta de Históricos</button>
+        <div id="mapaYDatos">
+            <button id="mapButton">Centrar mapa</button>
+        </div>
     </div>
     <table>
         <tr>
@@ -38,20 +73,6 @@
             <td><span id="timestampValue">Esperando datos...</span></td>
         </tr>
     </table>
-    <div id="tablaContainer" style="display: none;">
-        <table id="datosTabla">
-            <thead>
-                <tr>
-                    <th>Latitud</th>
-                    <th>Longitud</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-body"></tbody>
-        </table>
-    </div>
-    <div id="mapid" style="width: 1250px; height: 550px;"></div>
+    <div id="mapid"></div>
 </body>
 </html>
-

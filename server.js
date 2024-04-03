@@ -44,8 +44,9 @@ udpServer.on('message', (msg, rinfo) => {
         const longitud = parts[1];
         const fecha = parts[2];
         const hora = parts[3];
+        const fechahora = parts[2] + ' ' + parts[3];
 
-        const data = { latitud, longitud, fecha, hora };
+        const data = { latitud, longitud, fecha, hora, fechahora };
 
         // Guarda los datos en la base de datos
         connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
