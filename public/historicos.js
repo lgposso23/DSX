@@ -91,7 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 mymap.fitBounds(polyline.getBounds());
                 var lastPointIndex = polyline.getLatLngs().length - 1;
                 var lastPoint = polyline.getLatLngs()[lastPointIndex];
-                var marker = L.marker(lastPoint).addTo(mymap);
+                if (marker) {
+                    marker.setLatLng(lastPoint);
+                } else {
+                    marker = L.marker(lastPoint).addTo(mymap);
+                }
             })
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
@@ -101,10 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('filtrarDatos').addEventListener('click', () => {
         const fechahoraInicio = document.getElementById('fechahoraInicio').value;
         const fechahoraFin = document.getElementById('fechahoraFin').value;
-        if (marker) {
-            marker.remove();
-        }
-
         cargarDatosHistoricos(fechahoraInicio, fechahoraFin);
     });
 });
