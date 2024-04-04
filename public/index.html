@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <title>Monitor de Datos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function() {
+            // Calcular la altura combinada de los elementos anteriores
+            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
+            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
+                return totalAltura + elemento.offsetHeight;
+            }, 0);
+
+            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
+            var alturaPantalla = window.innerHeight;
+            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.135); // 15% de la altura de la pantalla
+
+            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
+            var mapa = document.getElementById('mapid');
+            mapa.style.height = Math.max(alturaMapa, 0) + 'px';
+        };
+    </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -17,12 +34,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos la altura de la pantalla */
         }
         h1 {
             font-size: 1.5rem; /* Disminuir el tamaño del título */
         }
         button {
-            margin: 5px;
+            margin: 1px;
             font-size: 1rem; /* Disminuir el tamaño de los botones */
         }
         #botonera {
@@ -30,23 +48,22 @@
             flex-direction: column;
             align-items: center;
         }
-        #mapaYDatos {
+        #mapa {
             display: flex;
             justify-content: space-around;
             width: 100%;
         }
         #mapid {
             width: 90%; /* Hacer el mapa responsive */
-            height: 500px; /* Altura fija para el mapa */
         }
         table {
             border-collapse: collapse;
             border: 1px solid black;
-            width: 80%; /* Hacer la tabla responsive */
-            margin-top: 20px;
+            width: 30%; /* Hacer la tabla responsive */
+            margin-top: 10px;
         }
         th, td {
-            padding: 8px 15px;
+            padding: 2px 4px;
             text-align: center;
             border-bottom: 1px solid black;
         }
@@ -56,7 +73,7 @@
     <h1>Monitor en Tiempo Real</h1>
     <div id="botonera">
         <button id="historicosButton">Consulta de Históricos</button>
-        <div id="mapaYDatos">
+        <div id="mapa">
             <button id="mapButton">Centrar mapa</button>
         </div>
     </div>
@@ -64,13 +81,15 @@
         <tr>
             <th>Latitud:</th>
             <td><span id="latitudValue">Esperando datos...</span></td>
-            <th>Longitud:</th>
-            <td><span id="longitudValue">Esperando datos...</span></td>
             <th>Fecha:</th>
             <td><span id="fechaValue">Esperando datos...</span></td>
+        <tr>
+        <tr>
+            <th>Longitud:</th>
+            <td><span id="longitudValue">Esperando datos...</span></td>
             <th>Hora:</th>
             <td><span id="timestampValue">Esperando datos...</span></td>
-        </tr>
+        <tr>
     </table>
     <div id="mapid"></div>
 </body>

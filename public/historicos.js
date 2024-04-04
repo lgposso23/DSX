@@ -4,6 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
     var datetimeInicio = document.getElementById('fechahoraInicio');
     var datetimeFinal = document.getElementById('fechahoraFin');
 
+    function obtenerFechaHoraActualLocal() {
+        // Obtiene la fecha y hora actual en la zona horaria local del dispositivo
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hour = String(now.getHours()).padStart(2, '0');
+        const minute = String(now.getMinutes()).padStart(2, '0');
+        const second = String(now.getSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+    }
+
+    // Establece la fecha máxima al valor actual en la zona horaria local del dispositivo
+    datetimeInicio.setAttribute('max', obtenerFechaHoraActualLocal());
+    datetimeFinal.setAttribute('max', obtenerFechaHoraActualLocal());
+
     datetimeInicio.addEventListener('change', function() {
         // Habilita el campo fechahoraFinal solo si fechahoraInicio tiene un valor
         if (datetimeInicio.value) {
@@ -35,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).addTo(mymap);
 
     var mapaCentrado =false;
+    var marker =L.marker([0,0]).addTo(mymap);
 
     function centrarMapaEnUltimaCoordenada() {
         fetch('/ultimos-datos')
@@ -43,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.length > 0) {
                 const ultimoDato = data[0];
                 mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
+                marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 mapaCentrado = true;
             }
         })
@@ -61,6 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                if (data.length === 0) {
+                    // Mostrar un popup indicando que no hay datos disponibles
+                    alert('No se encontraron datos en esta ventana de tiempo');
+                    return;
+                }
                 polyline.setLatLngs([]);
                 data.forEach(dato => {
                     polyline.addLatLng([dato.latitud, dato.longitud]);
