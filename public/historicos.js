@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
     var datetimeInicio = document.getElementById('fechahoraInicio');
     var datetimeFinal = document.getElementById('fechahoraFin');
+    var markers = [];
+    var customIcon = L.icon({
+        iconUrl: 'pics/punto.png', // Ruta al archivo de imagen del icono
+        iconSize: [32, 32], // Tamaño del icono
+        iconAnchor: [16, 16], // Punto de anclaje del icono
+        popupAnchor: [0, -32] // Punto de anclaje del popup
+    });
 
     function obtenerFechaHoraActualLocal() {
         // Obtiene la fecha y hora actual en la zona horaria local del dispositivo
@@ -73,17 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
-        const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}}`;
+        const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
 
         // Realizar la solicitud al servidor
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
+                    // Ocultar el botón "Ver lugares" si no hay datos
+                    verLugaresButton.style.display = 'none';
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos en esta ventana de tiempo');
                     return;
                 }
+                // Mostrar el botón "Ver lugares"
+                verLugaresButton.style.display = 'block';
                 polyline.setLatLngs([]);
                 data.forEach(dato => {
                     polyline.addLatLng([dato.latitud, dato.longitud]);
@@ -101,6 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error al cargar los datos históricos:', error);
             });
     }
+
+    verLugaresButton.addEventListener('click', () => {
+        // Limpiar los marcadores anteriores
+        markers.forEach(marker => marker.removeFrom(mymap));
+        markers = [];
+
+        // Agregar marcadores en cada punto de la polilínea
+        polyline.getLatLngs().forEach(point => {
+            var marker = L.marker(point, { icon: customIcon }).addTo(mymap);
+            markers.push(marker);
+        });
+
+        // Ajustar el mapa para que todos los marcadores sean visibles
+        mymap.fitBounds(polyline.getBounds());
+    });
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
         const fechahoraInicio = document.getElementById('fechahoraInicio').value;
