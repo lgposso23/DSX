@@ -4,14 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var datetimeInicio = document.getElementById('fechahoraInicio');
     var datetimeFinal = document.getElementById('fechahoraFin');
     var filtrarButton = document.getElementById('filtrarDatos');
-    var markers = [];
-    var datosCompletos = [];
-    var customIcon = L.icon({
-        iconUrl: 'pics/punto.png', // Ruta al archivo de imagen del icono
-        iconSize: [32, 32], // Tamaño del icono
-        iconAnchor: [16, 16], // Punto de anclaje del icono
-        popupAnchor: [0, -32] // Punto de anclaje del popup
-    });
+    var datosDePolilinea = [];
+
 
     document.getElementById('filtrarDatos').disabled = true;
 
@@ -71,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' // Atribución de los datos del mapa
     }).addTo(mymap);
 
-    var mapaCentrado =false;
     var marker =L.marker([0,0]).addTo(mymap);
 
     function centrarMapaEnUltimaCoordenada() {
@@ -82,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ultimoDato = data[0];
                 mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
                 marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                mapaCentrado = true;
             }
         })
         .catch(error => {
@@ -92,10 +84,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
 
+    function actualizarMarcadorYPopup(index) {
+        const dato = datosDePolilinea[index];
+        const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
+        if (!marker) {
+            marker = L.marker(punto).addTo(mymap);
+        } else {
+            marker.setLatLng(punto);
+        }
+        const fechaHoraISO = dato.fechahora;
+        const fechaHora = new Date(fechaHoraISO);
+        const fechaHoraLegible = fechaHora.toLocaleString('es-ES', { 
+            year: 'numeric', // Año (cuatro dígitos)
+            month: '2-digit', // Mes (dos dígitos)
+            day: '2-digit', // Día del mes (dos dígitos)
+            hour: 'numeric', // Hora (formato de 12 horas)
+            minute: 'numeric', // Minutos
+            second: 'numeric', // Segundos
+            hour12: true // Usar formato de 12 horas (true) o 24 horas (false)
+        });
+        marker.bindPopup(`Fecha y Hora: ${fechaHoraLegible}`).openPopup();
+        mymap.panTo(punto);
+    }    
+
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
-        datosCompletos = [];
 
         // Realizar la solicitud al servidor
         fetch(url)
@@ -106,44 +120,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('No se encontraron datos en esta ventana de tiempo');
                     return;
                 }
-                datosCompletos = data;
-                polyline.setLatLngs([]);
-                data.forEach(dato => {
-                    polyline.addLatLng([dato.latitud, dato.longitud]);
-                });
-                mymap.fitBounds(polyline.getBounds());
-                var lastPointIndex = polyline.getLatLngs().length - 1;
-                var lastPoint = polyline.getLatLngs()[lastPointIndex];
+                datosDePolilinea = data.map(dato => ({
+                    latLng: [dato.latitud, dato.longitud],
+                    fechahora: dato.fechahora
+                }));
+                const latLngs = datosDePolilinea.map(d => d.latLng);
+                polyline.setLatLngs(latLngs);
+                // Configura el slider
+                const slider = document.getElementById('slider');
+                slider.max = datosDePolilinea.length - 1;
+                slider.value = 0;
+                actualizarMarcadorYPopup(0);
                 if (marker) {
                     marker.setLatLng(lastPoint);
                 } else {
                     marker = L.marker(lastPoint).addTo(mymap);
                 }
-    ///////////////// Lugares en polilinea ///////////////////////////////////
-                // Limpiar los marcadores anteriores
-                markers.forEach(marker => marker.removeFrom(mymap));
-                markers = [];
-
-                datosCompletos.forEach(dato => {
-                    const punto = [dato.latitud, dato.longitud];
-                    const fechaHoraISO = dato.fechahora;
-                    const fechaHora = new Date(fechaHoraISO);
-                    const fechaHoraLegible = fechaHora.toLocaleString('es-ES', { 
-                        year: 'numeric', // Año (cuatro dígitos)
-                        month: '2-digit', // Mes (dos dígitos)
-                        day: '2-digit', // Día del mes (dos dígitos)
-                        hour: 'numeric', // Hora (formato de 12 horas)
-                        minute: 'numeric', // Minutos
-                        second: 'numeric', // Segundos
-                        hour12: true // Usar formato de 12 horas (true) o 24 horas (false)
-                    });
-                    var marker = L.marker(punto, { icon: customIcon })
-                        .bindPopup(`Estuvo acá el ${fechaHoraLegible}`) // Usa fechaHoraLegible el popup
-                        .addTo(mymap);
-                    markers.push(marker);
-                });
             })
-    ///////////////// fin lugares en polilinea //////////////////////////////////////
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
@@ -155,4 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const fechahoraFin = document.getElementById('fechahoraFin').value;
         cargarDatosHistoricos(fechahoraInicio, fechahoraFin);
     });
+
+    document.getElementById('slider').addEventListener('input', function() {
+        actualizarMarcadorYPopup(this.value);
+    });
+    
 });
