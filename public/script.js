@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' // Atribución de los datos del mapa
     }).addTo(mymap);
 
-    var mapaCentrado =false;
     var marker =L.marker([0,0]).addTo(mymap);
 
     // Función para centrar el mapa en la última coordenada almacenada en la base de datos
@@ -40,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         marker.setLatLng([latitud, longitud]);    
         // Agrega la nueva ubicación al historial
         polyline.addLatLng([latitud, longitud]);
+        //Centra con el marcador
+        map.setView([latitud, longitud], map.getZoom());
     }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
@@ -51,15 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
         moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
-        if (!mapaCentrado) {
-            mymap.setView([data.latitud, data.longitud], 13);
-            mapaCentrado = true;
-        }
-    });
-
-    // Maneja el evento click del botón para ver el mapa
-    document.getElementById('mapButton').addEventListener('click', () => {
-        centrarMapaEnUltimaCoordenada();
     });
 
     const historicosBtn = document.getElementById('historicosButton');
