@@ -78,6 +78,7 @@ app.get('/historicos', (req, res) => {
 });
 
 app.get('/historicos-datos', (req, res) => {
+  
     const fechahoraInicio = req.query.fechahoraInicio;
     const fechahoraFin = req.query.fechahoraFin;
 
