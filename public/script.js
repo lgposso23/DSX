@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const ultimoDato = data[0];
                 mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
                 marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                mapaCentrado = true;
             }
         })
         .catch(error => {
