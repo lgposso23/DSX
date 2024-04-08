@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Históricos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function() {
+            // Calcular la altura combinada de los elementos anteriores
+            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
+            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
+                return totalAltura + elemento.offsetHeight;
+            }, 0);
+
+            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
+            var alturaPantalla = window.innerHeight;
+            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.135); // 15% de la altura de la pantalla
+
+            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
+            var mapa = document.getElementById('mapid');
+            mapa.style.height = Math.max(alturaMapa, 0) + 'px';
+        };
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="historicos.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos la altura de la pantalla */
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 1.5rem; /* Ajuste para dispositivos pequeños */
+        }
+        div {
+            margin: 2px 0;
+        }
+        label, input, button {
+            font-size: 1rem; /* Ajuste para que sean más legibles en dispositivos pequeños */
+        }
+        #mapid {
+            width: 90%; /* Hacer el mapa responsive */
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta de Históricos</h1>
+    <div>
+        <label for="fechahoraInicio">Fecha y hora de inicio:</label>
+        <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
+    </div>
+    <div>
+        <label for="fechahoraFin">Fecha y hora de final:</label>
+        <input type="datetime-local" id="fechahoraFin" name="fechahoraFin" disabled>
+    </div>    
+    <button id="filtrarDatos">Filtrar</button>
+    <div id="mapid"></div>
+</body>
+</html>

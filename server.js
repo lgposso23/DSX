@@ -44,8 +44,9 @@ udpServer.on('message', (msg, rinfo) => {
         const longitud = parts[1];
         const fecha = parts[2];
         const hora = parts[3];
+        const fechahora = parts[2] + ' ' + parts[3];
 
-        const data = { latitud, longitud, fecha, hora };
+        const data = { latitud, longitud, fecha, hora, fechahora };
 
         // Guarda los datos en la base de datos
         connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
@@ -61,9 +62,9 @@ udpServer.on('message', (msg, rinfo) => {
 
 
 app.get('/ultimos-datos', (req, res) => {
-    connection.query('SELECT fecha, hora, latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 30', (error, results, fields) => {
+    connection.query('SELECT fecha, hora, latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 5', (error, results, fields) => {
         if (error) {
-            console.error('Error al consultar la base de datos:', error);
+            console.error('Error al obtener los últimos datos:', error);
             res.status(500).send('Error al obtener los últimos datos');
         } else {
             // Envía los datos recuperados como respuesta
@@ -77,15 +78,15 @@ app.get('/historicos', (req, res) => {
 });
 
 app.get('/historicos-datos', (req, res) => {
-    const fechaInicio = req.query.fechaInicio;
-    const horaInicio = req.query.horaInicio;
-    const fechaFin = req.query.fechaFin;
-    const horaFin = req.query.horaFin;
+  
+    const fechahoraInicio = req.query.fechahoraInicio;
+    const fechahoraFin = req.query.fechahoraFin;
 
     // Construir la consulta SQL con los filtros de fecha y hora
-      const query = `SELECT latitud, longitud, fecha, hora FROM ubicaciones WHERE (fecha>? OR (fecha =? AND hora >= ? )) AND (fecha < ? OR (fecha =? AND hora <=?))`;
+    const query = 'SELECT latitud, longitud, fechahora FROM ubicaciones WHERE fechaHora BETWEEN ? AND ?'
+
     // Ejecutar la consulta con los parámetros correspondientes
-    connection.query(query, [fechaInicio, horaInicio, fechaFin, horaFin], (error, results, fields) => {
+    connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
         if (error) {
             console.error('Error al consultar la base de datos:', error);
             res.status(500).json({ error: 'Error al consultar la base de datos' });
