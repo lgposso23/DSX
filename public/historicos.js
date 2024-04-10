@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     var mymap = L.map('mapid');
-    var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
+    var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
     var datetimeInicio = document.getElementById('fechahoraInicio');
     var datetimeFinal = document.getElementById('fechahoraFin');
     var filtrarButton = document.getElementById('filtrarDatos');
