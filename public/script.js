@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
-    var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
+    var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
