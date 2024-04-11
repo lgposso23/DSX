@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Históricos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
         window.onload = function() {
             // Calcular la altura combinada de los elementos anteriores
@@ -14,7 +15,7 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.135); // 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.05); // 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
@@ -23,44 +24,162 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="historicos.js" defer></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
     <style>
         body {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            color:  #ffffff;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: rgb(0, 208, 7);
+            padding: 1%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-title {
+            font-size: 24px;
+            color: #000000;
+        }
+        .navbar-logo {
+            width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
+            height: auto;
+            margin-right: 1px; /* Espacio entre la imagen y el texto */
+        }
+        .container {
+            padding: 1%;
+        }
+        label, input {
+            font-size: 1rem; /* Ajuste para que sean más legibles en dispositivos pequeños */
+            text-align: center;
+        }
+        button {
+            background-color: rgb(0, 208, 7);
+            color: rgb(46, 46, 46);
+            padding: 10px 24px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: rgb(129, 245, 140);
+        }
+        #botonera {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos la altura de la pantalla */
-            box-sizing: border-box;
         }
-        h1 {
-            font-size: 1.5rem; /* Ajuste para dispositivos pequeños */
+        .slider-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        div {
-            margin: 2px 0;
+
+        /* Estilos del Slider */
+        input[type='range'] {
+            -webkit-appearance: none; /* Remover la apariencia predeterminada */
+            width: 90%; /* Ancho del slider */
+            height: 8px; /* Grosor de la pista */
+            border-radius: 5px; /* Bordes redondeados de la pista */
+            outline: none; /* Remover el borde al enfocar */
+            opacity: 1; /* Transparencia del slider */
+            background: black;
         }
-        label, input, button {
-            font-size: 1rem; /* Ajuste para que sean más legibles en dispositivos pequeños */
+
+        input[type='range']:hover {
+            opacity: 1; /* Opacidad total al pasar el mouse */
+        }
+              
+        /* Estilos para el Thumb del Slider */
+        input[type='range']::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Remover la apariencia predeterminada */
+            appearance: none;
+            width: 20px; /* Ancho del thumb */
+            height: 20px; /* Alto del thumb */
+            border-radius: 50%; /* Hacer el thumb completamente redondo */
+            background: rgb(0, 208, 7); /* Color de fondo del thumb */
+            cursor: pointer; /* Cursor a forma de mano */
+            z-index: 1;
+        }
+
+        input[type='range']::-moz-range-thumb {
+            width: 25px; /* Ancho del thumb para Firefox */
+            height: 25px; /* Alto del thumb para Firefox */
+            border-radius: 50%; /* Hacer el thumb completamente redondo para Firefox */
+            background: rgb(0, 208, 7); /* Color de fondo del thumb para Firefox */
+            cursor: pointer; /* Cursor a forma de mano para Firefox */
+        }
+        /* Estilos para el Thumb del Slider cuando está desactivado */
+        input[type='range']:disabled::-webkit-slider-thumb {
+            display: none; /* Ocultar el thumb cuando el slider está deshabilitado */
+        }
+
+        input[type='range']:disabled::-moz-range-thumb {
+            display: none; /* Ocultar el thumb cuando el slider está deshabilitado */
         }
         #mapid {
-            width: 90%; /* Hacer el mapa responsive */
+            width: 90%;
+            margin: 1px auto;
+            border-radius: 8px;
+        }
+        .leaflet-layer,
+        .leaflet-control-zoom-in,
+        .leaflet-control-zoom-out,
+        .leaflet-control-attribution {
+            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
         }
     </style>
 </head>
 <body>
-    <h1>Consulta de Históricos</h1>
-    <div>
-        <label for="fechahoraInicio">Fecha y hora de inicio:</label>
-        <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
+    <div class="navbar">
+        <div class="navbar-title">RASTREO DE HISTÓRICOS</div>
+        <div>
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo">
+        </div>
     </div>
-    <div>
-        <label for="fechahoraFin">Fecha y hora de final:</label>
-        <input type="datetime-local" id="fechahoraFin" name="fechahoraFin" disabled>
-    </div>    
-    <button id="filtrarDatos">Filtrar</button>
-    <input type="range" id="slider" min="0" value="0" style="width: 90%;" />
-    <div id="mapid"></div>
+    <div class="container">
+        <div>
+            <label for="fechahoraInicio">Fecha y hora de inicio:</label>
+            <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
+            <label for="fechahoraFin">Fecha y hora de final:</label>
+            <input type="datetime-local" id="fechahoraFin" name="fechahoraFin" disabled>
+        </div>  
+        <div id="botonera">
+            <button id="filtrarDatos">Filtrar</button>
+        </div>
+        <div class="slider-container">
+            <input type="range" id="slider" min="0" value="0" style="border: 1px solid rgb(0, 208, 7);" disabled>
+        </div>
+        <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#fechahoraInicio", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
+        });
+        flatpickr("#fechahoraFin", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
+        });
+    </script>
 </body>
 </html>
