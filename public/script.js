@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     var polyline = L.polyline([], { color: 'blue' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, // Nivel de zoom máximo
-        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors' // Atribución de los datos del mapa
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mymap);
 
     var marker =L.marker([0,0]).addTo(mymap);
