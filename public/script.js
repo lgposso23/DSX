@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-   // Centrar el mapa al cargar la página
+    centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
 
     // Función para mover el marcador y actualizar el historial
     function moverMarcadorYActualizarHistorial(latitud, longitud) {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('fechaValue').textContent = data.fecha;
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
-        moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
+        moverMarcador(data.latitud, data.longitud);
     });
 
     const historicosBtn = document.getElementById('historicosButton');
