@@ -59,4 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open('/historicos', '_blank');
         });
     }
+    const ubicarCamionBtn = document.getElementById('ubicarCamionButton');
+    if (ubicarCamionBtn) {
+        ubicarCamionBtn.addEventListener('click', () => {
+            // Realizar la solicitud al servidor para obtener la última ubicación y actualizar el mapa
+            fetch('/ultimos-datos')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimaUbicacion = data[0];
+                    // Actualizar el mapa con la última ubicación
+                    mymap.setView([ultimaUbicacion.latitud, ultimaUbicacion.longitud], 14);
+                    marker.setLatLng([ultimaUbicacion.latitud, ultimaUbicacion.longitud]);
+                } else {
+                    console.log('No se encontraron datos de ubicación.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener la última ubicación:', error);
+            });
+        });
+    }
 });
