@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.length > 0) {
                     const ultimaUbicacion = data[0];
                     // Actualizar el mapa con la última ubicación
-                    mymap.setView([ultimaUbicacion.latitud, ultimaUbicacion.longitud], 17);
+                    mymap.setView([ultimaUbicacion.latitud, ultimaUbicacion.longitud], 15);
                     marker.setLatLng([ultimaUbicacion.latitud, ultimaUbicacion.longitud]);
                 } else {
                     console.log('No se encontraron datos de ubicación.');
