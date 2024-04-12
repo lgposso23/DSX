@@ -106,10 +106,23 @@
             background-color: #f2f2f200;
             border-radius: 8px;
         }
+        #menuDesplegable {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
+        <div id="menuDesplegable">
+            <label for="opcionesMenu">Menú:</label>
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="rastreoHistoricos">Rastreo de Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
         <div class="navbar-title">RASTREO EN VIVO</div>
         <div>
             <img src="pics/LOGO.png" alt="Logo" class="navbar-logo">
@@ -136,5 +149,12 @@
         </table>
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
     </div>
+    <script>
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            // Aquí puedes agregar la lógica para manejar la opción seleccionada
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
+    </script>
 </body>
 </html>
