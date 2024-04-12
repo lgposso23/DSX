@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Agrega la nueva ubicación al historial
         polyline.addLatLng([latitud, longitud]);
         //Centra con el marcador
-        map.setView([latitud, longitud], map.getZoom());
+        mymap.setView([latitud, longitud], mymap.getZoom());
     }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
