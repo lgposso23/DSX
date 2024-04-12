@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Agrega la nueva ubicación al historial
         polyline.addLatLng([latitud, longitud]);
         //Centra con el marcador
-        mymap.setView([latitud, longitud], mymap.getZoom());
+        
     }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('fechaValue').textContent = data.fecha;
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
-        moverMarcador(data.latitud, data.longitud);
+        moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
     });
 
     const historicosBtn = document.getElementById('historicosButton');
