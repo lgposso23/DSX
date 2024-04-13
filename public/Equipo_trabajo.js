@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/principal.html';
         } else if (seleccionado === 'LocalizadorActual') {
             window.location.href = '/index.html';
-        } else if (seleccionado === 'equipoTrabajo') {
+        } else if (seleccionado === 'Equipo de Trabajo') {
             window.location.href = '/Equipo_trabajo.html';
         }
     });
