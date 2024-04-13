@@ -15,26 +15,49 @@
         .container {
             padding: 20px;
         }
+
+        /* Estilos para la imagen */
+        #imagenEquipo {
+            width: 200px; /* Ajusta el ancho según sea necesario */
+            height: auto; /* Permite mantener la proporción de la imagen */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
+        }
+
+        /* Estilos para ocultar el menú desplegable */
+        #opcionesMenu {
+            display: none; /* Oculta el menú desplegable */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="menuDesplegable">
-            <select id="opcionesMenu" onchange="cambiarOpcion()">
-                <option value="Principal">Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
-            </select>
-        </div>
+        <!-- La imagen se coloca dentro de una etiqueta label -->
+        <label for="opcionesMenu">
+            <img id="imagenEquipo" src="D:\camilo amaya\Pictures\Camera Roll\WIN_20240407_22_12_18_Pro.jpg" alt="Equipo de Trabajo">
+        </label>
+        <!-- Fin del reemplazo -->
+
+        <!-- Menú desplegable oculto -->
+        <select id="opcionesMenu" onchange="cambiarOpcion()">
+            <option value="Principal">Principal</option>
+            <option value="LocalizadorActual">Localizador</option>
+            <option value="rastreoHistoricos">Históricos</option>
+            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+        </select>
+
         <h1>Conozca nuestro equipo de Trabajo</h1>
         <!-- Contenido adicional de la página de inicio -->
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Establecer la opción seleccionada en el menú desplegable
-            document.getElementById('opcionesMenu').value = 'equipoTrabajo';
+            // Agregar aquí cualquier otro código JavaScript necesario
         });
+
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            // Aquí puedes agregar la lógica para manejar la opción seleccionada
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
     </script> 
     
     <!-- Agregar aquí el enlace al script Equipo_trabajo.js -->
