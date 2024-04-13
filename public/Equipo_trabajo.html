@@ -2,16 +2,39 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Equipo de Trabajo</title>
+    <title>Inicio</title>
     <style>
         body {
-            background-color: #008000;
-            color: #ffffff;
+            background-color: green;
+            color: white;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Contenido de la página de equipo de trabajo -->
+    <div class="container">
+        <div id="menuDesplegable">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal">Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
+        <h1>Conozca nuestro equipo de Trabajo</h1>
+        <!-- Contenido adicional de la página de inicio -->
+    </div>
+    <script src="principal.js">
+        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('opcionesMenu').value = 'Principal';
+    });
+    </script>
+    
 </body>
 </html>
