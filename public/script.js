@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
-    const menuDesplegable = document.getElementById('menuDesplegable');
+    const menuDesplegable = document.getElementById('menuDesplegable1');
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
