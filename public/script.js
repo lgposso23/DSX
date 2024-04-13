@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
     const menuDesplegable = document.getElementById('menuDesplegable');
+    var nombrePagina = window.location.pathname.split('/').pop();
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
@@ -80,6 +81,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error al obtener la última ubicación:', error);
             });
         });
+    }
+    switch (nombrePagina) {
+        case 'historicos.html':
+            menuDesplegable.value = 'rastreoHistoricos';
+            break;
+        case 'inicio.html':
+            menuDesplegable.value = 'Inicio';
+            break;
+        case 'index.html':
+            menuDesplegable.value = 'LocalizadorActual';
+            break;
+        case 'Equipo_trabajo.html':
+            menuDesplegable.value = 'equipoTrabajo';
+            break;
+        default:
+            break;
     }
     menuDesplegable.addEventListener('change', function(event) {
         // Obtener el valor seleccionado del menú desplegable
