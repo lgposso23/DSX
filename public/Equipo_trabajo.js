@@ -1,7 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener el elemento del menú desplegable
-    var menuDesplegable = document.getElementById('opcionesMenu');
-
+    const menuDesplegable = document.getElementById('opcionesMenu');
+    
+    switch (nombrePagina) {
+        case 'historicos.html':
+            menuDesplegable.value = 'rastreoHistoricos';
+            break;
+        case 'Principal.html':
+            menuDesplegable.value = 'Principal';
+            break;
+        case 'index.html':
+            menuDesplegable.value = 'LocalizadorActual';
+            break;
+        case 'Equipo_trabajo.html':
+            menuDesplegable.value = 'equipoTrabajo';
+            break;
+        default:
+            break;
+    }
     // Agregar un listener al cambio de opción en el menú desplegable
     menuDesplegable.addEventListener('change', function(event) {
         // Obtener el valor seleccionado del menú desplegable
