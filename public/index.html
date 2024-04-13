@@ -122,6 +122,14 @@
         </div>
     </div>
     <div class="container">
+        <div id="menuDesplegable">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Inicio">Inicio</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
         <div id="botonera">
             <button id="historicosButton">Ratreo de Históricos</button>
             <button id="ubicarCamionButton">Ubicar Camion</button>
@@ -141,14 +149,6 @@
             </tr>
         </table>
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
-    </div>
-    <div id="menuDesplegable">
-        <select id="opcionesMenu" onchange="cambiarOpcion()">
-            <option value="Inicio">Inicio</option>
-            <option value="LocalizadorActual">Localizador</option>
-            <option value="rastreoHistoricos">Históricos</option>
-            <option value="equipoTrabajo">Equipo de Trabajo</option>
-        </select>
     </div>
     <script>
         function cambiarOpcion() {
