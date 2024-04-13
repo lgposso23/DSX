@@ -32,7 +32,7 @@
 <body>
     <div class="container">
         <!-- La imagen se coloca dentro de una etiqueta label -->
-        <label for="opcionesMenu">
+        <label for="opcionesMenu" onclick="toggleMenu()">
             <img id="imagenEquipo" src="D:\camilo amaya\Pictures\Camera Roll\WIN_20240407_22_12_18_Pro.jpg" alt="Equipo de Trabajo">
         </label>
         <!-- Fin del reemplazo -->
@@ -49,6 +49,11 @@
         <!-- Contenido adicional de la página de inicio -->
     </div>
     <script>
+        function toggleMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Agregar aquí cualquier otro código JavaScript necesario
         });
