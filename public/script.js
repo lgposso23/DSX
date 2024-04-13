@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'historicos.html':
             menuDesplegable.value = 'rastreoHistoricos';
             break;
-        case 'inicio.html':
-            menuDesplegable.value = 'Inicio';
+        case 'Principal.html':
+            menuDesplegable.value = 'Principal';
             break;
         case 'index.html':
             menuDesplegable.value = 'LocalizadorActual';
