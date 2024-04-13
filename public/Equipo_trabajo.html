@@ -30,10 +30,22 @@
         <h1>Conozca nuestro equipo de trabajo</h1>
         <!-- Contenido adicional de la página de inicio -->
     </div>
-    <script src="Equipo_trabajo.js">
+    <script>
+        
         document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('opcionesMenu').value = 'equipoTrabajo';
-    });
+            document.getElementById('opcionesMenu').value = 'rastreoHistoricos';
+        });
+     
+        flatpickr("#fechahoraInicio", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
+        });
+        flatpickr("#fechahoraFin", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
+        });
     </script>
     
 </body>
