@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
+    const menuDesplegable = document.getElementById('menuDesplegable');
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
@@ -80,4 +81,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    menuDesplegable.addEventListener('change', function(event) {
+        // Obtener el valor seleccionado del menú desplegable
+        const seleccionado = event.target.value;
+    
+        // Verificar si la opción seleccionada es "Rastreo de Históricos"
+        if (seleccionado === 'rastreoHistoricos') {
+            // Redirigir al usuario a la página de historiales
+            window.location.href = '/historicos.html';
+        }
+    });
 });
