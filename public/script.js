@@ -90,5 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Redirigir al usuario a la página de historiales
             window.location.href = '/historicos.html';
         }
+        else if (seleccionado  === 'Inicio'){
+            window.location.href = '/inicio.html';
+        }
+        else if (seleccionado  === 'LocalizadorActual'){
+            window.location.href = '/index.html';
+        }
+        else if (seleccionado  === 'equipoTrabajo'){
+            window.location.href = '/Equipo_trabajo.html';
+        }
+
     });
 });
