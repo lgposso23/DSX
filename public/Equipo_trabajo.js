@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Obtener el valor seleccionado del menú desplegable
         const seleccionado = event.target.value;
 
-        
         // Verificar el valor seleccionado y redirigir a la página correspondiente
         if (seleccionado === 'rastreoHistoricos') {
             window.location.href = '/historicos.html';
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/principal.html';
         } else if (seleccionado === 'LocalizadorActual') {
             window.location.href = '/index.html';
-        } else if (seleccionado === 'Equipo de Trabajo') {
+        } else if (seleccionado === 'equipoTrabajo') {
             window.location.href = '/Equipo_trabajo.html';
         }
     });
