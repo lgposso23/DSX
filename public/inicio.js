@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar el valor seleccionado y redirigir a la página correspondiente
         if (seleccionado === 'rastreoHistoricos') {
             window.location.href = '/historicos.html';
-        } else if (seleccionado === 'Inicio') {
-            window.location.href = '/inicio.html';
+        } else if (seleccionado === 'Principal') {
+            window.location.href = '/principal.html';
         } else if (seleccionado === 'LocalizadorActual') {
             window.location.href = '/index.html';
         } else if (seleccionado === 'equipoTrabajo') {
