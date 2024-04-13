@@ -73,6 +73,11 @@ app.get('/ultimos-datos', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'principal.html'));
+});
+
+
 app.get('/historicos', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'historicos.html'));
 });
