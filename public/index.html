@@ -158,9 +158,9 @@
         <div id="menuDesplegable">
             <select id="opcionesMenu" onchange="cambiarOpcion()">
                 <option value="Principal">Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
+                <option value="Localizador">Localizador</option>
+                <option value="Historicos">Históricos</option>
+                <option value="EquipoTrabajo">Equipo de Trabajo</option>
             </select>
         </div>
         <table>
@@ -179,12 +179,5 @@
         </table>
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
     </div>
-    <script>
-        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
-        var opcionSeleccionadaGuardada = localStorage.getItem('opcionSeleccionada');
-        if (opcionSeleccionadaGuardada) {
-            document.getElementById('opcionesMenu').value = opcionSeleccionadaGuardada;
-        }
-    </script>
 </body>
 </html>
