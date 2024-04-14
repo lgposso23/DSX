@@ -2,39 +2,54 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+    <title>Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onload = function() {
+            // Establecer el valor del menú desplegable según el nombre del HTML actual
+            var nombreHTML = obtenerNombreHTML();
+            document.getElementById('opcionesMenu').value = nombreHTML;
+        };
+
+        function toggleMenu() {
+            var menu = document.getElementById("menuDesplegable");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
         }
 
-        .container {
-            padding: 20px;
+        function obtenerNombreHTML() {
+            var url = window.location.href;
+            var partes = url.split('/');
+            var ultimoSegmento = partes[partes.length - 1];
+            var nombreHTML = ultimoSegmento.split('.')[0];
+            return nombreHTML;
         }
-    </style>
+
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            // Guardar la selección actual del menú desplegable en el almacenamiento local del navegador
+            localStorage.setItem('opcionSeleccionada', opcionSeleccionada);
+            // Aquí puedes agregar la lógica para manejar la opción seleccionada
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="navbar">
+        <div class="navbar-title">PÁGINA PRINCIPAL</div>
+        <div>
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
+        </div>
+    </div>
     <div class="container">
         <div id="menuDesplegable">
             <select id="opcionesMenu" onchange="cambiarOpcion()">
                 <option value="Principal">Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
+                <option value="Localizador">Localizador</option>
+                <option value="Historicos">Históricos</option>
+                <option value="EquipoTrabajo">Equipo de Trabajo</option>
             </select>
         </div>
-        <h1>Bienvenido a la página de Inicio</h1>
-        <!-- Contenido adicional de la página de inicio -->
     </div>
-    <script src="principal.js">
-        document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('opcionesMenu').value = 'Principal';
-    });
-    </script>
-    
 </body>
 </html>
