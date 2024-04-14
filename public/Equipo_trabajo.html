@@ -14,6 +14,8 @@
 
         .container {
             padding: 20px;
+            display: flex; /* Usa flexbox para alinear los elementos */
+            align-items: center; /* Centra verticalmente los elementos */
         }
 
         /* Estilos para la imagen */
@@ -23,9 +25,19 @@
             cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
         }
 
-        /* Estilos para ocultar el menú desplegable */
+        /* Estilos para el contenedor del menú */
+        .menu-container {
+            margin-left: 20px; /* Espacio entre la imagen y el menú */
+            position: relative; /* Establece una posición relativa */
+        }
+
+        /* Estilos para el menú desplegable */
         #opcionesMenu {
-            display: none; /* Oculta el menú desplegable */
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta */
+            top: 0; /* Alinea el menú con la parte superior del contenedor */
+            right: -150px; /* Coloca el menú a la derecha del contenedor */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
         }
     </style>
 </head>
@@ -37,13 +49,16 @@
         </label>
         <!-- Fin del reemplazo -->
 
-        <!-- Menú desplegable oculto -->
-        <select id="opcionesMenu" onchange="cambiarOpcion()">
-            <option value="Principal">Principal</option>
-            <option value="LocalizadorActual">Localizador</option>
-            <option value="rastreoHistoricos">Históricos</option>
-            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
-        </select>
+        <!-- Contenedor del menú desplegable -->
+        <div class="menu-container">
+            <!-- Menú desplegable oculto -->
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal">Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+            </select>
+        </div>
 
         <h1>Conozca nuestro equipo de Trabajo</h1>
         <!-- Contenido adicional de la página de inicio -->
