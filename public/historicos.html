@@ -20,9 +20,6 @@
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
-
-            // Establecer el valor del menú desplegable
-            document.getElementById("opcionesMenu").value = "rastreoHistoricos";
         };
     </script>
     <script src="/socket.io/socket.io.js"></script>
@@ -62,11 +59,10 @@
             width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
             height: auto;
             margin-right: 1px; /* Espacio entre la imagen y el texto */
-            cursor: pointer; /* Agregamos cursor pointer */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
         }
         .container {
             padding: 1%;
-            position: relative; /* Agregamos position relative */
         }
         label, input {
             font-size: 1rem; /* Ajuste para que sean más legibles en dispositivos pequeños */
@@ -149,13 +145,21 @@
         .leaflet-control-attribution {
             filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
         }
+        #menuDesplegable {
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta para el menú */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 10%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <div class="navbar-title">RASTREO DE HISTÓRICOS</div>
         <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="showMenu()"> <!-- Agregamos onclick para mostrar el menú -->
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
         </div>
     </div>
     <div class="container">
@@ -183,33 +187,31 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        // Función para mostrar u ocultar el menú desplegable
-        function showMenu() {
-            var menu = document.getElementById("menuDesplegable");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
-            } else {
-                menu.style.display = "none";
-            }
-        }
-
-        // Función para cambiar la opción seleccionada en el menú desplegable
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            console.log("Opción seleccionada:", opcionSeleccionada);
-        }
-
-        // Configuración de flatpickr para los campos de fecha y hora
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('opcionesMenu').value = 'rastreoHistoricos';
+        });
+     
         flatpickr("#fechahoraInicio", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            disableMobile: true
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
         });
         flatpickr("#fechahoraFin", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
-            disableMobile: true
+            disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
         });
+
+        function toggleMenu() {
+            var menu = document.getElementById("menuDesplegable");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
+
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
     </script>
 </body>
 </html>
