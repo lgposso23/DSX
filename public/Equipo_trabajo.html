@@ -23,21 +23,21 @@
             cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
         }
 
-        /* Estilos para mostrar el menú desplegable */
+        /* Estilos para ocultar el menú desplegable */
         #opcionesMenu {
-            display: block; /* Muestra el menú desplegable */
+            display: none; /* Oculta el menú desplegable */
         }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- La imagen se coloca dentro de una etiqueta label -->
-        <label for="opcionesMenu">
-            <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo" onclick="toggleMenu()">
+        <label for="opcionesMenu" onclick="showMenu()">
+            <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
         </label>
         <!-- Fin del reemplazo -->
 
-        <!-- Menú desplegable visible -->
+        <!-- Menú desplegable oculto -->
         <select id="opcionesMenu" onchange="cambiarOpcion()">
             <option value="Principal">Principal</option>
             <option value="LocalizadorActual">Localizador</option>
@@ -49,14 +49,18 @@
         <!-- Contenido adicional de la página de inicio -->
     </div>
     <script>
-        function toggleMenu() {
+        function showMenu() {
             var menu = document.getElementById("opcionesMenu");
-            menu.style.display = menu.style.display === "none" ? "block" : "none";
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Ocultar el menú desplegable al cargar la página
-            document.getElementById("opcionesMenu").style.display = "none";
+            // Simular un clic en el menú desplegable al cargar la página
+            document.getElementById("opcionesMenu").click();
         });
 
         function cambiarOpcion() {
