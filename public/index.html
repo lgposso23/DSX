@@ -20,9 +20,9 @@
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
 
-            // Restaurar la selección del menú desplegable desde el almacenamiento local del navegador
-            var seleccionGuardada = localStorage.getItem('opcionSeleccionada');
-            document.getElementById('opcionesMenu').value = seleccionGuardada || 'Principal';
+            // Establecer el valor del menú desplegable según el nombre del HTML actual
+            var nombreHTML = window.location.pathname.split('/').pop().replace('.html', '');
+            document.getElementById('opcionesMenu').value = nombreHTML;
         };
 
         function toggleMenu() {
