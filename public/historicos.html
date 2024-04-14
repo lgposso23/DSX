@@ -55,23 +55,10 @@
             font-size: 24px;
             color: #000000;
         }
-        #imagenEquipo {
-            width: 100px; /* Ajusta el ancho según sea necesario */
-            height: auto; /* Permite mantener la proporción de la imagen */
-            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
-            position: absolute; /* Establece una posición absoluta para la imagen */
-            top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
-            left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
-            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
-        }
-
-        #opcionesMenu {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
-            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        .navbar-logo {
+            width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
+            height: auto;
+            margin-right: 1px; /* Espacio entre la imagen y el texto */
         }
         .container {
             padding: 1%;
@@ -162,16 +149,9 @@
 <body>
     <div class="navbar">
         <div class="navbar-title">RASTREO DE HISTÓRICOS</div>
-        <label for="opcionesMenu" onclick="showMenu()">
-            <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-        </label>
-        <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarOpcion()">
-            <option value="Principal">Principal</option>
-            <option value="LocalizadorActual">Localizador</option>
-            <option value="rastreoHistoricos">Históricos</option>
-            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
-        </select>
+        <div>
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo">
+        </div>
     </div>
     <div class="container">
         <div>
@@ -183,6 +163,14 @@
         <div id="botonera">
             <button id="filtrarDatos">Filtrar</button>
         </div>
+        <div id="menuDesplegable">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal">Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
         <div class="slider-container">
             <input type="range" id="slider" min="0" value="0" style="border: 1px solid rgb(0, 208, 7);" disabled>
         </div>
@@ -191,25 +179,9 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         
-        function showMenu() {
-            var menu = document.getElementById("opcionesMenu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
-            } else {
-                menu.style.display = "none";
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            // Simular un clic en el menú desplegable al cargar la página
-            document.getElementById("opcionesMenu").click();
+            document.getElementById('opcionesMenu').value = 'rastreoHistoricos';
         });
-
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            // Aquí puedes agregar la lógica para manejar la opción seleccionada
-            console.log("Opción seleccionada:", opcionSeleccionada);
-        }
      
         flatpickr("#fechahoraInicio", {
             enableTime: true,
