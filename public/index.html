@@ -19,6 +19,11 @@
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
+
+            // Establecer la opción seleccionada en el menú desplegable
+            var url = window.location.href;
+            var opcion = url.split('/').pop().split('.')[0]; // Obtener el nombre del archivo HTML actual
+            document.getElementById('opcionesMenu').value = opcion || 'Principal'; // Establecer el valor del menú desplegable
         };
 
         function toggleMenu() {
