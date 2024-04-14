@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         window.onload = function() {
-            // Establecer el valor del menú desplegable según el nombre del HTML actual
             var nombreHTML = obtenerNombreHTML();
             document.getElementById('opcionesMenu').value = nombreHTML;
+            document.getElementById('menuDesplegable').style.display = 'none'; // Ocultar el menú desplegable al cargar la página
         };
 
         function toggleMenu() {
@@ -26,13 +26,17 @@
 
         function cambiarOpcion() {
             var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            // Guardar la selección actual del menú desplegable en el almacenamiento local del navegador
             localStorage.setItem('opcionSeleccionada', opcionSeleccionada);
-            // Aquí puedes agregar la lógica para manejar la opción seleccionada
-            console.log("Opción seleccionada:", opcionSeleccionada);
+            window.location.href = opcionSeleccionada + '.html'; // Redireccionar al HTML seleccionado en el menú
         }
     </script>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            background-color: green;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
