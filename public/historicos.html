@@ -161,16 +161,18 @@
     <div class="navbar">
         <div class="navbar-title">RASTREO DE HISTÓRICOS</div>
         <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
-        </div>
-        <div id="menuDesplegable">
+            <label for="opcionesMenu" onclick="showMenu()">
+                <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+            </label>
+            <!-- Fin del reemplazo -->
             <select id="opcionesMenu" onchange="cambiarOpcion()">
                 <option value="Principal">Principal</option>
                 <option value="LocalizadorActual">Localizador</option>
                 <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
+                <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
             </select>
         </div>
+        
     </div>
     <div class="container">
         <div>
