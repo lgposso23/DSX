@@ -20,15 +20,20 @@
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
 
-            // Establecer la opción seleccionada en el menú desplegable
-            var url = window.location.href;
-            var opcion = url.split('/').pop().split('.')[0]; // Obtener el nombre del archivo HTML actual
-            document.getElementById('opcionesMenu').value = opcion || 'Principal'; // Establecer el valor del menú desplegable
+            // Restaurar la selección del menú desplegable desde el almacenamiento local del navegador
+            var seleccionGuardada = localStorage.getItem('opcionSeleccionada');
+            document.getElementById('opcionesMenu').value = seleccionGuardada || 'Principal';
         };
 
         function toggleMenu() {
             var menu = document.getElementById("menuDesplegable");
             menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
+
+        function cambiarOpcion() {
+            // Guardar la selección actual del menú desplegable en el almacenamiento local del navegador
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            localStorage.setItem('opcionSeleccionada', opcionSeleccionada);
         }
     </script>
     <script src="/socket.io/socket.io.js"></script>
