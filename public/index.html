@@ -20,6 +20,11 @@
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
         };
+
+        function toggleMenu() {
+            var menu = document.getElementById("menuDesplegable");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
@@ -121,7 +126,7 @@
     <div class="navbar">
         <div class="navbar-title">RASTREO EN VIVO</div>
         <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo">
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
         </div>
     </div>
     <div class="container">
@@ -154,14 +159,5 @@
         </table>
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('opcionesMenu').value = 'LocalizadorActual';
-        });
-        function toggleMenu() {
-            var menu = document.getElementById("menuDesplegable");
-            menu.style.display = menu.style.display === "none" ? "block" : "none";
-        }
-    </script>    
 </body>
 </html>
