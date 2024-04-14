@@ -163,6 +163,14 @@
         <div>
             <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
         </div>
+        <div id="menuDesplegable">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal">Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
     </div>
     <div class="container">
         <div>
@@ -174,14 +182,7 @@
         <div id="botonera">
             <button id="filtrarDatos">Filtrar</button>
         </div>
-        <div id="menuDesplegable">
-            <select id="opcionesMenu" onchange="cambiarOpcion()">
-                <option value="Principal">Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
-            </select>
-        </div>
+        
         <div class="slider-container">
             <input type="range" id="slider" min="0" value="0" style="border: 1px solid rgb(0, 208, 7);" disabled>
         </div>
