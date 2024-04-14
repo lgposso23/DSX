@@ -24,17 +24,17 @@
             cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
             position: absolute; /* Establece una posición absoluta para la imagen */
             top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
-            left: 10px; /* Coloca la imagen a 10px desde el borde izquierdo del contenedor */
-            transform: translate(-50%, -50%); /* Centra la imagen verticalmente */
+            left: 90%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
+            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
         /* Estilos para el menú desplegable */
         #opcionesMenu {
             display: none; /* Oculta el menú desplegable por defecto */
             position: absolute; /* Establece una posición absoluta para el menú */
-            top: 50%; /* Alinea la parte superior del menú al 50% de la altura del contenedor */
-            left: 150px; /* Coloca el menú a 150px desde el borde izquierdo del contenedor */
-            transform: translateY(-50%); /* Centra el menú verticalmente */
+            top: calc(50% + 0px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 90%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
             z-index: 1; /* Asegura que el menú esté encima de otros elementos */
         }
     </style>
