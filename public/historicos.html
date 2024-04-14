@@ -20,6 +20,9 @@
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
+
+            // Establecer el valor del menú desplegable
+            document.getElementById("opcionesMenu").value = "rastreoHistoricos";
         };
     </script>
     <script src="/socket.io/socket.io.js"></script>
@@ -146,19 +149,6 @@
         .leaflet-control-attribution {
             filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
         }
-        /* Estilos para el menú desplegable */
-        #menuDesplegable {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
-            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
-        }
-        /* Estilo del texto del menú desplegable */
-        #menuDesplegable label {
-            cursor: pointer; /* Cambia el cursor al pasar por encima del texto */
-        }
     </style>
 </head>
 <body>
@@ -202,11 +192,6 @@
                 menu.style.display = "none";
             }
         }
-
-        // Simular un clic en el menú desplegable al cargar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("opcionesMenu").click();
-        });
 
         // Función para cambiar la opción seleccionada en el menú desplegable
         function cambiarOpcion() {
