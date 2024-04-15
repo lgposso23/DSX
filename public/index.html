@@ -173,24 +173,23 @@
 <body>
     <div class="navbar">
         <div class="navbar-title">RASTREO EN VIVO</div>
-        <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
-        </div>
-    </div>
-    <div class="container">
-        
-        <div id="botonera">
-            <button id="ubicarCamionButton">Ubicar Camion</button>
-        </div>
         <label for="opcionesMenu" onclick="showMenu()">
             <img id="imagenLogo" src="pics/LOGO.png" alt="Logo">
         </label>
+        <!-- Fin del reemplazo -->
         <select id="opcionesMenu" onchange="cambiarOpcion()">
             <option value="Principal" selected>Principal</option>
             <option value="LocalizadorActual">Localizador</option>
             <option value="rastreoHistoricos">Históricos</option>
             <option value="equipoTrabajo">Equipo de Trabajo</option>
         </select>
+    </div>
+    <div class="container">
+        
+        <div id="botonera">
+            <button id="ubicarCamionButton">Ubicar Camion</button>
+        </div>
+        
         <table>
             <tr>
                 <th>Latitud:</th>
