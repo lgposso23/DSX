@@ -33,8 +33,6 @@
             margin: 0;
         }
 
-       
-
         #opcionesMenu {
             display: none; /* Oculta el menú desplegable por defecto */
             position: absolute; /* Establece una posición absoluta para el menú */
@@ -58,11 +56,11 @@
             <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
         </label>
         <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarOpcion()">
-            <option value="Principal">Principal</option>
-            <option value="LocalizadorActual">Localizador</option>
-            <option value="rastreoHistoricos">Históricos</option>
-            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+        <select id="opcionesMenu" onchange="cambiarPagina()">
+            <option value="principal.html">Principal</option>
+            <option value="localizador.html">Localizador</option>
+            <option value="historicos.html">Históricos</option>
+            <option value="equipo.html">Equipo de Trabajo</option>
         </select>
     </div>
 
@@ -86,15 +84,9 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Simular un clic en el menú desplegable al cargar la página
-            document.getElementById("opcionesMenu").click();
-        });
-
-        function cambiarOpcion() {
+        function cambiarPagina() {
             var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            // Aquí puedes agregar la lógica para manejar la opción seleccionada
-            console.log("Opción seleccionada:", opcionSeleccionada);
+            window.location.href = opcionSeleccionada;
         }
     </script>
 </body>
