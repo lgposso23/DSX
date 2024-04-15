@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
     const menuDesplegable = document.getElementById('menuDesplegable');
     var nombrePagina = window.location.pathname.split('/').pop();
+    const interruptor = document.getElementById('centrarMapaInterruptor');
+    const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
@@ -55,6 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
         moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
+    });
+
+    interruptor.addEventListener('change', function() {
+        // Si el interruptor está activado, deshabilita el botón de centrar manualmente
+        if (this.checked) {
+            botonCentrarManualmente.disabled = true;
+        } else {
+            // Si el interruptor está desactivado, habilita el botón de centrar manualmente
+            botonCentrarManualmente.disabled = false;
+        }
     });
 
     const historicosBtn = document.getElementById('historicosButton');
