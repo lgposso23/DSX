@@ -53,23 +53,16 @@
 <body>
     <!-- Contenedor del encabezado -->
     <div id="header">
-        <!-- Contenedor del logo y el menú -->
-        <div id="logoContainer">
+        <label for="opcionesMenu" onclick="showMenu()">
             <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-            <label for="opcionesMenu" onclick="showMenu()">
-                <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-            </label>
-            <select id="opcionesMenu" onchange="cambiarOpcion()">
-                <option value="Principal" selected>Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
-            </select>
-        </div>
-        <!-- Fin del contenedor del logo y el menú -->
-
-        <!-- Título -->
-        <h1 id="titulo">ZIZU GPS</h1>
+        </label>
+        <!-- Fin del reemplazo -->
+        <select id="opcionesMenu" onchange="cambiarOpcion()">
+            <option value="Principal">Principal</option>
+            <option value="LocalizadorActual">Localizador</option>
+            <option value="rastreoHistoricos">Históricos</option>
+            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+        </select>
     </div>
 
     <!-- Contenido -->
