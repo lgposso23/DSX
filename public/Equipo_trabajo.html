@@ -12,10 +12,11 @@
             padding: 0;
         }
         #contenido {
-            text-align: justify;
-            margin: 50px;
-            font-size: 20px;
+        text-align: justify;
+        margin: 50px;
+        font-size: 20px;
         }
+
 
         #header {
             padding: 20px;
@@ -31,6 +32,25 @@
             top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
             left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
             transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
+        }
+
+        #titulo {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        #opcionesMenu {
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta para el menú */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        }
+
+        #logoContainer {
+            display: flex;
+            align-items: center;
         }
 
         .team-container {
@@ -64,7 +84,6 @@
             border: 2px solid black;
             padding: 10px;
         }
-
     </style>
 </head>
 <body>
@@ -79,7 +98,7 @@
             <option value="principal.html">Principal</option>
             <option value="index.html">Localizador</option>
             <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html" selected>Equipo de Trabajo</option>
+            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
         </select>
     </div>
 
@@ -97,8 +116,8 @@
             <!-- Esquina superior derecha -->
             <div class="team-member top-right">
                 <img src="pics/LOGO_FOTO.png" alt="Foto de miembro del equipo">
-                <p>Nombre: Luis Posso</p>
-                <p>Rol: Project Mannager</p>
+                <p>Nombre: Luis Posso </p>
+                <p>Rol: Project Mannager </p>
                 <p>Frase: Supremacia Crocs x life</p>
             </div>
     
@@ -115,7 +134,7 @@
                 <img src="pics/LOGO_FOTO.png" alt="Foto de miembro del equipo">
                 <p>Nombre: Ricardo serrano</p>
                 <p>Rol: Soporte Técnico</p>
-                <p>Frase: Diagrama de gantt es mi obsesion</p>
+                <p>Frase: Diagrama de gantt es mi obsesion </p>
             </div>
         </div>
     </div>
@@ -139,6 +158,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('opcionesMenu').value = 'Equipo_trabajo.html';
         });
+
+        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
     </script>
 </body>
 </html>
