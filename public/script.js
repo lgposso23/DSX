@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const interruptor = document.getElementById('centrarMapaInterruptor');
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
 
+    centrarManualmenteButton.addEventListener('click', function() {
+        // Centrar el mapa manualmente
+        centrarMapaEnUltimaCoordenada();
+    });
+
     // Crea e inicializa el mapa
     var mymap = L.map('mapid');
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
@@ -69,12 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const historicosBtn = document.getElementById('historicosButton');
-    if (historicosBtn) {
-        historicosBtn.addEventListener('click', () => {
-            window.open('/historicos', '_blank');
-        });
-    }
+   
 
     // Deshabilita el interruptor por defecto
     document.getElementById('centrarMapaInterruptor').checked = true;
