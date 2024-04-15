@@ -21,6 +21,20 @@
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
         };
+
+        function showMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        function cambiarPagina() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            window.location.href = opcionSeleccionada;
+        }
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="historicos.js" defer></script>
@@ -183,15 +197,17 @@
 <body>
     <div id="header">
         <h1>Localizador en VIVO</h1>
-        <label for="opcionesMenu" onclick="showMenu()">
-            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-        </label>
-        <select id="opcionesMenu" onchange="cambiarPagina()">
-            <option value="principal.html">Principal</option>
-            <option value="index.html">Localizador</option>
-            <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
-        </select>
+        <div id="logoContainer">
+            <label for="opcionesMenu" onclick="showMenu()">
+                <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+            </label>
+            <select id="opcionesMenu" onchange="cambiarPagina()">
+                <option value="principal.html">Principal</option>
+                <option value="index.html">Localizador</option>
+                <option value="historicos.html">Históricos</option>
+                <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
+            </select>
+        </div>
     </div>
 
 
@@ -218,7 +234,7 @@
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('opcionesMenu').value = 'rastreoHistoricos';
+            document.getElementById('opcionesMenu').value = 'historicos.html';
         });
      
         flatpickr("#fechahoraInicio", {
@@ -232,14 +248,18 @@
             disableMobile: true // Esto evitará que aparezca el teclado en dispositivos móviles
         });
 
-        function toggleMenu() {
-            var menu = document.getElementById("menuDesplegable");
-            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        function showMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
         }
 
-        function cambiarOpcion() {
+        function cambiarPagina() {
             var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            console.log("Opción seleccionada:", opcionSeleccionada);
+            window.location.href = opcionSeleccionada;
         }
     </script>
 </body>
