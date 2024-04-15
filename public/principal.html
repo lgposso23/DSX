@@ -2,65 +2,87 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Principal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        window.onload = function() {
-            var nombreHTML = obtenerNombreHTML();
-            document.getElementById('opcionesMenu').value = nombreHTML;
-            document.getElementById('menuDesplegable').style.display = 'none'; // Ocultar el menú desplegable al cargar la página
-        };
-
-        function toggleMenu() {
-            var menu = document.getElementById("menuDesplegable");
-            menu.style.display = menu.style.display === "none" ? "block" : "none";
-        }
-
-        function obtenerNombreHTML() {
-            var url = window.location.href;
-            var partes = url.split('/');
-            var ultimoSegmento = partes[partes.length - 1];
-            var nombreHTML = ultimoSegmento.split('.')[0];
-            return nombreHTML;
-        }
-
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            localStorage.setItem('opcionSeleccionada', opcionSeleccionada);
-            window.location.href = opcionSeleccionada + '.html'; // Redireccionar al HTML seleccionado en el menú
-        }
-    </script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Equipo de Trabajo</title>
     <style>
-        .container {
+        body {
             background-color: rgb(167, 184, 181);
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: relative; /* Establece una posición relativa */
         }
 
-        .navbar-logo {
-            margin-right: 20px;
-            width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+        /* Estilos para la imagen */
+        #imagenEquipo {
+            width: 100px; /* Ajusta el ancho según sea necesario */
+            height: auto; /* Permite mantener la proporción de la imagen */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
+            position: absolute; /* Establece una posición absoluta para la imagen */
+            top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
+            left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
+            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
+        /* Estilos para el menú desplegable */
+        #opcionesMenu {
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta para el menú */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="navbar-title">PÁGINA PRINCIPAL</div>
-        <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
-            <div id="menuDesplegable">
-                <select id="opcionesMenu" onchange="cambiarOpcion()">
-                    <option value="Principal">Principal</option>
-                    <option value="index">Localizador</option>
-                    <option value="Historicos">Históricos</option>
-                    <option value="equipo_trabajo">Equipo de Trabajo</option>
-                </select>
-            </div>
-        </div>
+
+        <h1>Conozca nuestro equipo de Trabajo</h1>
+        <!-- La imagen se coloca dentro de una etiqueta label -->
+        <label for="opcionesMenu" onclick="showMenu()">
+            <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+        </label>
+        <!-- Fin del reemplazo -->
+        <select id="opcionesMenu" onchange="cambiarOpcion()">
+            <option value="Principal">Principal</option>
+            <option value="LocalizadorActual">Localizador</option>
+            <option value="rastreoHistoricos">Históricos</option>
+            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+        </select>
+        <!-- Menú desplegable oculto -->
+        
+
+        
+        <!-- Contenido adicional de la página de inicio -->
     </div>
+    <script>
+        function showMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular un clic en el menú desplegable al cargar la página
+            document.getElementById("opcionesMenu").click();
+        });
+
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            // Aquí puedes agregar la lógica para manejar la opción seleccionada
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
+    </script> 
+    
+    <!-- Agregar aquí el enlace al script Equipo_trabajo.js -->
+    <script src="principal.js"></script>
 </body>
 </html>
