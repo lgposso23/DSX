@@ -64,23 +64,41 @@
             box-sizing: border-box;
             min-height: 100vh;
         }
-        .navbar {
-            background-color: rgb(167, 184, 181);
-            padding: 1%;
-            border: 2px solid black;
+        #header {
+            padding: 20px;
+            position: relative;
+            background-color: rgb(135, 135, 136);
+        }
+
+        #logo {
+            width: 100px; /* Ajusta el ancho según sea necesario */
+            height: auto; /* Permite mantener la proporción de la imagen */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
+            position: absolute; /* Establece una posición absoluta para la imagen */
+            top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
+            left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
+            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
+        }
+
+        #titulo {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        #opcionesMenu {
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta para el menú */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        }
+
+        #logoContainer {
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
-        .navbar-title {
-            font-size: 24px;
-            color: #000000;
-        }
-        .navbar-logo {
-            width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
-            height: auto;
-            margin-right: 1px; /* Espacio entre la imagen y el texto */
-        }
+
         .container {
             padding: 1%;
         }
@@ -147,21 +165,18 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-title">RASTREO EN VIVO</div>
-        <!-- Contenedor del logo -->
-        <div id="logo-container">
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
-            <!-- Menú desplegable -->
-            <div id="menuDesplegable">
-                <select id="opcionesMenu" onchange="cambiarOpcion()">
-                    <option value="Principal">Principal</option>
-                    <option value="LocalizadorActual" selected>Localizador</option>
-                    <option value="rastreoHistoricos">Históricos</option>
-                    <option value="equipoTrabajo">Equipo de Trabajo</option>
-                </select>
-            </div>
-        </div>
+    <div id="header">
+        <h1>Conoce nuestro equipo de trabajo</h1>
+        <label for="opcionesMenu" onclick="showMenu()">
+            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+        </label>
+        <!-- Fin del reemplazo -->
+        <select id="opcionesMenu" onchange="cambiarPagina()">
+            <option value="principal.html">Principal</option>
+            <option value="index.html">Localizador</option>
+            <option value="historicos.html">Históricos</option>
+            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
+        </select>
     </div>
     <div class="container">
         
