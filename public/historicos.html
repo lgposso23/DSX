@@ -63,9 +63,7 @@
         }
         .container {
             padding: 1%;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centra los elementos horizontalmente */
+    
         }
 
         label, input {
@@ -159,6 +157,15 @@
             transform: translateX(-50%); /* Centra el menú horizontalmente */
             z-index: 1; /* Asegura que el menú esté encima de otros elementos */
         }
+        .fechas-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px; /* Ajusta el margen inferior según sea necesario */
+        }
+
+        .fechas-container > div {
+            margin: 0 10px; /* Espaciado entre los elementos de selección de fechas */
+        }
     </style>
 </head>
 <body>
@@ -169,12 +176,16 @@
         </div>
     </div>
     <div class="container">
-        <div>
-            <label for="fechahoraInicio">Fecha y hora de inicio:</label>
-            <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
-            <label for="fechahoraFin">Fecha y hora de final:</label>
-            <input type="datetime-local" id="fechahoraFin" name="fechahoraFin" disabled>
-        </div>  
+        <div class="fechas-container">
+            <div>
+                <label for="fechahoraInicio">Fecha y hora de inicio:</label>
+                <input type="datetime-local" id="fechahoraInicio" name="fechahoraInicio">
+            </div>
+            <div>
+                <label for="fechahoraFin">Fecha y hora de final:</label>
+                <input type="datetime-local" id="fechahoraFin" name="fechahoraFin" disabled>
+            </div>
+        </div> 
         <div id="botonera">
             <button id="filtrarDatos">Filtrar</button>
         </div>
