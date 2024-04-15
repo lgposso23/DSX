@@ -14,7 +14,7 @@ const dbConfig = {
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
-  };  
+};  
 
 const connection = mysql.createConnection(dbConfig);
 
@@ -60,6 +60,10 @@ udpServer.on('message', (msg, rinfo) => {
     }
 });
 
+// Establece la ruta raíz para que dirija a principal.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'principal.html'));
+});
 
 app.get('/ultimos-datos', (req, res) => {
     connection.query('SELECT latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 5', (error, results, fields) => {

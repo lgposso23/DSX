@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ZIZU GPS</title>
+    <style>
+        body {
+            background-color: rgb(148, 255, 235);
+            color: rgb(0, 0, 0);
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+        }
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("pics/LOGO_ZIZU.png");
+            opacity: 0.16; /* Ajusta la opacidad de la imagen de fondo */
+            z-index: -1; /* Asegura que esté detrás del contenido */
+        }
+        #contenido {
+        text-align: justify;
+        margin: 50px;
+        font-size: 20px;
+        }
+
+
+        #header {
+            padding: 20px;
+            position: relative;
+            background-color: rgb(135, 135, 136);
+        }
+
+        #logo {
+            width: 100px; /* Ajusta el ancho según sea necesario */
+            height: auto; /* Permite mantener la proporción de la imagen */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
+            position: absolute; /* Establece una posición absoluta para la imagen */
+            top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
+            left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
+            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
+        }
+
+        #titulo {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        #opcionesMenu {
+            display: none; /* Oculta el menú desplegable por defecto */
+            position: absolute; /* Establece una posición absoluta para el menú */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
+            transform: translateX(-50%); /* Centra el menú horizontalmente */
+            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        }
+
+        #logoContainer {
+            display: flex;
+            align-items: center;
+        }
+
+        .team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .team-member {
+            width: 45%; /* Ajustar el ancho para que quepan dos en una fila */
+            text-align: center;
+            margin-bottom: 20px; /* Espacio entre los miembros */
+        }
+
+        .team-member p {
+            margin: 10px 0; /* Espacio entre los párrafos */
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .top-left,
+        .bottom-left,
+        .top-right,
+        .bottom-right {
+            border: 2px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="background-container"></div>
+    <!-- Contenedor del encabezado -->
+    <div id="header">
+        <h1>Conoce nuestro equipo de trabajo</h1>
+        <label for="opcionesMenu" onclick="showMenu()">
+            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+        </label>
+        <!-- Fin del reemplazo -->
+        <select id="opcionesMenu" onchange="cambiarPagina()">
+            <option value="principal.html">Principal</option>
+            <option value="index.html">Localizador</option>
+            <option value="historicos.html">Históricos</option>
+            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
+        </select>
+    </div>
+
+    <!-- Contenido -->
+    <div id="contenido">
+        <div class="team-container">
+            <!-- Esquina superior izquierda -->
+            <div class="team-member top-left">
+                <img src="pics/Foto_camilo.jpeg" alt="Foto de miembro del equipo">
+                <p>Nombre: Camilo Andres Amaya Mantilla</p>
+                <p>Rol: Especialista en Logística y Operaciones</p>
+                <p><strong>"Asi sea en haiti, se le ubica su vehiculo patrón"</strong></p>
+            </div>
+    
+            <!-- Esquina superior derecha -->
+            <div class="team-member top-right">
+                <img src="pics/LOGO_FOTO.png" alt="Foto de miembro del equipo">
+                <p>Nombre: Luis Posso </p>
+                <p>Rol: Project Mannager </p>
+                <p><strong>"Supremacia Crocs x life"</strong></p>
+            </div>
+    
+            <!-- Esquina inferior izquierda -->
+            <div class="team-member bottom-left">
+                <img src="pics/LOGO_FOTO.png" alt="Foto de miembro del equipo">
+                <p>Nombre: Santiago Garcia</p>
+                <p>Rol: Especialista en Sistemas de Seguridad</p>
+                <p><strong>"No nos hackea ni el vale de matrix"</strong></p>
+            </div>
+    
+            <!-- Esquina inferior derecha -->
+            <div class="team-member bottom-right">
+                <img src="pics/LOGO_FOTO.png" alt="Foto de miembro del equipo">
+                <p>Nombre: Ricardo serrano</p>
+                <p>Rol: Soporte Técnico</p>
+                <p><strong>"Diagrama de gantt es mi obsesion"</strong></p>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function showMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        function cambiarPagina() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            window.location.href = opcionSeleccionada;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('opcionesMenu').value = 'Equipo_trabajo.html';
+        });
+
+        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
+    </script>
+</body>
+</html>

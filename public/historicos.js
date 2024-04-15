@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     var mymap = L.map('mapid');
+    var menuDesplegable = document.getElementById('opcionesMenu');
     var polyline = L.polyline([], { color: 'white' }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
@@ -141,12 +142,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSliderBackground() {
         const value = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-        slider.style.background = `linear-gradient(to right, rgb(0, 208, 7) 0%, rgb(0, 208, 7) ${value}%, #ddd ${value}%, #ddd 100%)`;
+        slider.style.background = `linear-gradient(to right, rgb(167, 184, 181) 0%, rgb(167, 184, 181) ${value}%, #ddd ${value}%, #ddd 100%)`;
     }
 
     document.getElementById('slider').addEventListener('input', function() {
         updateSliderBackground()
         actualizarMarcadorYPopup(this.value);
+    });
+
+    menuDesplegable.addEventListener('change', function(event) {
+        // Obtener el valor seleccionado del menú desplegable
+        const seleccionado = event.target.value;
+
+        // Verificar el valor seleccionado y redirigir a la página correspondiente
+        if (seleccionado === 'rastreoHistoricos') {
+            window.location.href = '/historicos.html';
+        } else if (seleccionado === 'Principal') {
+            window.location.href = '/principal.html';
+        } else if (seleccionado === 'LocalizadorActual') {
+            window.location.href = '/index.html';
+        } else if (seleccionado === 'equipoTrabajo') {
+            window.location.href = '/Equipo_trabajo.html';
+        }
     });
     
 });
