@@ -71,7 +71,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative; /* Ajusta la posición del menú desplegable */
         }
         .navbar-title {
             font-size: 24px;
@@ -81,10 +80,10 @@
             width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
             height: auto;
             margin-right: 1px; /* Espacio entre la imagen y el texto */
-            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
         }
         .container {
             padding: 1%;
+
         }
         button {
             background-color: rgb(167, 184, 181);
@@ -143,10 +142,11 @@
         #menuDesplegable {
             display: none; /* Oculta el menú desplegable por defecto */
             position: absolute; /* Establece una posición absoluta para el menú */
-            top: calc(100% + 2px); /* Alinea el menú justo debajo del logotipo */
-            left: 0; /* Ajusta la posición horizontal del menú */
+            top: 80px; /* Alinea la parte superior del menú a 50px por debajo del logo */
+            left: 1250px; /* Alinea la parte izquierda del menú a 90px del borde izquierdo */
             transform: translateX(-50%); /* Centra el menú horizontalmente */
             z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+            
         }
         
     </style>
@@ -156,20 +156,20 @@
         <div class="navbar-title">RASTREO EN VIVO</div>
         <div>
             <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
-            <div id="menuDesplegable">
-                <select id="opcionesMenu" onchange="cambiarOpcion()">
-                    <option value="Principal">Principal</option>
-                    <option value="LocalizadorActual" selected>Localizador</option>
-                    <option value="rastreoHistoricos">Históricos</option>
-                    <option value="equipoTrabajo">Equipo de Trabajo</option>
-                </select>
-            </div>
         </div>
     </div>
     <div class="container">
         
         <div id="botonera">
             <button id="ubicarCamionButton">Ubicar Camion</button>
+        </div>
+        <div id="menuDesplegable">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal">Principal</option>
+                <option value="LocalizadorActual" selected>Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
         </div>
         <table>
             <tr>
