@@ -76,10 +76,14 @@
             font-size: 24px;
             color: #000000;
         }
-        .navbar-logo {
-            width: 70px; /* Ajusta el tamaño de la imagen según sea necesario */
-            height: auto;
-            margin-right: 1px; /* Espacio entre la imagen y el texto */
+        #imagenLogo {
+            width: 100px; /* Ajusta el ancho según sea necesario */
+            height: auto; /* Permite mantener la proporción de la imagen */
+            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
+            position: absolute; /* Establece una posición absoluta para la imagen */
+            top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
+            left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
+            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
         .container {
             padding: 1%;
@@ -139,14 +143,13 @@
             background-color: rgb(31, 226, 190);
             border-radius: 10px;
         }
-        #menuDesplegable {
+        #opcionesMenu {
             display: none; /* Oculta el menú desplegable por defecto */
             position: absolute; /* Establece una posición absoluta para el menú */
-            top: 80px; /* Alinea la parte superior del menú a 50px por debajo del logo */
-            left: 1250px; /* Alinea la parte izquierda del menú a 90px del borde izquierdo */
+            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
+            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
             transform: translateX(-50%); /* Centra el menú horizontalmente */
             z-index: 1; /* Asegura que el menú esté encima de otros elementos */
-            
         }
         
         
@@ -156,7 +159,13 @@
     <div class="navbar">
         <div class="navbar-title">RASTREO EN VIVO</div>
         <div>
-            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
+            <img src="pics/LOGO.png" alt="Logo" id="imagenLogo" onclick="toggleMenu()">
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal" selected>Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
         </div>
     </div>
     <div class="container">
