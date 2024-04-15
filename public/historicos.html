@@ -6,22 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
-       window.onload = function() {
-    // Calcular la altura combinada de los elementos anteriores
+        window.onload = function() {
+            // Calcular la altura combinada de los elementos anteriores
             var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
             var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
                 return totalAltura + elemento.offsetHeight;
             }, 0);
 
-            // Calcular la altura del mapa para que ocupe el espacio restante en la ventana
+            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos;
+            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.05); // 15% de la altura de la pantalla
 
-            // Aplicar la altura calculada al mapa
+            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
-            mapa.style.height = alturaMapa + 'px';
+            mapa.style.height = Math.max(alturaMapa, 0) + 'px';
         };
-
 
         function showMenu() {
             var menu = document.getElementById("opcionesMenu");
@@ -206,7 +205,7 @@
     </style>
 </head>
 <body>
-    <div id="background-container"></div>
+
     <div id="header">
         <h1>Registro de Históricos</h1>
         <div id="logoContainer">
