@@ -110,17 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('slider').style.display = 'block';
                 
                 // Filtrar los datos para eliminar los puntos que están a más de 1 km de distancia entre sí
-                const filteredData = [];
-                for (let i = 0; i < data.length; i++) {
-                    if (i === 0) {
-                        // Si es el primer punto, agregarlo directamente
-                        filteredData.push(data[i]);
+                const filteredData = [data[0]]; // Inicialmente agregamos el primer punto sin filtrar
+                let previousPoint = data[0];
+                for (let i = 1; i < data.length; i++) {
+                    const currentPoint = data[i];
+                    const distance = calcularDistancia(previousPoint.latitud, previousPoint.longitud, currentPoint.latitud, currentPoint.longitud);
+                    if (distance < 1000) { // Si la distancia es menor a 1 km (1000 metros)
+                        filteredData.push(currentPoint);
+                        previousPoint = currentPoint;
                     } else {
-                        // Calcular la distancia entre el punto actual y el anterior
-                        const distancia = calcularDistancia(data[i - 1].latitud, data[i - 1].longitud, data[i].latitud, data[i].longitud);
-                        if (distancia < 1000) { // Si la distancia es menor a 1 km (1000 metros)
-                            filteredData.push(data[i]);
-                        }
+                        // Si la distancia es mayor a 1 km, no agregamos este punto y continuamos con el siguiente
                     }
                 }
                 
@@ -148,25 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
-    }
-    
-    // Función para calcular la distancia entre dos puntos en coordenadas geográficas
-    function calcularDistancia(lat1, lon1, lat2, lon2) {
-        const R = 6371e3; // Radio de la Tierra en metros
-        const φ1 = lat1 * Math.PI / 180; // Convertir latitud 1 a radianes
-        const φ2 = lat2 * Math.PI / 180; // Convertir latitud 2 a radianes
-        const Δφ = (lat2 - lat1) * Math.PI / 180; // Diferencia de latitud en radianes
-        const Δλ = (lon2 - lon1) * Math.PI / 180; // Diferencia de longitud en radianes
-    
-        // Fórmula de Haversine
-        const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    
-        // Distancia en metros
-        const distancia = R * c;
-        return distancia;
     }
     
 
