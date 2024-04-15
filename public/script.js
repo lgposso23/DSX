@@ -14,22 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mymap);
 
-    var marker =L.marker([0,0]).addTo(mymap);
+    var marker = L.marker([0, 0]).addTo(mymap);
 
     // Función para centrar el mapa en la última coordenada almacenada en la base de datos
     function centrarMapaEnUltimaCoordenada() {
         fetch('/ultimos-datos')
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                const ultimoDato = data[0];
-                mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
-                marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener los últimos datos:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 14);
+                    marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los últimos datos:', error);
+            });
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
@@ -37,11 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para mover el marcador y actualizar el historial
     function moverMarcadorYActualizarHistorial(latitud, longitud) {
         // Mueve el marcador a la nueva ubicación
-        marker.setLatLng([latitud, longitud]);    
+        marker.setLatLng([latitud, longitud]);
         // Agrega la nueva ubicación al historial
         polyline.addLatLng([latitud, longitud]);
-        //Centra con el marcador
-        
+        // Centra el mapa si el interruptor está activado
+        if (document.getElementById('centrarMapaInterruptor').checked) {
+            mymap.setView([latitud, longitud]);
+        }
     }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
@@ -61,27 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open('/historicos', '_blank');
         });
     }
-    const ubicarCamionBtn = document.getElementById('ubicarCamionButton');
-    if (ubicarCamionBtn) {
-        ubicarCamionBtn.addEventListener('click', () => {
-            // Realizar la solicitud al servidor para obtener la última ubicación y actualizar el mapa
-            fetch('/ultimos-datos')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const ultimaUbicacion = data[0];
-                    // Actualizar el mapa con la última ubicación
-                    mymap.setView([ultimaUbicacion.latitud, ultimaUbicacion.longitud], 15);
-                    marker.setLatLng([ultimaUbicacion.latitud, ultimaUbicacion.longitud]);
-                } else {
-                    console.log('No se encontraron datos de ubicación.');
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener la última ubicación:', error);
-            });
-        });
-    }
+
+    // Deshabilita el interruptor por defecto
+    document.getElementById('centrarMapaInterruptor').checked = true;
+
+    // Cambia el comportamiento del interruptor
+    document.getElementById('centrarMapaInterruptor').addEventListener('change', function(event) {
+        const interruptor = event.target;
+        if (interruptor.checked) {
+            // Habilitar el centrado automático del mapa
+            console.log('Centrado automático activado');
+        } else {
+            // Deshabilitar el centrado automático del mapa
+            console.log('Centrado automático desactivado');
+        }
+    });
     switch (nombrePagina) {
         case 'historicos.html':
             menuDesplegable.value = 'rastreoHistoricos';
