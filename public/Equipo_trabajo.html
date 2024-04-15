@@ -2,23 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Equipo de Trabajo</title>
+    <title>ZIZU GPS</title>
     <style>
         body {
-            background-color: rgb(167, 184, 181);
-            color: white;
+            background-color: rgb(148, 255, 235);
+            color: rgb(0, 0, 0);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
-
-        .container {
-            padding: 20px;
-            position: relative; /* Establece una posición relativa */
+        #contenido {
+        text-align: justify;
+        margin: 50px;
+        font-size: 20px;
         }
 
-        /* Estilos para la imagen */
-        #imagenEquipo {
+
+        #header {
+            padding: 20px;
+            position: relative;
+            background-color: rgb(135, 135, 136);
+        }
+
+        #logo {
             width: 100px; /* Ajusta el ancho según sea necesario */
             height: auto; /* Permite mantener la proporción de la imagen */
             cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
@@ -28,7 +34,11 @@
             transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
-        /* Estilos para el menú desplegable */
+        #titulo {
+            font-size: 24px;
+            margin: 0;
+        }
+
         #opcionesMenu {
             display: none; /* Oculta el menú desplegable por defecto */
             position: absolute; /* Establece una posición absoluta para el menú */
@@ -37,29 +47,41 @@
             transform: translateX(-50%); /* Centra el menú horizontalmente */
             z-index: 1; /* Asegura que el menú esté encima de otros elementos */
         }
+
+        #logoContainer {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-
-        <h1>Conozca nuestro equipo de Trabajo</h1>
-        <!-- La imagen se coloca dentro de una etiqueta label -->
+    <!-- Contenedor del encabezado -->
+    <div id="header">
+        <h1>ZIZU GPS</h1>
         <label for="opcionesMenu" onclick="showMenu()">
-            <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
         </label>
         <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarOpcion()">
-            <option value="Principal">Principal</option>
-            <option value="LocalizadorActual">Localizador</option>
-            <option value="rastreoHistoricos">Históricos</option>
-            <option value="equipoTrabajo" selected>Equipo de Trabajo</option>
+        <select id="opcionesMenu" onchange="cambiarPagina()">
+            <option value="principal.html">Principal</option>
+            <option value="index.html">Localizador</option>
+            <option value="historicos.html">Históricos</option>
+            <option value="Equipo_trabajo.html">Equipo de Trabajo</option>
         </select>
-        <!-- Menú desplegable oculto -->
-        
-
-        
-        <!-- Contenido adicional de la página de inicio -->
     </div>
+
+    <!-- Contenido -->
+    <div id="contenido">
+        <h2>Bienvenidos a ZIZU GPS</h2>
+        <p>En ZIZU GPS ofrecemos soluciones avanzadas de seguimiento y localización de vehículos, permitiendo a nuestros clientes mantener un control total sobre sus flotas en tiempo real.</p>
+    
+        <h2>Nuestra Historia</h2>
+        <p>ZIZU GPS nació de la pasión por la tecnología y la innovación. Fundada en el año 2024 por Diego Gómez, docente de la Universidad del Norte de Barranquilla, nuestra empresa comenzó como un proyecto ambicioso para transformar la forma en que las empresas gestionan sus vehículos y activos móviles.</p>
+        <p>Ofrecemos servicios de ubicación en tiempo real para cualquier activo móvil, satisfaciendo las necesidades de nuestros clientes, tales como el conocimiento de la posición actual, así como el archivo y la gestión de registros históricos.</p>
+        <p>Además, nos mantenemos en constante crecimiento para ampliar nuestra gama de servicios y satisfacer siempre las necesidades y exigencias de nuestros clientes, priorizando la experiencia de usuario de cada uno y de cada empresa.</p>
+    </div>
+    
+
     <script>
         function showMenu() {
             var menu = document.getElementById("opcionesMenu");
@@ -70,19 +92,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Simular un clic en el menú desplegable al cargar la página
-            document.getElementById("opcionesMenu").click();
-        });
-
-        function cambiarOpcion() {
+        function cambiarPagina() {
             var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            // Aquí puedes agregar la lógica para manejar la opción seleccionada
-            console.log("Opción seleccionada:", opcionSeleccionada);
+            window.location.href = opcionSeleccionada;
         }
-    </script> 
-    
-    <!-- Agregar aquí el enlace al script Equipo_trabajo.js -->
-    <script src="Equipo_trabajo.js"></script>
+    </script>
 </body>
 </html>
