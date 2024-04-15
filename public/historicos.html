@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js">
+    </script>
     <style>
         body {
             font-family: Georgia, serif;
@@ -168,14 +169,7 @@
         }
 
         /* Estilos para el menú desplegable */
-        #menuDesplegable {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: 100%; /* Alinea la parte superior del menú a 100% del contenedor del logo */
-            left: 50%; /* Alinea la parte izquierda del menú a 50% del contenedor del logo */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
-        }
+        
         .fechas-container {
             display: flex;
             justify-content: center;
@@ -214,14 +208,6 @@
         </div> 
         <div id="botonera">
             <button id="filtrarDatos">Filtrar</button>
-        </div>
-        <div id="menuDesplegable">
-            <select id="opcionesMenu" onchange="cambiarOpcion()">
-                <option value="Principal">Principal</option>
-                <option value="LocalizadorActual">Localizador</option>
-                <option value="rastreoHistoricos">Históricos</option>
-                <option value="equipoTrabajo">Equipo de Trabajo</option>
-            </select>
         </div>
         <div class="slider-container">
             <input type="range" id="slider" min="0" value="0" style="border: 1px solid rgb(167, 184, 181);" disabled>
