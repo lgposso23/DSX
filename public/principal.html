@@ -15,7 +15,9 @@
         #header {
             background-color: rgb(0, 0, 0);
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         #logo {
@@ -26,23 +28,51 @@
 
         #titulo {
             font-size: 24px;
-            margin-top: 10px;
+            margin: 0;
         }
 
-        #contenido {
-            padding: 20px;
-            text-align: justify;
+        #menuDesplegable {
+            display: none;
+        }
+
+        #opcionesMenu {
+            display: none;
+            position: absolute;
+            top: calc(50% + 40px);
+            left: 94%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        #logoContainer {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
 <body>
     <!-- Contenedor del encabezado -->
     <div id="header">
-        <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+        <!-- Contenedor del logo y el menú -->
+        <div id="logoContainer">
+            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+            <label for="opcionesMenu" onclick="showMenu()">
+                <img id="imagenEquipo" src="pics/LOGO.png" alt="Equipo de Trabajo">
+            </label>
+            <select id="opcionesMenu" onchange="cambiarOpcion()">
+                <option value="Principal" selected>Principal</option>
+                <option value="LocalizadorActual">Localizador</option>
+                <option value="rastreoHistoricos">Históricos</option>
+                <option value="equipoTrabajo">Equipo de Trabajo</option>
+            </select>
+        </div>
+        <!-- Fin del contenedor del logo y el menú -->
+
+        <!-- Título -->
         <h1 id="titulo">ZIZU GPS</h1>
     </div>
 
-    <!-- Contenedor del contenido -->
+    <!-- Contenido -->
     <div id="contenido">
         <h2>Bienvenidos a ZIZU GPS</h2>
         <p>En ZIZU GPS ofrecemos soluciones avanzadas de seguimiento y localización de vehículos, permitiendo a nuestros clientes mantener un control total sobre sus flotas en tiempo real.</p>
@@ -51,5 +81,27 @@
         <p>ZIZU GPS nació de la pasión por la tecnología y la innovación. Fundada en el año 20XX por [Nombre del Fundador], nuestra empresa comenzó como un proyecto ambicioso para transformar la forma en que las empresas gestionan sus vehículos y activos móviles.</p>
         <p>Desde entonces, hemos crecido constantemente, ampliando nuestra gama de servicios y desarrollando nuevas tecnologías para satisfacer las necesidades cambiantes de nuestros clientes. Hoy en día, ZIZU GPS es líder en el mercado de sistemas de rastreo y localización, brindando soluciones confiables y eficientes a empresas de todos los tamaños y sectores.</p>
     </div>
+
+    <script>
+        function showMenu() {
+            var menu = document.getElementById("opcionesMenu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular un clic en el menú desplegable al cargar la página
+            document.getElementById("opcionesMenu").click();
+        });
+
+        function cambiarOpcion() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            // Aquí puedes agregar la lógica para manejar la opción seleccionada
+            console.log("Opción seleccionada:", opcionSeleccionada);
+        }
+    </script>
 </body>
 </html>
