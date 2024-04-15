@@ -6,30 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
-        window.onload = function() {
+       window.onload = function() {
     // Calcular la altura combinada de los elementos anteriores
-    var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
-    var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
-        return totalAltura + elemento.offsetHeight;
-    }, 0);
+            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
+            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
+                return totalAltura + elemento.offsetHeight;
+            }, 0);
 
-    // Calcular la altura del mapa para que ocupe el espacio restante en la ventana
-    var alturaPantalla = window.innerHeight;
-    var alturaMapa = alturaPantalla - alturaElementos;
+            // Calcular la altura del mapa para que ocupe el espacio restante en la ventana
+            var alturaPantalla = window.innerHeight;
+            var alturaMapa = alturaPantalla - alturaElementos;
 
-    // Obtener la opacidad del fondo desvanecido
-    var opacidadFondo = 0.16; // Ajusta este valor según la opacidad definida en CSS
-
-    // Aplicar la opacidad del fondo desvanecido al cálculo de la altura del mapa
-    alturaMapa -= alturaMapa * opacidadFondo;
-
-    // Asegurarse de que la altura del mapa no sea negativa
-    alturaMapa = Math.max(alturaMapa, 0);
-
-    // Aplicar la altura calculada al mapa
-    var mapa = document.getElementById('mapid');
-    mapa.style.height = alturaMapa + 'px';
-};
+            // Aplicar la altura calculada al mapa
+            var mapa = document.getElementById('mapid');
+            mapa.style.height = alturaMapa + 'px';
+        };
 
 
         function showMenu() {
