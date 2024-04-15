@@ -92,6 +92,11 @@
             }
         }
 
+        function cambiarPagina() {
+            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
+            window.location.href = opcionSeleccionada;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('opcionesMenu').value = 'Equipo_trabajo.html';
         });
