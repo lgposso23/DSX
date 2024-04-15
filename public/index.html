@@ -21,25 +21,9 @@
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
 
             // Establecer el valor del menú desplegable según el nombre del HTML actual
-            var nombreHTML = obtenerNombreHTML();
-            document.getElementById('opcionesMenu').value = nombreHTML;
+            
         };
 
-        function obtenerNombreHTML() {
-            var url = window.location.href;
-            var partes = url.split('/');
-            var ultimoSegmento = partes[partes.length - 1];
-            var nombreHTML = ultimoSegmento.split('.')[0];
-            return nombreHTML;
-        }
-
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            // Guardar la selección actual del menú desplegable en el almacenamiento local del navegador
-            localStorage.setItem('opcionSeleccionada', opcionSeleccionada);
-            // Aquí puedes agregar la lógica para manejar la opción seleccionada
-            console.log("Opción seleccionada:", opcionSeleccionada);
-        }
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
