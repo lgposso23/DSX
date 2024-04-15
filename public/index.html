@@ -164,17 +164,9 @@
 <body>
     <div class="navbar">
         <div class="navbar-title">RASTREO EN VIVO</div>
-        
-        <label for="opcionesMenu" onclick="showMenu()">
-            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-        </label>
-        <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarPagina()">
-            <option value="principal.html">Principal</option>
-            <option value="index.html">Localizador</option>
-            <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html">Equipo de Trabajo</option>
-        </select>
+        <div>
+            <img src="pics/LOGO.png" alt="Logo" class="navbar-logo" onclick="toggleMenu()">
+        </div>
     </div>
     <div class="container">
         
