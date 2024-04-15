@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 slider.max = datosDePolilinea.length - 1;
                 const finalPoint = datosDePolilinea.length - 1;
                 slider.value = finalPoint;
+                updateSliderBackground(); // Actualiza el fondo del slider después de filtrar los datos
                 actualizarMarcadorYPopup(finalPoint);
-                updateSliderBackground();
                 if (marker) {
                     marker.setLatLng(lastPoint);
                 } else {
@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error al cargar los datos históricos:', error);
             });
     }
+    
     
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
