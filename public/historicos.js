@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
-    
+
         // Realizar la solicitud al servidor
         fetch(url)
             .then(response => response.json())
@@ -108,36 +108,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
-                
-                // Filtrar los datos para eliminar los puntos que están a más de 1 km de distancia entre sí
-                const filteredData = [data[0]]; // Inicialmente agregamos el primer punto sin filtrar
-                let previousPoint = data[0];
-                for (let i = 1; i < data.length; i++) {
-                    const currentPoint = data[i];
-                    const distance = calcularDistancia(previousPoint.latitud, previousPoint.longitud, currentPoint.latitud, currentPoint.longitud);
-                    if (distance < 1000) { // Si la distancia es menor a 1 km (1000 metros)
-                        filteredData.push(currentPoint);
-                        previousPoint = currentPoint;
-                    } else {
-                        // Si la distancia es mayor a 1 km, no agregamos este punto y continuamos con el siguiente
-                    }
-                }
-                
-                // Actualizar la polilínea con los datos filtrados
-                datosDePolilinea = filteredData.map(dato => ({
+                datosDePolilinea = data.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora
                 }));
                 const latLngs = datosDePolilinea.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
-                
                 // Configura el slider
                 const slider = document.getElementById('slider');
                 slider.max = datosDePolilinea.length - 1;
                 const finalPoint = datosDePolilinea.length - 1;
                 slider.value = finalPoint;
-                updateSliderBackground(); // Actualiza el fondo del slider después de filtrar los datos
                 actualizarMarcadorYPopup(finalPoint);
+                updateSliderBackground();
                 if (marker) {
                     marker.setLatLng(lastPoint);
                 } else {
@@ -147,9 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
+            
     }
-    
-    
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
         const fechahoraInicio = document.getElementById('fechahoraInicio').value;
