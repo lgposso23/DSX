@@ -66,7 +66,7 @@
             <option value="principal.html">Principal</option>
             <option value="index.html">Localizador</option>
             <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html">Equipo de Trabajo</option>
+            <option value="Equipo_trabajo.html" selected>Equipo de Trabajo</option>
         </select>
     </div>
 
@@ -95,6 +95,12 @@
         function cambiarPagina() {
             var opcionSeleccionada = document.getElementById("opcionesMenu").value;
             window.location.href = opcionSeleccionada;
+        }
+
+        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
+        var opcionSeleccionadaGuardada = localStorage.getItem('opcionSeleccionada');
+        if (opcionSeleccionadaGuardada) {
+            document.getElementById('opcionesMenu').value = opcionSeleccionadaGuardada;
         }
     </script>
 </body>
