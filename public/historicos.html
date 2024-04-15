@@ -7,27 +7,30 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script>
         window.onload = function() {
-            // Calcular la altura combinada de los elementos anteriores
-            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
-            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
-                return totalAltura + elemento.offsetHeight;
-            }, 0);
+    // Calcular la altura combinada de los elementos anteriores
+    var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
+    var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
+        return totalAltura + elemento.offsetHeight;
+    }, 0);
 
-            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
-            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
-            var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos; // Restar la altura de los elementos anteriores
+    // Calcular la altura del mapa para que ocupe el espacio restante en la ventana
+    var alturaPantalla = window.innerHeight;
+    var alturaMapa = alturaPantalla - alturaElementos;
 
-            // Obtener la opacidad del fondo desvanecido
-            var opacidadFondo = 0.16; // Esto debe coincidir con la opacidad definida en CSS
+    // Obtener la opacidad del fondo desvanecido
+    var opacidadFondo = 0.16; // Ajusta este valor según la opacidad definida en CSS
 
-            // Aplicar la opacidad del fondo desvanecido al cálculo de la altura del mapa
-            alturaMapa -= alturaMapa * opacidadFondo; // Restar la proporción de la altura afectada por la opacidad del fondo
+    // Aplicar la opacidad del fondo desvanecido al cálculo de la altura del mapa
+    alturaMapa -= alturaMapa * opacidadFondo;
 
-            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
-            var mapa = document.getElementById('mapid');
-            mapa.style.height = Math.max(alturaMapa, 0) + 'px';
-        };
+    // Asegurarse de que la altura del mapa no sea negativa
+    alturaMapa = Math.max(alturaMapa, 0);
+
+    // Aplicar la altura calculada al mapa
+    var mapa = document.getElementById('mapid');
+    mapa.style.height = alturaMapa + 'px';
+};
+
 
         function showMenu() {
             var menu = document.getElementById("opcionesMenu");
