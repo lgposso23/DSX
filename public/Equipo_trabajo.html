@@ -5,22 +5,13 @@
     <title>ZIZU GPS</title>
     <style>
         body {
-            background-color: rgb(148, 255, 235);
-            color: rgb(0, 0, 0);
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             font-family: Georgia, serif;
             margin: 0;
             padding: 0;
         }
-        #background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("pics/LOGO_ZIZU.png");
-            opacity: 0.16; /* Ajusta la opacidad de la imagen de fondo */
-            z-index: -1; /* Asegura que esté detrás del contenido */
-        }
+        
         #contenido {
         text-align: justify;
         margin: 50px;
@@ -31,31 +22,22 @@
         #header {
             padding: 20px;
             position: relative;
-            background-color: rgb(135, 135, 136);
+            background-color: rgb(0, 208, 7);
+            color: rgb(0, 0, 0);
         }
 
         #logo {
             width: 100px; /* Ajusta el ancho según sea necesario */
             height: auto; /* Permite mantener la proporción de la imagen */
-            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
             position: absolute; /* Establece una posición absoluta para la imagen */
             top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
             left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
-            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
+            transform: translate(-120%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
         #titulo {
             font-size: 24px;
             margin: 0;
-        }
-
-        #opcionesMenu {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
-            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
         }
 
         #logoContainer {
@@ -90,8 +72,54 @@
         .bottom-left,
         .top-right,
         .bottom-right {
-            border: 2px solid black;
+            border: 2px solid rgb(0, 208, 7);
             padding: 10px;
+        }
+        .hamburger {
+            font-size: 30px; /* Tamaño del ícono del menú */
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #000000; /* Cambiar al color que prefieras */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .menu {
+            display: none; /* Ocultar el menú por defecto */
+            position: absolute;
+            background-color: #000000;
+            top: 58px; /* Ajustar según la altura de tu barra de cabecera */
+            right: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-bottom: 1px solid rgb(255, 255, 255); /* Separadores entre elementos */
+        }
+
+        .menu a:last-child {
+            border-bottom: none;
+        }
+        button {
+            background-color: rgb(0, 208, 7);
+            color: rgb(0, 0, 0);
+            padding: 5px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: rgb(121, 255, 125);
+            border: 2px solid black;
         }
     </style>
 </head>
@@ -99,17 +127,15 @@
     <div id="background-container"></div>
     <!-- Contenedor del encabezado -->
     <div id="header">
-        <h1>Conoce nuestro equipo de trabajo</h1>
-        <label for="opcionesMenu" onclick="showMenu()">
-            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-        </label>
-        <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarPagina()">
-            <option value="principal.html">Principal</option>
-            <option value="index.html">Localizador</option>
-            <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
-        </select>
+        <h1>Nuestro Equipo de Trabajo</h1>
+        <img id="logo" src="pics/LOGO_ZIZU.png" alt="Equipo de Trabajo">
+        <!-- Botón de menú hamburguesa -->
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="menu" id="menu">
+            <a href="/vivo">Ubicación en VIVO</a>
+            <a href="/historicos">Ubicación Histórica</a>
+            <a href="/team">Equipo de Trabajo</a>
+        </div>
     </div>
 
     <!-- Contenido -->
@@ -117,7 +143,7 @@
         <div class="team-container">
             <!-- Esquina superior izquierda -->
             <div class="team-member top-left">
-                <img src="pics/Foto_camilo.jpeg" alt="Foto de miembro del equipo">
+                <img src="pics/Foto_camilo.png" alt="Foto de miembro del equipo">
                 <p>Nombre: Camilo Andres Amaya Mantilla</p>
                 <p>Rol: Especialista en Logística y Operaciones</p>
                 <p><strong>"Así sea en Haití, se le ubica su vehículo patrón"</strong></p>
@@ -126,7 +152,7 @@
     
             <!-- Esquina superior derecha -->
             <div class="team-member top-right">
-                <img src="pics/Foto_posso.jpeg" alt="Foto de miembro del equipo">
+                <img src="pics/Foto_posso.png" alt="Foto de miembro del equipo">
                 <p>Nombre: Luis Posso </p>
                 <p>Rol: Project Mannager </p>
                 <p><strong>"La comodidad es un estilo de vida"</strong></p>
@@ -135,7 +161,7 @@
     
             <!-- Esquina inferior izquierda -->
             <div class="team-member bottom-left">
-                <img src="pics/Foto_santiago.jpeg" alt="Foto de miembro del equipo">
+                <img src="pics/Foto_santiago.png" alt="Foto de miembro del equipo">
                 <p>Nombre: Santiago Garcia</p>
                 <p>Rol: Especialista en Sistemas de Seguridad</p>
                 <p><strong>"Seguridad y binestar es la prioridad"</strong></p>
@@ -144,7 +170,7 @@
     
             <!-- Esquina inferior derecha -->
             <div class="team-member bottom-right">
-                <img src="pics/Foto_ricardo.jpeg" alt="Foto de miembro del equipo">
+                <img src="pics/Foto_ricardo.png" alt="Foto de miembro del equipo">
                 <p>Nombre: Ricardo serrano</p>
                 <p>Rol: Soporte Técnico</p>
                 <p><strong>"Organización y dedicación es la clave del éxito"</strong></p>
@@ -152,31 +178,14 @@
             </div>
         </div>
     </div>
-    
-
     <script>
-        function showMenu() {
-            var menu = document.getElementById("opcionesMenu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
-            } else {
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
                 menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
             }
-        }
-
-        function cambiarPagina() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            window.location.href = opcionSeleccionada;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('opcionesMenu').value = 'Equipo_trabajo.html';
-        });
-
-        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            console.log("Opción seleccionada:", opcionSeleccionada);
         }
     </script>
 </body>

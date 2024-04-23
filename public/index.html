@@ -18,10 +18,7 @@
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
-            mapa.style.height = Math.max(alturaMapa, 0) + 'px';
-
-            // Establecer el valor del menú desplegable según el nombre del HTML actual
-            
+            mapa.style.height = Math.max(alturaMapa, 0) + 'px';            
         };
 
     </script>
@@ -36,8 +33,8 @@
         body {
             font-family: Georgia, serif;
             font-size: 16px;
-            color:  #000000;
-            background-color: #96f1ea;
+            color:  #ffffff;
+            background-color: #000000;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -47,17 +44,17 @@
         #header {
             padding: 20px;
             position: relative;
-            background-color: rgb(135, 135, 136);
+            background-color: rgb(0, 208, 7);
+            color: rgb(0, 0, 0);
         }
 
         #logo {
             width: 100px; /* Ajusta el ancho según sea necesario */
             height: auto; /* Permite mantener la proporción de la imagen */
-            cursor: pointer; /* Cambia el cursor al pasar por encima de la imagen */
             position: absolute; /* Establece una posición absoluta para la imagen */
             top: 50%; /* Alinea la parte superior de la imagen al 50% de la altura del contenedor */
             left: 94%; /* Alinea la parte izquierda de la imagen al 50% del ancho del contenedor */
-            transform: translate(-50%, -50%); /* Centra la imagen horizontal y verticalmente */
+            transform: translate(-120%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
         #titulo {
@@ -65,27 +62,13 @@
             margin: 0;
         }
 
-        #opcionesMenu {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: calc(50% + 40px); /* Alinea la parte superior del menú a 40px por debajo del centro de la imagen */
-            left: 94%; /* Alinea la parte izquierda del menú al 50% del ancho del contenedor */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
-        }
-
-        #logoContainer {
-            display: flex;
-            align-items: center;
-        }
-
         .container {
             padding: 1%;
         }
         button {
-            background-color: rgb(167, 184, 181);
+            background-color: rgb(0, 208, 7);
             color: rgb(0, 0, 0);
-            padding: 10px 24px;
+            padding: 5px 15px;
             border: 2px solid black;
             margin: 5px;
             border: none;
@@ -94,15 +77,16 @@
             transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: rgb(167, 184, 181);
+            background-color: rgb(121, 255, 125);
             border: 2px solid black;
         }
         #botonera {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
             font-size: 16px;
-            color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
         }
         #mapid {
             width: 90%;
@@ -118,8 +102,8 @@
         table {
             border-collapse: collapse;
             margin: 5px auto;
-            background-color: rgb(167, 184, 181);
-            color: rgb(0, 0, 0);
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             border-radius: 10px;
         }
         th, td {
@@ -129,59 +113,74 @@
             border: 1px solid black;
         }
         th {
-            background-color: rgb(167, 184, 181);
+            background-color: rgb(0, 0, 0);
             border-radius: 10px;
         }   
         tr:hover {
-            background-color: rgb(31, 226, 190);
+            background-color: rgb(0, 0, 0);
             border-radius: 10px;
         }
-        #menuDesplegable {
-            display: none; /* Oculta el menú desplegable por defecto */
-            position: absolute; /* Establece una posición absoluta para el menú */
-            top: 100%; /* Alinea la parte superior del menú a 100% del contenedor del logo */
-            left: 50%; /* Alinea la parte izquierda del menú a 50% del contenedor del logo */
-            transform: translateX(-50%); /* Centra el menú horizontalmente */
-            z-index: 1; /* Asegura que el menú esté encima de otros elementos */
+        .hamburger {
+            font-size: 30px; /* Tamaño del ícono del menú */
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #000000; /* Cambiar al color que prefieras */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .menu {
+            display: none; /* Ocultar el menú por defecto */
+            position: absolute;
+            background-color: #000000;
+            top: 58px; /* Ajustar según la altura de tu barra de cabecera */
+            right: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border-bottom: 1px solid rgb(255, 255, 255); /* Separadores entre elementos */
+        }
+
+        .menu a:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
     
     <div id="header">
-        <h1>Localizador en VIVO</h1>
-        <label for="opcionesMenu" onclick="showMenu()">
-            <img id="logo" src="pics/LOGO.png" alt="Equipo de Trabajo">
-        </label>
-        <!-- Fin del reemplazo -->
-        <select id="opcionesMenu" onchange="cambiarPagina()">
-            <option value="principal.html">Principal</option>
-            <option value="index.html">Localizador</option>
-            <option value="historicos.html">Históricos</option>
-            <option value="Equipo_trabajo.html" >Equipo de Trabajo</option>
-        </select>
+        <h1>Ubicación en VIVO</h1>
+        <img id="logo" src="pics/LOGO_ZIZU.png">
+        <!-- Botón de menú hamburguesa -->
+        <button class="hamburger" onclick="toggleMenu()">☰</button>
+        <div class="menu" id="menu">
+            <a href="/vivo">Ubicación en VIVO</a>
+            <a href="/historicos">Ubicación Histórica</a>
+            <a href="/team">Equipo de Trabajo</a>
+        </div>
     </div>
     <div class="container">
         
         <div id="botonera">
             <!-- Agrega el interruptor -->
             <label for="centrarMapaInterruptor"><strong>Centrado automático</strong> </label>
-            <input type="checkbox" id="centrarMapaInterruptor">
+            <input type="checkbox" id="centrarMapaInterruptor" style="cursor: pointer;">
             <!-- Agrega el botón de centrar manualmente, inicialmente deshabilitado -->
-            <button id="centrarManualmenteButton" disabled>Centrar Manualmente</button>
-            
+            <button id="centrarManualmenteButton" style="display: none;" disabled>Centrar Manualmente</button> 
         </div>
         
         <table>
             <tr>
-                <th>Latitud:</th>
-                <td><span id="latitudValue">Esperando datos...</span></td>
                 <th>Fecha:</th>
                 <td><span id="fechaValue">Esperando datos...</span></td>
-            </tr>
-            <tr>
-                <th>Longitud:</th>
-                <td><span id="longitudValue">Esperando datos...</span></td>
                 <th>Hora:</th>
                 <td><span id="timestampValue">Esperando datos...</span></td>
             </tr>
@@ -191,29 +190,13 @@
         </div>
     </div>
     <script>
-        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
-        function showMenu() {
-            var menu = document.getElementById("opcionesMenu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
-            } else {
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
                 menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
             }
-        }
-
-        function cambiarPagina() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            window.location.href = opcionSeleccionada;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('opcionesMenu').value = 'index.html';
-        });
-
-        // Establecer el valor del menú desplegable según la selección almacenada en el almacenamiento local del navegador
-        function cambiarOpcion() {
-            var opcionSeleccionada = document.getElementById("opcionesMenu").value;
-            console.log("Opción seleccionada:", opcionSeleccionada);
         }
     </script>
 </body>

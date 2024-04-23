@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSliderBackground() {
         const value = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-        slider.style.background = `linear-gradient(to right, rgb(167, 184, 181) 0%, rgb(167, 184, 181) ${value}%, #ddd ${value}%, #ddd 100%)`;
+        slider.style.background = `linear-gradient(to right, rgb(0, 208, 7) 0%, rgb(0, 208, 7) ${value}%, #ddd ${value}%, #ddd 100%)`;
     }
 
     document.getElementById('slider').addEventListener('input', function() {
