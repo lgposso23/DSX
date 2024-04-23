@@ -57,9 +57,12 @@
             transform: translate(-120%, -50%); /* Centra la imagen horizontal y verticalmente */
         }
 
-        #titulo {
-            font-size: 24px;
-            margin: 0;
+        h1 {
+            font-size: 30px; /* Tamaño de fuente */
+            font-weight: bold; /* Grosor de la fuente */
+            color: #000000; /* Color del texto */
+            text-align: left; /* Alineación del texto */
+            margin: 20px 0; /* Márgenes superior e inferior */
         }
 
         .container {
@@ -164,9 +167,13 @@
                 width: 50px;
             }
 
-            #titulo {
-                font-size: 10px;
-            }
+            h1 {
+            font-size: 10px; /* Tamaño de fuente */
+            font-weight: bold; /* Grosor de la fuente */
+            color: #000000; /* Color del texto */
+            text-align: left; /* Alineación del texto */
+            margin: 20px 0; /* Márgenes superior e inferior */
+        }
 
             .hamburger {
                 font-size: 24px;
@@ -187,7 +194,7 @@
 <body>
     
     <div id="header">
-        Ubicación en VIVO
+        <h1>Ubicación en VIVO</h1>
         <img id="logo" src="pics/LOGO_ZIZU.png">
         <!-- Botón de menú hamburguesa -->
         <button class="hamburger" onclick="toggleMenu()">☰</button>
