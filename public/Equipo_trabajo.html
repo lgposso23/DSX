@@ -121,6 +121,46 @@
             background-color: rgb(121, 255, 125);
             border: 2px solid black;
         }
+        @media only screen and (max-width: 600px) {
+            /* Estilos para el header */
+            #header {
+                padding: 15px;
+            }
+
+            #logo {
+                width: 70px;
+                transform: translate(-200%, -50%);
+                height: 70px;
+            }
+
+            h1 {
+                font-size: 20px; /* Tamaño de fuente */
+                font-weight: bold; /* Grosor de la fuente */
+                color: #000000; /* Color del texto */
+                text-align: left; /* Alineación del texto */
+                margin: 20px 0; /* Márgenes superior e inferior */
+            }
+
+            .hamburger {
+                font-size: 24px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .menu {
+                top: 60px;
+            }
+
+            .menu a {
+                padding: 8px 16px;
+            }
+
+            .team-container {
+                display: flex;
+                flex-direction: column; /* Hacer que los elementos se apilen verticalmente */
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
