@@ -178,9 +178,15 @@
             width: 200px; /* Cambia el ancho según sea necesario */
             height: 100px; /* Cambia la altura según sea necesario */
             position: fixed; /* Posición fija para que permanezca en la esquina */
-            bottom: 20px; /* Alineación con el borde inferior */
+            bottom: 50px; /* Alineación con el borde inferior */
             right: 55px; /* Alineación con el borde derecho */
             z-index: 1000;
+        }
+        #gauge-label {
+            bottom: 170px;
+            right: 100px;
+            position: fixed;
+            z-index: 999;
         }
     </style>
 </head>
@@ -218,6 +224,7 @@
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid">
             <div>
                 <canvas id="gauge-canvas"></canvas>
+                <div id="gauge-label" style="margin-top: 5px;">RPM actuales</div>
             </div>  
         </div>
     </div>
@@ -249,7 +256,9 @@
           },
           limitMax: false,
           limitMin: false,
-          highDpiSupport: true
+          highDpiSupport: true,
+          colorStop: '#00D007',
+          strokeColor: '#000000'
         };
       
         var target = document.getElementById('gauge-canvas');
@@ -273,7 +282,7 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos + (alturaPantalla * 0.00085); // 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - alturaElementos; // 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
