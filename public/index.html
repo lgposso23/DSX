@@ -173,6 +173,20 @@
             .menu a {
                 padding: 8px 16px;
             }
+            #gauge-canvas {
+                width: 200px; /* Cambia el ancho según sea necesario */
+                height: 100px; /* Cambia la altura según sea necesario */
+                position: fixed; /* Posición fija para que permanezca en la esquina */
+                bottom: 50px; /* Alineación con el borde inferior */
+                right: 55px; /* Alineación con el borde derecho */
+                z-index: 1000;
+            }
+            #gauge-label {
+                bottom: 35px;
+                right: 133px;
+                position: fixed;
+                z-index: 999;
+            }
         }
         #gauge-canvas {
             width: 200px; /* Cambia el ancho según sea necesario */
@@ -184,7 +198,7 @@
         }
         #gauge-label {
             bottom: 35px;
-            right: 133px;
+            right: 145px;
             position: fixed;
             z-index: 999;
         }
