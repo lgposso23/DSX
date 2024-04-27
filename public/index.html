@@ -4,25 +4,8 @@
     <meta charset="UTF-8">
     <title>Monitor de Datos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        window.onload = function() {
-            // Calcular la altura combinada de los elementos anteriores
-            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
-            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
-                return totalAltura + elemento.offsetHeight;
-            }, 0);
-
-            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
-            var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.009); // 15% de la altura de la pantalla
-
-            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
-            var mapa = document.getElementById('mapid');
-            mapa.style.height = Math.max(alturaMapa, 0) + 'px';            
-        };
-
-    </script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gauge.js/1.3.6/gauge.min.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
@@ -191,6 +174,13 @@
                 padding: 8px 16px;
             }
         }
+        #gauge-canvas {
+            width: 200px; /* Cambia el ancho según sea necesario */
+            height: 100px; /* Cambia la altura según sea necesario */
+            position: absolute; /* Posición fija para que permanezca en la esquina */
+            bottom: 20px; /* Alineación con el borde inferior */
+            right: 55px; /* Alineación con el borde derecho */
+        }
     </style>
 </head>
 <body>
@@ -224,7 +214,11 @@
                 <td><span id="timestampValue">Esperando datos...</span></td>
             </tr>
         </table>
-        <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
+        <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid">
+            <div>
+                <canvas id="gauge-canvas"></canvas>
+            </div>  
+        </div>
     </div>
     <script>
         function toggleMenu() {
@@ -235,6 +229,56 @@
                 menu.style.display = "block";
             }
         }
+    </script>
+    <script>
+        var opts = {
+          angle: 0.2,
+          lineWidth: 0.1,
+          radiusScale: 1,
+          pointer: {
+            length: 0.6,
+            strokeWidth: 0.05,
+            color: '#FFFFFF'
+          },
+          staticLabels: {
+            font: "10px sans-serif",
+            labels: [0, 2000, 4000, 6000, 8000],
+            color: "#FFFFFF",
+            fractionDigits: 0
+          },
+          limitMax: false,
+          limitMin: false,
+          highDpiSupport: true
+        };
+      
+        var target = document.getElementById('gauge-canvas');
+        var gauge = new Gauge(target).setOptions(opts);
+        gauge.maxValue = 8000;
+        gauge.animationSpeed = 32;
+        gauge.set(0);
+      
+        setInterval(() => {
+          const rpm = Math.floor(Math.random() * 8001);
+          gauge.set(rpm);
+        }, 1000);
+    </script>
+    <script>
+        window.onload = function() {
+            // Calcular la altura combinada de los elementos anteriores
+            var elementosAnteriores = document.querySelectorAll('body > *:not(#mapid)');
+            var alturaElementos = Array.from(elementosAnteriores).reduce(function (totalAltura, elemento) {
+                return totalAltura + elemento.offsetHeight;
+            }, 0);
+
+            // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
+            var alturaPantalla = window.innerHeight;
+            var alturaMapa = alturaPantalla - alturaElementos + (alturaPantalla * 0.00085); // 15% de la altura de la pantalla
+
+            // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
+            var mapa = document.getElementById('mapid');
+            mapa.style.height = Math.max(alturaMapa, 0) + 'px';            
+        };
+
     </script>
 </body>
 </html>
