@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Crea e inicializa el mapa
-    var mymap = L.map('mapid');
+    var mymap = L.map('mapid', {
+        zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
+    });
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
