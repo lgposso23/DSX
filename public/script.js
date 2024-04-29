@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Conecta con el servidor Socket.IO automáticamente
     const socket = io();
-    const menuDesplegable = document.getElementById('menuDesplegable');
-    var nombrePagina = window.location.pathname.split('/').pop();
     const interruptor = document.getElementById('centrarMapaInterruptor');
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
 
@@ -12,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Crea e inicializa el mapa
-    var mymap = L.map('mapid');
+    var mymap = L.map('mapid', {
+        zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
+    });
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud], 14);
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 }
             })
@@ -56,21 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Escucha el evento 'updateData' del servidor Socket.IO
     socket.on('updateData', function(data) {
         console.log('Datos recibidos del servidor:', data);
-        document.getElementById('longitudValue').textContent = data.longitud;
-        document.getElementById('latitudValue').textContent = data.latitud;
         document.getElementById('fechaValue').textContent = data.fecha;
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
         moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
     });
-
+    function toggleButtonVisibility() {
+        botonCentrarManualmente.style.display = interruptor.checked ? 'none' : 'block';
+    }
     interruptor.addEventListener('change', function() {
         // Si el interruptor está activado, deshabilita el botón de centrar manualmente
         if (this.checked) {
             botonCentrarManualmente.disabled = true;
+            toggleButtonVisibility();
         } else {
             // Si el interruptor está desactivado, habilita el botón de centrar manualmente
             botonCentrarManualmente.disabled = false;
+            toggleButtonVisibility();
         }
     });
 
@@ -89,41 +91,5 @@ document.addEventListener('DOMContentLoaded', () => {
             // Deshabilitar el centrado automático del mapa
             console.log('Centrado automático desactivado');
         }
-    });
-    switch (nombrePagina) {
-        case 'historicos.html':
-            menuDesplegable.value = 'rastreoHistoricos';
-            break;
-        case 'Principal.html':
-            menuDesplegable.value = 'Principal';
-            break;
-        case 'index.html':
-            menuDesplegable.value = 'LocalizadorActual';
-            break;
-        case 'Equipo_trabajo.html':
-            menuDesplegable.value = 'equipoTrabajo';
-            break;
-        default:
-            break;
-    }
-    menuDesplegable.addEventListener('change', function(event) {
-        // Obtener el valor seleccionado del menú desplegable
-        const seleccionado = event.target.value;
-    
-        // Verificar si la opción seleccionada es "Rastreo de Históricos"
-        if (seleccionado === 'rastreoHistoricos') {
-            // Redirigir al usuario a la página de historiales
-            window.location.href = '/historicos.html';
-        }
-        else if (seleccionado === 'Principal') {
-            window.location.href = '/principal.html';
-        }
-        else if (seleccionado  === 'LocalizadorActual'){
-            window.location.href = '/index.html';
-        }
-        else if (seleccionado  === 'equipoTrabajo'){
-            window.location.href = '/Equipo_trabajo.html';
-        }
-
     });
 });

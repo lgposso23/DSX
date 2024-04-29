@@ -39,6 +39,21 @@ udpServer.on('message', (msg, rinfo) => {
     console.log(`Servidor UDP recibio: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
 
+    if (parts.length === 1) {
+        const rpm = parts[0];
+
+        const data = { rpm };
+
+        // Guarda los datos en la base de datos
+        connection.query('INSERT INTO rpm SET ?', data, (error, results, fields) => {
+            if (error) {
+                console.error('Error al insertar en la base de datos:', error);
+            } else {
+                console.log('Datos insertados correctamente en la base de datos');
+            }
+        });
+    }
+
     if (parts.length === 4) {
         const latitud = parts[0];
         const longitud = parts[1];
@@ -60,11 +75,6 @@ udpServer.on('message', (msg, rinfo) => {
     }
 });
 
-// Establece la ruta raíz para que dirija a principal.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'principal.html'));
-});
-
 app.get('/ultimos-datos', (req, res) => {
     connection.query('SELECT latitud, longitud FROM ubicaciones ORDER BY id DESC LIMIT 5', (error, results, fields) => {
         if (error) {
@@ -79,6 +89,14 @@ app.get('/ultimos-datos', (req, res) => {
 
 app.get('/historicos', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'historicos.html'));
+});
+
+app.get('/vivo', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/team', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'Equipo_trabajo.html'));
 });
 
 app.get('/historicos-datos', (req, res) => {
