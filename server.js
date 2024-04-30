@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const dgram = require('dgram');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const path = require('path');
 
 require('dotenv').config({ path: 'DSX/.env' });
