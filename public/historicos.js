@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 slider.value = finalPoint;
                 actualizarMarcadorYPopup(finalPoint);
                 updateSliderBackground();
-                if (marker) {
+                if (marker) { 
                     marker.setLatLng(lastPoint);
                 } else {
                     marker = L.marker(lastPoint).addTo(mymap);
