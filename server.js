@@ -100,12 +100,11 @@ app.get('/team', (req, res) => {
 });
 
 app.get('/historicos-datos', (req, res) => {
-  
     const fechahoraInicio = req.query.fechahoraInicio;
     const fechahoraFin = req.query.fechahoraFin;
 
     // Construir la consulta SQL con los filtros de fecha y hora
-    const query = 'SELECT latitud, longitud, fechahora FROM ubicaciones WHERE fechaHora BETWEEN ? AND ?'
+    const query = 'SELECT latitud, longitud, fechahora FROM ubicaciones WHERE fechahora BETWEEN ? AND ?';
 
     // Ejecutar la consulta con los parámetros correspondientes
     connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
@@ -117,6 +116,7 @@ app.get('/historicos-datos', (req, res) => {
         res.json(results);
     });
 });
+
 
 // Establece el puerto en el que el servidor UDP escuchará
 const UDP_PORT = 23001;

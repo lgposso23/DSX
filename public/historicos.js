@@ -97,17 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }    
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
-        // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
-
-        // Realizar la solicitud al servidor
+        
         fetch(url)
             .then(response => response.json())
             .then(data => {
                 if (data.length === 0) {
-                    // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos en esta ventana de tiempo');
-                    document.getElementById('slider').style.display = 'none'; // Oculta el slider si no hay datos
+                    document.getElementById('slider').style.display = 'none';
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
@@ -117,14 +114,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }));
                 const latLngs = datosDePolilinea.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
-                // Configura el slider
                 const slider = document.getElementById('slider');
                 slider.max = datosDePolilinea.length - 1;
                 const finalPoint = datosDePolilinea.length - 1;
                 slider.value = finalPoint;
                 actualizarMarcadorYPopup(finalPoint);
                 updateSliderBackground();
-                if (marker) { 
+                if (marker) {
                     marker.setLatLng(lastPoint);
                 } else {
                     marker = L.marker(lastPoint).addTo(mymap);
@@ -133,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
-            
     }
+    
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
         const fechahoraInicio = document.getElementById('fechahoraInicio').value;
