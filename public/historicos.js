@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fechaHora = new Date(fechaHoraISO);
         const fechaFormateada = fechaHora.toISOString().split('T')[0];
         const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
-        marker.bindPopup(`Estuvo el ${fechaFormateada} a las ${horaFormateada}`).openPopup();
+        marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
         mymap.panTo(punto);
     }    
 
