@@ -82,8 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
             marker.setLatLng(punto);
         }
         const fechaHoraISO = dato.fechahora;
-
-        marker.bindPopup(`Estuvo acá el ${fechaHoraISO}`).openPopup();
+        const fechaHora = new Date(fechaHoraISO);
+        const fechaFormateada = fechaHora.toISOString().split('T')[0];
+        const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
+        marker.bindPopup(`Estuvo el ${fechaFormateada} a las ${horaFormateada}`).openPopup();
         mymap.panTo(punto);
     }    
 
