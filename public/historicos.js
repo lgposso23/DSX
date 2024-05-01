@@ -82,17 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             marker.setLatLng(punto);
         }
         const fechaHoraISO = dato.fechahora;
-        const fechaHora = new Date(fechaHoraISO);
-        const fechaHoraLegible = fechaHora.toLocaleString('es-ES', { 
-            year: 'numeric', // Año (cuatro dígitos)
-            month: '2-digit', // Mes (dos dígitos)
-            day: '2-digit', // Día del mes (dos dígitos)
-            hour: 'numeric', // Hora (formato de 12 horas)
-            minute: 'numeric', // Minutos
-            second: 'numeric', // Segundos
-            hour12: true // Usar formato de 12 horas (true) o 24 horas (false)
-        });
-        marker.bindPopup(`Estuvo acá el ${fechaHoraLegible}`).openPopup();
+
+        marker.bindPopup(`Estuvo acá el ${fechaHoraISO}`).openPopup();
         mymap.panTo(punto);
     }    
 
