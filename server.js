@@ -62,7 +62,7 @@ udpServer.on('message', (msg, rinfo) => {
 });
 
 app.get('/ultimos-datos', (req, res) => {
-    connection.query('SELECT latitud, longitud, rpm FROM ubicaciones ORDER BY id DESC LIMIT 5', (error, results, fields) => {
+    connection.query('SELECT latitud, longitud, rpm FROM ubicaciones ORDER BY id DESC LIMIT 1', (error, results, fields) => {
         if (error) {
             console.error('Error al obtener los últimos datos:', error);
             res.status(500).send('Error al obtener los últimos datos');
