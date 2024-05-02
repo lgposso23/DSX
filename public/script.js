@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('timestampValue').textContent = data.hora;
         // Actualiza las coordenadas del marcador
         moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
+        gauge.set(data.rpm)
     });
     function toggleButtonVisibility() {
         botonCentrarManualmente.style.display = interruptor.checked ? 'none' : 'block';
@@ -92,4 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Centrado automático desactivado');
         }
     });
+
+    var target = document.getElementById('gauge-canvas');
+    var gauge = new Gauge(target).setOptions(opts);
+    gauge.maxValue = 8000;
+    gauge.animationSpeed = 32;
+    gauge.set(0);
 });
