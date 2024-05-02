@@ -39,29 +39,15 @@ udpServer.on('message', (msg, rinfo) => {
     console.log(`Servidor UDP recibio: ${msg} de ${rinfo.address}:${rinfo.port}`);
     const parts = msg.toString().split(' ');
 
-    if (parts.length === 1) {
-        const rpm = parts[0];
-
-        const data = { rpm };
-
-        // Guarda los datos en la base de datos
-        connection.query('INSERT INTO rpm SET ?', data, (error, results, fields) => {
-            if (error) {
-                console.error('Error al insertar en la base de datos:', error);
-            } else {
-                console.log('Datos insertados correctamente en la base de datos');
-            }
-        });
-    }
-
-    if (parts.length === 4) {
+    if (parts.length === 5) {
         const latitud = parts[0];
         const longitud = parts[1];
         const fecha = parts[2];
         const hora = parts[3];
         const fechahora = parts[2] + ' ' + parts[3];
+        const rpm = parts[4];
 
-        const data = { latitud, longitud, fecha, hora, fechahora };
+        const data = { latitud, longitud, fecha, hora, fechahora, rpm };
 
         // Guarda los datos en la base de datos
         connection.query('INSERT INTO ubicaciones SET ?', data, (error, results, fields) => {
@@ -71,7 +57,7 @@ udpServer.on('message', (msg, rinfo) => {
                 console.log('Datos insertados correctamente en la base de datos');
             }
         });
-        io.emit('updateData', { latitud, longitud, fecha, hora });
+        io.emit('updateData', { latitud, longitud, fecha, hora, rpm });
     }
 });
 
