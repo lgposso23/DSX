@@ -15,7 +15,7 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - 0.58*alturaElementos// 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - alturaElementos// 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
@@ -53,14 +53,15 @@
     </script>
     <style>
         body {
-            background-color: rgb(0, 0, 0);
-            color: rgb(255, 255, 255);
             font-family: Georgia, serif;
+            font-size: 16px;
+            color:  #ffffff;
+            background-color: #000000;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
         }
-        
-        
 
         #header {
             padding: 10px;
