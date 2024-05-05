@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var mymap = L.map('mapid');
+    var mymap = L.map('mapid', {
+        zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
+    });
     var polyline = L.polyline([], { color: 'white' }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
@@ -62,8 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.length > 0) {
                 const ultimoDato = data[0];
-                mymap.setView([ultimoDato.latitud, ultimoDato.longitud],14);
+                mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                 marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                gauge.set(ultimoDato.rpm);
             }
         })
         .catch(error => {
