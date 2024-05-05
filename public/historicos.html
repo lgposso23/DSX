@@ -15,12 +15,14 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos - (alturaPantalla * 0.009); // 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - 0.58*alturaElementos// 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
             mapa.style.height = Math.max(alturaMapa, 0) + 'px';
         };
+    </script>
+    <script>
 
         function showMenu() {
             var menu = document.getElementById("opcionesMenu");
@@ -125,7 +127,7 @@
         .slider-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         /* Estilos del Slider */
@@ -303,7 +305,12 @@
         <div class="slider-container">
             <input type="range" id="slider" min="0" value="0" style="border: 1px solid rgb(167, 184, 181);" disabled>
         </div>
-        <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid"></div>
+        <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid">
+            <div>
+                <canvas id="gauge-canvas"></canvas>
+                <div id="gauge-label" style="margin-top: 5px;">RPM</div>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
@@ -315,6 +322,29 @@
                 menu.style.display = "block";
             }
         }
+    </script>
+    <script>
+        var opts = {
+          angle: 0.2,
+          lineWidth: 0.1,
+          radiusScale: 1,
+          pointer: {
+            length: 0.5,
+            strokeWidth: 0.05,
+            color: '#00D007'
+          },
+          staticLabels: {
+            font: "10px sans-serif",
+            labels: [0, 2000, 4000, 6000],
+            color: "#FFFFFF",
+            fractionDigits: 0
+          },
+          limitMax: false,
+          limitMin: false,
+          highDpiSupport: true,
+          colorStop: '#FFFFFF',
+          strokeColor: '#000000'
+        };
     </script>
 </body>
 </html>

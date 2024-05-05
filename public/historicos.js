@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
         marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
         mymap.panTo(punto);
+        const rpm = dato.rpm;
+        gauge.set(rpm);
+
     }    
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
@@ -106,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('slider').style.display = 'block';
                 datosDePolilinea = data.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
-                    fechahora: dato.fechahora
+                    fechahora: dato.fechahora,
+                    rpm: dato.rpm
                 }));
                 const latLngs = datosDePolilinea.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
@@ -145,4 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSliderBackground()
         actualizarMarcadorYPopup(this.value);
     });
+
+    var target = document.getElementById('gauge-canvas');
+    var gauge = new Gauge(target).setOptions(opts);
+    gauge.maxValue = 6000;
+    gauge.animationSpeed = 32;
 });
