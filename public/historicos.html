@@ -228,6 +228,20 @@
         .menu a:last-child {
             border-bottom: none;
         }
+        #gauge-canvas {
+            width: 200px; /* Cambia el ancho según sea necesario */
+            height: 100px; /* Cambia la altura según sea necesario */
+            position: absolute; /* Posición fija para que permanezca en la esquina */
+            bottom: 60px; /* Alineación con el borde inferior */
+            right: 55px; /* Alineación con el borde derecho */
+            z-index: 1000;
+        }
+        #gauge-label {
+            bottom: 50px;
+            right: 140px;
+            position: absolute;
+            z-index: 999;
+        }
         @media only screen and (max-width: 600px) {
             /* Estilos para el header */
             #header {
@@ -269,6 +283,20 @@
             }
             .fechas-container input {
                 width: 150px; /* Ajusta el ancho del input según sea necesario */
+            }
+            #gauge-canvas {
+                width: 200px; /* Cambia el ancho según sea necesario */
+                height: 100px; /* Cambia la altura según sea necesario */
+                position: absolute; /* Posición fija para que permanezca en la esquina */
+                bottom: 80px; /* Alineación con el borde inferior */
+                right: 5px; /* Alineación con el borde derecho */
+                z-index: 1000;
+            }
+            #gauge-label {
+                bottom: 50px;
+                right: 90px;
+                position: absolute;
+                z-index: 999;
             }
         }
     </style>
