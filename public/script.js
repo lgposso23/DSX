@@ -98,5 +98,5 @@ document.addEventListener('DOMContentLoaded', () => {
     var target = document.getElementById('gauge-canvas');
     var gauge = new Gauge(target).setOptions(opts);
     gauge.maxValue = 6000;
-    gauge.animationSpeed = 32;
+    gauge.animationSpeed = 100;
 });
