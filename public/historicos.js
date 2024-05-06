@@ -3,13 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
         zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
     });
     var polyline = L.polyline([], { color: 'white' }).addTo(mymap);
-    // Definir el decorador de la polilínea (flechas)
-    var arrowHead = L.polylineDecorator(polyline, {
-        patterns: [
-            // Define el patrón de la flecha
-            { offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({ pixelSize: 15, polygon: false, pathOptions: { stroke: true, color: 'white' } }) }
-        ]
-    }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
     const slider = document.getElementById('slider');
