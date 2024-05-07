@@ -98,17 +98,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
-        
+    
         fetch(url)
-            .then(response => response.json())
+            .then(response => {
+                console.log('Respuesta del servidor:', response);
+                return response.json();
+            })
             .then(data => {
+                
                 if (data.length === 0) {
                     alert('No se encontraron datos en esta ventana de tiempo');
                     document.getElementById('slider').style.display = 'none';
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
-                datosDePolilinea = data.map(dato => ({
+                const datosDePolilinea = data.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora
                 }));
@@ -116,20 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 polyline.setLatLngs(latLngs);
                 const slider = document.getElementById('slider');
                 slider.max = datosDePolilinea.length - 1;
-                const finalPoint = datosDePolilinea.length - 1;
-                slider.value = finalPoint;
-                actualizarMarcadorYPopup(finalPoint);
+                slider.value = datosDePolilinea.length - 1;
+                actualizarMarcadorYPopup(slider.value);
                 updateSliderBackground();
-                if (marker) {
-                    marker.setLatLng(lastPoint);
-                } else {
-                    marker = L.marker(lastPoint).addTo(mymap);
-                }
             })
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
     }
+    
+    
     
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
