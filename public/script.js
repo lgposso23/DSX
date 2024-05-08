@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
-        iconSize: [20, 20], // tamaño del ícono
+        iconSize: [30, 20], // tamaño del ícono
         iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
     });
     var myIcon2 = L.icon({
         iconUrl: 'pics/Carro2.png',
-        iconSize: [20, 20], // tamaño del ícono
+        iconSize: [30, 20], // tamaño del ícono
         iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
     });
 
