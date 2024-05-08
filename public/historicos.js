@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var mymap = L.map('mapid', {
         zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
     });
-    var polyline = L.polyline([], { color: 'grey' }).addTo(mymap);
+    var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
     const slider = document.getElementById('slider');
