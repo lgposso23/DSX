@@ -73,6 +73,7 @@
             align-items: center;
             font-size: 16px;
             color: rgb(255, 255, 255);
+            gap: 5px;
         }
         #mapid {
             width: 90%;
@@ -153,6 +154,20 @@
             z-index: 999;
         }
         /* Estilos para dispositivos de pantalla pequeña */
+        #selectorCarros {
+            background-color: #000000; /* Color de fondo */
+            color: #ffffff; /* Color del texto */
+            border: 2px solid #ccc; /* Borde */
+            border-radius: 8px; /* Radio de las esquinas */
+            padding: 1px; /* Espacio interno */
+            font-size: 14px; /* Tamaño de fuente */
+            font-family: Georgia, serif;
+            width: 120px; /* Ancho del menú desplegable */
+        }
+        #selectorCarros option {
+            background-color: #000000; /* Color de fondo */
+            color: #ffffff; /* Color del texto */
+        }
 
         @media only screen and (max-width: 600px) {
             /* Estilos para el header */
@@ -225,6 +240,14 @@
             <input type="checkbox" id="centrarMapaInterruptor" style="cursor: pointer;">
             <!-- Agrega el botón de centrar manualmente, inicialmente deshabilitado -->
             <button id="centrarManualmenteButton" style="display: none;" disabled>Centrar Manualmente</button> 
+        </div>
+        <div id="botonera">
+            <label for="selectorCarros"><strong>¿Qué carro desea ver?</strong> </label>
+            <select id="selectorCarros" name="selectorCarros">
+                <option value="Rojo">Carro Rojo</option>
+                <option value="Azul">Carro Azul</option>
+                <option value="Ambos">Ambos Carros</option>
+              </select>
         </div>
         
         <table>
