@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var mymap = L.map('mapid', {
         zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
     });
-    var polyline = L.polyline([], { color: '#00D007' }).addTo(mymap);
-    var polyline2 = L.polyline([], { color: 'white' }).addTo(mymap);
+    var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
+    var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
         iconSize: [20, 20], // tamaño del ícono
