@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     var myIcon2 = L.icon({
         iconUrl: 'pics/Carro2.png',
-        iconSize: [38, 95], // tamaño del ícono
+        iconSize: [10, 10], // tamaño del ícono
         iconAnchor: [22, 94], // punto del ícono que corresponderá a la ubicación del marcador
         popupAnchor: [-3, -76] // punto desde el que se abrirá el popup en relación al ícono
     });
