@@ -70,7 +70,7 @@ udpServer.on('message', (msg, rinfo) => {
         const data2 = { latitud, longitud, fecha, hora, fechahora };
 
         // Guarda los datos en la base de datos
-        connection.query('INSERT INTO ubicaciones SET ?', data2, (error, results, fields) => {
+        connection.query('INSERT INTO ubicaciones2 SET ?', data2, (error, results, fields) => {
             if (error) {
                 console.error('Error al insertar en la base de datos:', error);
             } else {
