@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
     });
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
+    var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).addTo(mymap);
 
     var marker = L.marker([0, 0]).addTo(mymap);
+    var marker2 = L.marker([0, 0]).addTo(mymap);
 
     // Función para centrar el mapa en la última coordenada almacenada en la base de datos
     function centrarMapaEnUltimaCoordenada() {
@@ -33,6 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                     gauge.set(ultimoDato.rpm);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los últimos datos:', error);
+            });
+        fetch('/ultimos-datos2')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
+                    marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 }
             })
             .catch(error => {
@@ -53,6 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mymap.setView([latitud, longitud]);
         }
     }
+    function moverMarcadorYActualizarHistorial2(latitud, longitud) {
+        // Mueve el marcador a la nueva ubicación
+        marker2.setLatLng([latitud, longitud]);
+        // Agrega la nueva ubicación al historial
+        polyline2.addLatLng([latitud, longitud]);
+    }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
     socket.on('updateData', function(data) {
@@ -62,6 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Actualiza las coordenadas del marcador
         moverMarcadorYActualizarHistorial(data.latitud, data.longitud);
         gauge.set(data.rpm)
+    });
+    socket.on('updateData2', function(data2) {
+        console.log('Datos recibidos del servidor:', data2);
+        moverMarcadorYActualizarHistorial2(data2.latitud, data2.longitud);
     });
     function toggleButtonVisibility() {
         botonCentrarManualmente.style.display = interruptor.checked ? 'none' : 'block';
@@ -77,8 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleButtonVisibility();
         }
     });
-
-   
 
     // Deshabilita el interruptor por defecto
     document.getElementById('centrarMapaInterruptor').checked = true;
