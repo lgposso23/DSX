@@ -15,6 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
     var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
+    var myIcon = L.icon({
+        iconUrl: 'pics/Carro1.png',
+        iconSize: [38, 95], // tamaño del ícono
+        iconAnchor: [22, 94], // punto del ícono que corresponderá a la ubicación del marcador
+        popupAnchor: [-3, -76] // punto desde el que se abrirá el popup en relación al ícono
+    });
+    var myIcon2 = L.icon({
+        iconUrl: 'pics/Carro2.png',
+        iconSize: [38, 95], // tamaño del ícono
+        iconAnchor: [22, 94], // punto del ícono que corresponderá a la ubicación del marcador
+        popupAnchor: [-3, -76] // punto desde el que se abrirá el popup en relación al ícono
+    });
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mymap);
 
-    var marker = L.marker([0, 0]).addTo(mymap);
-    var marker2 = L.marker([0, 0]).addTo(mymap);
+    var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
+    var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
 
     // Función para centrar el mapa en la última coordenada almacenada en la base de datos
     function centrarMapaEnUltimaCoordenada() {
