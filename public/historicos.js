@@ -56,9 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mymap);
-
-    var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
-    var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
+    
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
         iconSize: [25, 15], // tamaño del ícono
@@ -69,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
         iconSize: [25, 15], // tamaño del ícono
         iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
     });
+    var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
+    var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
 
     function centrarMapaEnUltimaCoordenada() {
         fetch('/ultimos-datos')
