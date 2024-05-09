@@ -78,10 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
         case "Rojo":
             mymap.removeLayer(polyline2);
             mymap.removeLayer(marker2);
+            mymap.addLayer(polyline);
+            mymap.addLayer(marker);
             break;
         case "Azul":
             mymap.removeLayer(polyline);
             mymap.removeLayer(marker);
+            mymap.addLayer(polyline2);
+            mymap.addLayer(marker2);
             break;
         }
     }
