@@ -65,6 +65,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
+    // Función para manejar el cambio en el menú desplegable
+    function handleOptionChange() {
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
+        switch (opcionSeleccionada) {
+        case "Ambos":
+            mymap.addLayer(polyline);
+            mymap.addLayer(marker);
+            mymap.addLayer(polyline2);
+            mymap.addLayer(marker2);
+            break;
+        case "Rojo":
+            mymap.removeLayer(polyline2);
+            mymap.removeLayer(marker2);
+            break;
+        case "Azul":
+            mymap.removeLayer(polyline);
+            mymap.removeLayer(marker);
+            break;
+        }
+    }
+    
+    // Llama a la función para manejar el cambio en el menú desplegable al cargar la página
+    handleOptionChange();
+    
+    // Agrega un event listener para manejar el cambio en el menú desplegable
+    document.getElementById("selectorCarros").addEventListener("change", handleOptionChange);
+  
 
     // Función para mover el marcador y actualizar el historial
     function moverMarcadorYActualizarHistorial(latitud, longitud) {
