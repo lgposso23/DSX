@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
         iconSize: [25, 15], // tamaño del ícono
-        iconAnchor: [5, 0], // punto del ícono que corresponderá a la ubicación del marcador
+        iconAnchor: [10, 5], // punto del ícono que corresponderá a la ubicación del marcador
         popupAnchor: [0, 0]
     });
     var myIcon2 = L.icon({
