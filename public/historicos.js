@@ -120,26 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
         gauge.set(rpm);
 
     }    
-    function actualizarMarcadorYPopup2(index) {
-        const dato = datosDePolilinea[index];
-        const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
-        if (!marker2) {
-            marker2 = L.marker(punto).addTo(mymap);
-        } else {
-            marker2.setLatLng(punto);
-        }
-        const fechaHoraISO = dato.fechahora;
-        const fechaHora = new Date(fechaHoraISO);
-        const fechaFormateada = fechaHora.toISOString().split('T')[0];
-        const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
-        marker2.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
-        mymap.panTo(punto);
-    } 
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
-        const url2 = `/historicos-datos2?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
 
         // Realizar la solicitud al servidor
         fetch(url)
@@ -173,40 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
-            });
-    ///////////////////////////// FETCH PARA CARRO SIN RPM //////////////////////////////////////////
-        fetch(url2)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) {
-                    // Mostrar un popup indicando que no hay datos disponibles
-                    alert('No se encontraron datos del carro azul en esta ventana de tiempo');
-                    return;
-                }
-                document.getElementById('slider').style.display = 'block';
-                datosDePolilinea = data.map(dato => ({
-                    latLng: [dato.latitud, dato.longitud],
-                    fechahora: dato.fechahora
-                }));
-                const latLngs = datosDePolilinea.map(d => d.latLng);
-                polyline.setLatLngs(latLngs);
-                // Configura el slider
-                const slider = document.getElementById('slider');
-                slider.max = datosDePolilinea.length - 1;
-                const finalPoint = datosDePolilinea.length - 1;
-                slider.value = finalPoint;
-                actualizarMarcadorYPopup2(finalPoint);
-                updateSliderBackground();
-                if (marker2) {
-                    marker2.setLatLng(lastPoint);
-                } else {
-                    marker2 = L.marker(lastPoint).addTo(mymap);
-                }
-            })
-            .catch(error => {
-                console.error('Error al cargar los datos históricos:', error);
-            });
-            
+            });       
     }
     // Función para manejar el cambio en el menú desplegable
     function cambioCarro() {
