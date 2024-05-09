@@ -134,6 +134,24 @@ app.get('/historicos-datos', (req, res) => {
         res.json(results);
     });
 });
+app.get('/historicos-datos2', (req, res) => {
+  
+    const fechahoraInicio = req.query.fechahoraInicio;
+    const fechahoraFin = req.query.fechahoraFin;
+
+    // Construir la consulta SQL con los filtros de fecha y hora
+    const query = 'SELECT latitud, longitud, fechahora FROM ubicaciones2 WHERE fechaHora BETWEEN ? AND ?'
+
+    // Ejecutar la consulta con los parámetros correspondientes
+    connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
+        if (error) {
+            console.error('Error al consultar la base de datos:', error);
+            res.status(500).json({ error: 'Error al consultar la base de datos' });
+            return;
+        }
+        res.json(results);
+    });
+});
 
 // Establece el puerto en el que el servidor UDP escuchará
 const UDP_PORT = 23001;

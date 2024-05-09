@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var mymap = L.map('mapid', {
         zoom: 13  // Ajusta este valor según el nivel de zoom inicial que desees
     });
-    var polyline = L.polyline([], { color: '#00D007' }).addTo(mymap);
+    var polyline = L.polyline([], { color: 'red' }).addTo(mymap);
+    var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
     const slider = document.getElementById('slider');
@@ -56,22 +57,45 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mymap);
 
-    var marker =L.marker([0,0]).addTo(mymap);
+    var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
+    var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
+    var myIcon = L.icon({
+        iconUrl: 'pics/Carro1.png',
+        iconSize: [25, 15], // tamaño del ícono
+        iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
+    });
+    var myIcon2 = L.icon({
+        iconUrl: 'pics/Carro2.png',
+        iconSize: [25, 15], // tamaño del ícono
+        iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
+    });
 
     function centrarMapaEnUltimaCoordenada() {
         fetch('/ultimos-datos')
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                const ultimoDato = data[0];
-                mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
-                marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                gauge.set(ultimoDato.rpm);
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener los últimos datos:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
+                    marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                    gauge.set(ultimoDato.rpm);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los últimos datos:', error);
+            });
+        fetch('/ultimos-datos2')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
+                    marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener los últimos datos:', error);
+            });
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
@@ -94,10 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
         gauge.set(rpm);
 
     }    
+    function actualizarMarcadorYPopup2(index) {
+        const dato = datosDePolilinea[index];
+        const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
+        if (!marker2) {
+            marker2 = L.marker2(punto).addTo(mymap);
+        } else {
+            marker2.setLatLng(punto);
+        }
+        const fechaHoraISO = dato.fechahora;
+        const fechaHora = new Date(fechaHoraISO);
+        const fechaFormateada = fechaHora.toISOString().split('T')[0];
+        const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
+        marker2.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
+        mymap.panTo(punto);
+    } 
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
         // Construir la URL de solicitud con los parámetros de filtrado
         const url = `/historicos-datos?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
+        const url2 = `/historicos-datos2?fechahoraInicio=${fechahoraInicio}&fechahoraFin=${fechahoraFin}`;
 
         // Realizar la solicitud al servidor
         fetch(url)
@@ -105,8 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
-                    alert('No se encontraron datos en esta ventana de tiempo');
-                    document.getElementById('slider').style.display = 'none'; // Oculta el slider si no hay datos
+                    alert('No se encontraron datos del carro rojo en esta ventana de tiempo');
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
@@ -133,8 +172,71 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
             });
+    ///////////////////////////// FETCH PARA CARRO SIN RPM //////////////////////////////////////////
+        fetch(url2)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    // Mostrar un popup indicando que no hay datos disponibles
+                    alert('No se encontraron datos del carro azul en esta ventana de tiempo');
+                    return;
+                }
+                document.getElementById('slider').style.display = 'block';
+                datosDePolilinea = data.map(dato => ({
+                    latLng: [dato.latitud, dato.longitud],
+                    fechahora: dato.fechahora,
+                    rpm: dato.rpm
+                }));
+                const latLngs = datosDePolilinea.map(d => d.latLng);
+                polyline.setLatLngs(latLngs);
+                // Configura el slider
+                const slider = document.getElementById('slider');
+                slider.max = datosDePolilinea.length - 1;
+                const finalPoint = datosDePolilinea.length - 1;
+                slider.value = finalPoint;
+                actualizarMarcadorYPopup2(finalPoint);
+                updateSliderBackground();
+                if (marker) {
+                    marker.setLatLng(lastPoint);
+                } else {
+                    marker = L.marker(lastPoint).addTo(mymap);
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar los datos históricos:', error);
+            });
             
     }
+    // Función para manejar el cambio en el menú desplegable
+    function cambioCarro() {
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
+        switch (opcionSeleccionada) {
+        case "Ambos":
+            mymap.addLayer(polyline);
+            mymap.addLayer(marker);
+            mymap.addLayer(polyline2);
+            mymap.addLayer(marker2);
+            break;
+        case "Rojo":
+            mymap.removeLayer(polyline2);
+            mymap.removeLayer(marker2);
+            mymap.addLayer(polyline);
+            mymap.addLayer(marker);
+            break;
+        case "Azul":
+            mymap.removeLayer(polyline);
+            mymap.removeLayer(marker);
+            mymap.addLayer(polyline2);
+            mymap.addLayer(marker2);
+            break;
+        }
+    }
+    
+    // Llama a la función para manejar el cambio en el menú desplegable al cargar la página
+    cambioCarro();
+    
+    // Agrega un event listener para manejar el cambio en el menú desplegable
+    document.getElementById("selectorCarros").addEventListener("change", cambioCarro);
 
     document.getElementById('filtrarDatos').addEventListener('click', () => {
         const fechahoraInicio = document.getElementById('fechahoraInicio').value;

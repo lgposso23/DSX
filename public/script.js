@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
     // Función para manejar el cambio en el menú desplegable
-    function handleOptionChange() {
+    function cambioCarro() {
         var opcionSeleccionada = document.getElementById("selectorCarros").value;
         switch (opcionSeleccionada) {
         case "Ambos":
@@ -91,10 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Llama a la función para manejar el cambio en el menú desplegable al cargar la página
-    handleOptionChange();
+    cambioCarro();
     
     // Agrega un event listener para manejar el cambio en el menú desplegable
-    document.getElementById("selectorCarros").addEventListener("change", handleOptionChange);
+    document.getElementById("selectorCarros").addEventListener("change", cambioCarro);
   
 
     // Función para mover el marcador y actualizar el historial
