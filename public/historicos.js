@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dato = datosDePolilinea[index];
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
         if (!marker2) {
-            marker2 = L.marker2(punto).addTo(mymap);
+            marker2 = L.marker(punto).addTo(mymap);
         } else {
             marker2.setLatLng(punto);
         }
@@ -186,8 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('slider').style.display = 'block';
                 datosDePolilinea = data.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
-                    fechahora: dato.fechahora,
-                    rpm: dato.rpm
+                    fechahora: dato.fechahora
                 }));
                 const latLngs = datosDePolilinea.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
@@ -198,10 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 slider.value = finalPoint;
                 actualizarMarcadorYPopup2(finalPoint);
                 updateSliderBackground();
-                if (marker) {
-                    marker.setLatLng(lastPoint);
+                if (marker2) {
+                    marker2.setLatLng(lastPoint);
                 } else {
-                    marker = L.marker(lastPoint).addTo(mymap);
+                    marker2 = L.marker(lastPoint).addTo(mymap);
                 }
             })
             .catch(error => {
