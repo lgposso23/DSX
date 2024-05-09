@@ -123,8 +123,12 @@
         }
         #botonera {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             align-items: center;
+            font-size: 16px;
+            color: rgb(255, 255, 255);
+            gap: 5px;
         }
         .slider-container {
             display: flex;
@@ -186,8 +190,6 @@
             filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
         }
 
-        /* Estilos para el menú desplegable */
-        
         .fechas-container {
             display: flex;
             justify-content: center;
@@ -244,6 +246,20 @@
             position: absolute;
             z-index: 999;
             color: '#fcf000';
+        }
+        #selectorCarros {
+            background-color: #000000; /* Color de fondo */
+            color: #ffffff; /* Color del texto */
+            border: 2px solid #ccc; /* Borde */
+            border-radius: 8px; /* Radio de las esquinas */
+            padding: 1px; /* Espacio interno */
+            font-size: 14px; /* Tamaño de fuente */
+            font-family: Georgia, serif;
+            width: 120px; /* Ancho del menú desplegable */
+        }
+        #selectorCarros option {
+            background-color: #000000; /* Color de fondo */
+            color: #ffffff; /* Color del texto */
         }
         @media only screen and (max-width: 600px) {
             /* Estilos para el header */
@@ -331,6 +347,12 @@
             </div>
         </div> 
         <div id="botonera">
+            <label for="selectorCarros"><strong>¿Qué carro desea ver?</strong> </label>
+            <select id="selectorCarros" name="selectorCarros">
+                <option value="Ambos" selected>Ambos Carros</option>
+                <option value="Rojo">Carro Rojo</option>
+                <option value="Azul">Carro Azul</option>
+            </select>
             <button id="filtrarDatos">Filtrar</button>
         </div>
         <div class="slider-container">
