@@ -129,59 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                if (data.vehiculo1.length === 0 && data.vehiculo2.length === 0) {
-                    // Mostrar un popup indicando que no hay datos disponibles
-                    alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
-                    return;
-                }
-                if (data.vehiculo1.length === 0) {
+                if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos del carro rojo en esta ventana de tiempo');
-                    document.getElementById('slider').style.display = 'block';
-                    datosDePolilineaVehiculo2 = data.vehiculo2.map(dato => ({
-                        latLng: dato.latLng,
-                        fechahora: dato.fechahora
-                    }));
-                    const latLngsVehiculo2 = datosDePolilineaVehiculo2.map(d => d.latLng);
-                    polyline.setLatLngs(latLngsVehiculo2);
-                    // Configura el slider
-                    const slider = document.getElementById('slider');
-                    slider.max = datosDePolilineaVehiculo2.length - 1;
-                    const finalPoint = datosDePolilineaVehiculo2.length - 1;
-                    slider.value = finalPoint;
-                    actualizarMarcadorYPopup(finalPoint);
-                    updateSliderBackground();
-                    const lastPoint = latLngsVehiculo2[latLngsVehiculo2.length - 1];
-                    if (marker) {
-                        marker.setLatLng(lastPoint);
-                    } else {
-                        marker = L.marker(lastPoint).addTo(mymap);
-                    }
-                }
-                if (data.vehiculo2.length === 0) {
-                    // Mostrar un popup indicando que no hay datos disponibles
-                    alert('No se encontraron datos del carro azul en esta ventana de tiempo');
-                    document.getElementById('slider').style.display = 'block';
-                    datosDePolilineaVehiculo1 = data.vehiculo1.map(dato => ({
-                        latLng: dato.latLng,
-                        fechahora: dato.fechahora,
-                        rpm: dato.rpm
-                    }));
-                    const latLngsVehiculo1 = datosDePolilineaVehiculo1.map(d => d.latLng);
-                    polyline.setLatLngs(latLngsVehiculo1);
-                    // Configura el slider
-                    const slider = document.getElementById('slider');
-                    slider.max = datosDePolilineaVehiculo1.length - 1;
-                    const finalPoint = datosDePolilineaVehiculo1.length - 1;
-                    slider.value = finalPoint;
-                    actualizarMarcadorYPopup(finalPoint);
-                    updateSliderBackground();
-                    const lastPoint = latLngsVehiculo1[latLngsVehiculo1.length - 1];
-                    if (marker) {
-                        marker.setLatLng(lastPoint);
-                    } else {
-                        marker = L.marker(lastPoint).addTo(mymap);
-                    }
+                    return;
                 }
                 document.getElementById('slider').style.display = 'block';
                 datosDePolilinea = data.map(dato => ({
