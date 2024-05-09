@@ -117,39 +117,50 @@ app.get('/team', (req, res) => {
 });
 
 app.get('/historicos-datos', (req, res) => {
-  
     const fechahoraInicio = req.query.fechahoraInicio;
     const fechahoraFin = req.query.fechahoraFin;
 
-    // Construir la consulta SQL con los filtros de fecha y hora
-    const query = 'SELECT latitud, longitud, fechahora, rpm FROM ubicaciones WHERE fechaHora BETWEEN ? AND ?'
-
+    // Construir la consulta SQL para unir las dos tablas y obtener los datos de ambos vehículos
+    const query = `
+        SELECT 'vehiculo1' AS vehiculo, latitud, longitud, fechahora, rpm 
+        FROM ubicaciones 
+        WHERE fechaHora BETWEEN ? AND ?
+        UNION ALL
+        SELECT 'vehiculo2' AS vehiculo, latitud, longitud, fechahora 
+        FROM ubicaciones2 
+        WHERE fechaHora BETWEEN ? AND ?
+        ORDER BY fechahora`;
     // Ejecutar la consulta con los parámetros correspondientes
-    connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
+    connection.query(query, [fechahoraInicio, fechahoraFin, fechahoraInicio, fechahoraFin], (error, results, fields) => {
         if (error) {
             console.error('Error al consultar la base de datos:', error);
             res.status(500).json({ error: 'Error al consultar la base de datos' });
             return;
         }
-        res.json(results);
-    });
-});
-app.get('/historicos-datos2', (req, res) => {
-  
-    const fechahoraInicio = req.query.fechahoraInicio;
-    const fechahoraFin = req.query.fechahoraFin;
 
-    // Construir la consulta SQL con los filtros de fecha y hora
-    const query = 'SELECT latitud, longitud, fechahora FROM ubicaciones2 WHERE fechaHora BETWEEN ? AND ?'
+        // Organizar los resultados en un objeto con datos separados para cada vehículo
+        const datos = {
+            vehiculo1: [],
+            vehiculo2: []
+        };
 
-    // Ejecutar la consulta con los parámetros correspondientes
-    connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
-        if (error) {
-            console.error('Error al consultar la base de datos:', error);
-            res.status(500).json({ error: 'Error al consultar la base de datos' });
-            return;
-        }
-        res.json(results);
+        // Iterar sobre los resultados y agregarlos al objeto de datos según el vehículo
+        results.forEach(result => {
+            if (result.vehiculo === 'vehiculo1') {
+                datos.vehiculo1.push({
+                    latLng: [result.latitud, result.longitud],
+                    fechahora: result.fechahora,
+                    rpm: result.rpm
+                });
+            } else if (result.vehiculo === 'vehiculo2') {
+                datos.vehiculo2.push({
+                    latLng: [result.latitud, result.longitud],
+                    fechahora: result.fechahora
+                });
+            }
+        });
+
+        res.json(datos);
     });
 });
 
