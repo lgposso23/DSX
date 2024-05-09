@@ -60,14 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
         iconSize: [25, 15], // tamaño del ícono
-        iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
-        popupAnchor: [10, 0]
+        iconAnchor: [-5, 0], // punto del ícono que corresponderá a la ubicación del marcador
+        popupAnchor: [0, 0]
     });
     var myIcon2 = L.icon({
         iconUrl: 'pics/Carro2.png',
         iconSize: [25, 15], // tamaño del ícono
         iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
-        popupAnchor: [10, 0]
+        popupAnchor: [0, 0]
     });
     var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
     var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
