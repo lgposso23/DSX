@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
     var datosDePolilinea2 = [];
+    var datosCombinados = [];
     const slider = document.getElementById('slider');
     
     document.getElementById('filtrarDatos').disabled = true;
