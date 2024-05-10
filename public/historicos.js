@@ -105,21 +105,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarMarcadorYPopup(index) {
         const dato = datosDePolilinea[index];
+        const dato2 = datosDePolilinea2[index];
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
         if (!marker) {
             marker = L.marker(punto).addTo(mymap);
         } else {
             marker.setLatLng(punto);
         }
-        const fechaHoraISO = dato.fechahora;
-        const fechaHora = new Date(fechaHoraISO);
-        const fechaFormateada = fechaHora.toISOString().split('T')[0];
-        const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
-        marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
-        mymap.panTo(punto);
-        const rpm = dato.rpm;
-        gauge.set(rpm);
-
+        if (dato){
+            const fechaHoraISO = dato.fechahora;
+            const fechaHora = new Date(fechaHoraISO);
+            const fechaFormateada = fechaHora.toISOString().split('T')[0];
+            const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
+            marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
+            mymap.panTo(punto);
+            const rpm = dato.rpm;
+            gauge.set(rpm);
+        }
+        if (dato2){
+            const fechaHoraISO2 = dato2.fechahora;
+            const fechaHora2 = new Date(fechaHoraISO2);
+            const fechaFormateada2 = fechaHora2.toISOString().split('T')[0];
+            const horaFormateada2 = fechaHora2.toISOString().split('T')[1].split('.')[0];
+            marker2.bindPopup(`Pasó el ${fechaFormateada2} a las ${horaFormateada2} por este punto`).openPopup();    
+        }
     }    
 
     function cargarDatosHistoricos(fechahoraInicio, fechahoraFin) {
@@ -151,16 +160,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 polyline2.setLatLngs(latLngs2);
                 // Configura el slider
                 const slider = document.getElementById('slider');
-                slider.max = datosDePolilinea.length - 1;
-                const finalPoint = datosDePolilinea.length - 1;
-                slider.value = finalPoint;
-                actualizarMarcadorYPopup(finalPoint);
-                updateSliderBackground();
-                const lastPoint = latLngs[latLngs.length - 1];
-                if (marker) {
-                    marker.setLatLng(lastPoint);
-                } else {
-                    marker = L.marker(lastPoint).addTo(mymap);
+                if (datosDePolilinea.length>= datosDePolilinea2.length){
+                    slider.max = datosDePolilinea.length - 1;
+                    const finalPoint = datosDePolilinea.length - 1;
+                    slider.value = finalPoint;
+                    actualizarMarcadorYPopup(finalPoint);
+                    updateSliderBackground();
+                }
+                if (datosDePolilinea2.length> datosDePolilinea.length){
+                    slider.max = datosDePolilinea2.length - 1;
+                    const finalPoint = datosDePolilinea2.length - 1;
+                    slider.value = finalPoint;
+                    actualizarMarcadorYPopup(finalPoint);
+                    updateSliderBackground();
                 }
             })
             .catch(error => {
