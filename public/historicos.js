@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,
                 })); 
-                let datosCombinados = datosDePolilinea.concat(datosDePolilinea2);
+                datosCombinados = datosDePolilinea.concat(datosDePolilinea2);
                 datosCombinados.sort((a, b) => {
                     return new Date(a.fechahora) - new Date(b.fechahora);
                 });                 
