@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var polyline2 = L.polyline([], { color: 'blue' }).addTo(mymap);
     var filtrarButton = document.getElementById('filtrarDatos');
     var datosDePolilinea = [];
+    var datosDePolilinea2 = [];
     const slider = document.getElementById('slider');
     
     document.getElementById('filtrarDatos').disabled = true;
@@ -131,17 +132,23 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
-                    alert('No se encontraron datos del carro rojo en esta ventana de tiempo');
+                    alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
-                datosDePolilinea = data.map(dato => ({
+                datosDePolilinea = data.historicos_datos.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,
                     rpm: dato.rpm
                 }));
+                datosDePolilinea2 = data.historicos_datos2.map(dato => ({
+                    latLng: [dato.latitud, dato.longitud],
+                    fechahora: dato.fechahora,
+                }));  
                 const latLngs = datosDePolilinea.map(d => d.latLng);
+                const latLngs2 = datosDePolilinea2.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
+                polyline2.setLatLngs(latLngs2);
                 // Configura el slider
                 const slider = document.getElementById('slider');
                 slider.max = datosDePolilinea.length - 1;

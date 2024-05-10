@@ -122,17 +122,34 @@ app.get('/historicos-datos', (req, res) => {
     const fechahoraFin = req.query.fechahoraFin;
 
     // Construir la consulta SQL con los filtros de fecha y hora
-    const query = 'SELECT latitud, longitud, fechahora, rpm FROM ubicaciones WHERE fechaHora BETWEEN ? AND ?'
+    const query1 = 'SELECT latitud, longitud, fechahora, rpm FROM ubicaciones WHERE fechaHora BETWEEN ? AND ?'
+    const query2 = 'SELECT latitud, longitud, fechahora FROM ubicaciones2 WHERE fechaHora BETWEEN ? AND ?';
 
-    // Ejecutar la consulta con los parámetros correspondientes
-    connection.query(query, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
-        if (error) {
-            console.error('Error al consultar la base de datos:', error);
-            res.status(500).json({ error: 'Error al consultar la base de datos' });
-            return;
-        }
-        res.json(results);
-    });
+    Promise.all([
+        new Promise((resolve, reject) => {
+            connection.query(query1, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve({ ubicaciones: results }); // Etiqueta los resultados de la primera consulta como "ubicaciones"
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(query2, [fechahoraInicio, fechahoraFin], (error, results, fields) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve({ ubicaciones2: results }); // Etiqueta los resultados de la segunda consulta como "ubicaciones2"
+            });
+        })
+    ])
+    .then(([result1, result2]) => {
+        // Combinar los resultados de ambas consultas en una única respuesta JSON
+        res.json({ 
+            historicos_datos: result1.ubicaciones, 
+            historicos_datos2: result2.ubicaciones2 
+        });
+    })
 });
 
 // Establece el puerto en el que el servidor UDP escuchará
