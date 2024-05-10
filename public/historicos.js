@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarMarcadorYPopup(index) {
         const dato = datosCombinados[index];
+        console.log(dato.length)
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
         if (dato.rpm){
             const fechaHoraISO = dato.fechahora;
