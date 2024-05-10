@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarMarcadorYPopup(index) {
         const dato = datosCombinados[index];
-        console.log(dato.length)
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
         if (dato.rpm){
             const fechaHoraISO = dato.fechahora;
@@ -164,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const slider = document.getElementById('slider');
                 slider.max = datosCombinados.length - 1;
                 const finalPoint = datosCombinados.length - 1;
+                console.log(finalPoint);
                 slider.value = finalPoint;
                 actualizarMarcadorYPopup(finalPoint);
                 updateSliderBackground();
