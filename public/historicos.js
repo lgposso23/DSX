@@ -104,30 +104,26 @@ document.addEventListener('DOMContentLoaded', () => {
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
 
     function actualizarMarcadorYPopup(index) {
-        const dato = datosDePolilinea[index];
-        const dato2 = datosDePolilinea2[index];
+        const dato = datosCombinados[index];
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
-        if (!marker) {
-            marker = L.marker(punto).addTo(mymap);
-        } else {
-            marker.setLatLng(punto);
-        }
-        if (dato){
+        if (dato.rpm){
             const fechaHoraISO = dato.fechahora;
             const fechaHora = new Date(fechaHoraISO);
             const fechaFormateada = fechaHora.toISOString().split('T')[0];
             const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
+            marker.setLatLng(punto);
             marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
             mymap.panTo(punto);
             const rpm = dato.rpm;
             gauge.set(rpm);
-        }
-        if (dato2){
-            const fechaHoraISO2 = dato2.fechahora;
-            const fechaHora2 = new Date(fechaHoraISO2);
-            const fechaFormateada2 = fechaHora2.toISOString().split('T')[0];
-            const horaFormateada2 = fechaHora2.toISOString().split('T')[1].split('.')[0];
-            marker2.bindPopup(`Pasó el ${fechaFormateada2} a las ${horaFormateada2} por este punto`).openPopup();    
+        } else {
+            const fechaHoraISO = dato.fechahora;
+            const fechaHora = new Date(fechaHoraISO);
+            const fechaFormateada = fechaHora.toISOString().split('T')[0];
+            const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
+            marker2.setLatLng(punto);
+            marker2.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();    
+            mymap.panTo(punto);
         }
     }    
 
@@ -153,27 +149,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 datosDePolilinea2 = data.historicos_datos2.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,
-                }));  
+                })); 
+                let datosCombinados = datosDePolilinea.concat(datosDePolilinea2);
+                datosCombinados.sort((a, b) => {
+                    return new Date(a.fechahora) - new Date(b.fechahora);
+                });                 
                 const latLngs = datosDePolilinea.map(d => d.latLng);
                 const latLngs2 = datosDePolilinea2.map(d => d.latLng);
                 polyline.setLatLngs(latLngs);
                 polyline2.setLatLngs(latLngs2);
                 // Configura el slider
                 const slider = document.getElementById('slider');
-                if (datosDePolilinea.length>= datosDePolilinea2.length){
-                    slider.max = datosDePolilinea.length - 1;
-                    const finalPoint = datosDePolilinea.length - 1;
-                    slider.value = finalPoint;
-                    actualizarMarcadorYPopup(finalPoint);
-                    updateSliderBackground();
-                }
-                if (datosDePolilinea2.length> datosDePolilinea.length){
-                    slider.max = datosDePolilinea2.length - 1;
-                    const finalPoint = datosDePolilinea2.length - 1;
-                    slider.value = finalPoint;
-                    actualizarMarcadorYPopup(finalPoint);
-                    updateSliderBackground();
-                }
+                slider.max = datosCombinados.length - 1;
+                const finalPoint = datosCombinados.length - 1;
+                slider.value = finalPoint;
+                actualizarMarcadorYPopup(finalPoint);
+                updateSliderBackground();
             })
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
