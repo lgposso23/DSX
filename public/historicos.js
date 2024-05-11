@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
-                    document.getElementById("tablaHistorica").style.display = 'none';
+                    document.getElementById("tablaHistorica").classList.remove("tabla-oculta");
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
