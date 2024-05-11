@@ -117,6 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             gauge.set(rpm);
             if (opcionSeleccionada==="Rojo"){
                 mymap.panTo(punto);
+            } 
+            if (opcionSeleccionada==="Azul"){
+                mymap.panTo(marker2.getLatLng());
             } else{
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
@@ -132,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('timestampValue').textContent = horaFormateada;   
             if (opcionSeleccionada==="Azul"){
                 mymap.panTo(punto);
+            } 
+            if (opcionSeleccionada==="Rojo"){
+                mymap.panTo(marker.getLatLng());
             } else {
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
