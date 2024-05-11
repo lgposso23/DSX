@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     var marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
     var marker2 = L.marker([0, 0], {icon: myIcon2}).addTo(mymap);
+    var bounds = L.latLngBounds();
 
     function centrarMapaEnUltimaCoordenada() {
         fetch('/ultimos-datos')
@@ -81,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                     gauge.set(ultimoDato.rpm);
                 }
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 }
             })
