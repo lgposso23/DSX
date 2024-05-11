@@ -145,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
                     document.getElementById("tablaHistorica").classList.add("tabla-oculta");
                     document.getElementById('slider').style.display = 'none';
-                    mymap.removeLayer(polyline);
-                    mymap.removeLayer(polyline2);
+                    polyline.remove();
+                    polyline2.remove();
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
