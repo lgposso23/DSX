@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                     gauge.set(ultimoDato.rpm);
                 }
@@ -94,21 +93,23 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
-                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 }
             })
             .catch(error => {
                 console.error('Error al obtener los últimos datos:', error);
             });
+        bounds.extend(marker.getLatLng());
+        bounds.extend(marker2.getLatLng());
+        mymap.fitBounds(bounds);
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
 
     function actualizarMarcadorYPopup(index) {
         const dato = datosCombinados[index];
-        console.log(dato);
         const punto = new L.LatLng(dato.latLng[0], dato.latLng[1]);
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
         if (dato.rpm){
             const fechaHoraISO = dato.fechahora;
             const fechaHora = new Date(fechaHoraISO);
@@ -117,9 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
             marker.setLatLng(punto);
             document.getElementById('fechaValue').textContent = fechaFormateada;
             document.getElementById('timestampValue').textContent = horaFormateada;
-            mymap.panTo(punto);
             const rpm = dato.rpm;
             gauge.set(rpm);
+            if (opcionSeleccionada==="Rojo"){
+                mymap.panTo(punto);
+            } else{
+                bounds.extend(marker.getLatLng());
+                bounds.extend(marker2.getLatLng());
+                mymap.fitBounds(bounds);
+            }
         } else {
             const fechaHoraISO = dato.fechahora;
             const fechaHora = new Date(fechaHoraISO);
@@ -128,7 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
             marker2.setLatLng(punto);
             document.getElementById('fechaValue').textContent = fechaFormateada;
             document.getElementById('timestampValue').textContent = horaFormateada;   
-            mymap.panTo(punto);
+            if (opcionSeleccionada==="Azul"){
+                mymap.panTo(punto);
+            } else {
+                bounds.extend(marker.getLatLng());
+                bounds.extend(marker2.getLatLng());
+                mymap.fitBounds(bounds);
+            }
         }
     }    
 
