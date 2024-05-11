@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else{
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
-                mymap.fitBounds(bounds);
+                mymap.fitBounds(bounds, { padding: [50, 50] });
             }
         } else {
             const fechaHoraISO = dato.fechahora;
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
-                mymap.fitBounds(bounds);
+                mymap.fitBounds(bounds, { padding: [50, 50] });
             }
         }
     }    
