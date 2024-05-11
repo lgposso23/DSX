@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bounds = L.latLngBounds();
             bounds.extend(marker.getLatLng());
             bounds.extend(marker2.getLatLng());
-            mymap.fitBounds(bounds);
+            mymap.fitBounds(bounds, { padding: [50, 50] });
         }).catch(error => {
             console.error('Error al obtener los últimos datos:', error);
         });
