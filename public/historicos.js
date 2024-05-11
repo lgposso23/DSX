@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rpm = dato.rpm;
             gauge.set(rpm);
             if (opcionSeleccionada==="Rojo"){
-                mymap.panTo(punto);
+                mymap.panTo(marker.getLatLng());
             } 
             if (opcionSeleccionada==="Azul"){
                 mymap.panTo(marker2.getLatLng());
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('fechaValue').textContent = fechaFormateada;
             document.getElementById('timestampValue').textContent = horaFormateada;   
             if (opcionSeleccionada==="Azul"){
-                mymap.panTo(punto);
+                mymap.panTo(marker2.getLatLng());
             } 
             if (opcionSeleccionada==="Rojo"){
                 mymap.panTo(marker.getLatLng());
