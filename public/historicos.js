@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                if (data.length === 0) {
+                if (data.historicos_datos.length === 0 && data.historicos_datos2.length ===0) {
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
                     document.getElementById("tablaHistorica").classList.add("tabla-oculta");
