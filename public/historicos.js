@@ -145,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
                     document.getElementById("tablaHistorica").classList.add("tabla-oculta");
                     document.getElementById('slider').style.display = 'none';
-                    polyline.remove();
-                    polyline2.remove();
+                    mymap.removeLayer(polyline);
+                    mymap.removeLayer(polyline2);
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 slider.value = finalPoint;
                 actualizarMarcadorYPopup(finalPoint);
                 updateSliderBackground();
+                cambioCarro();
             })
             .catch(error => {
                 console.error('Error al cargar los datos históricos:', error);
