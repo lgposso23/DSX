@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var datosDePolilinea2 = [];
     var datosCombinados = [];
     const slider = document.getElementById('slider');
+    document.getElementById('slider').style.display = 'none';
     
     document.getElementById('filtrarDatos').disabled = true;
 
