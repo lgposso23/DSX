@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                     gauge.set(ultimoDato.rpm);
                 }
@@ -93,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.length > 0) {
                     const ultimoDato = data[0];
+                    mymap.setView([ultimoDato.latitud, ultimoDato.longitud]);
                     marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
                 }
             })
