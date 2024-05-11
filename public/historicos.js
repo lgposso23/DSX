@@ -114,7 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const fechaFormateada = fechaHora.toISOString().split('T')[0];
             const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
             marker.setLatLng(punto);
-            marker.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();
+            document.getElementById('fechaValue').textContent = fechaFormateada;
+            document.getElementById('timestampValue').textContent = horaFormateada;
             mymap.panTo(punto);
             const rpm = dato.rpm;
             gauge.set(rpm);
@@ -124,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const fechaFormateada = fechaHora.toISOString().split('T')[0];
             const horaFormateada = fechaHora.toISOString().split('T')[1].split('.')[0];
             marker2.setLatLng(punto);
-            marker2.bindPopup(`Pasó el ${fechaFormateada} a las ${horaFormateada} por este punto`).openPopup();    
+            document.getElementById('fechaValue').textContent = fechaFormateada;
+            document.getElementById('timestampValue').textContent = horaFormateada;   
             mymap.panTo(punto);
         }
     }    
@@ -140,9 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
+                    document.getElementById("tablaHistorica").style.display = 'none';
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
+                document.getElementById("tablaHistorica").style.display = 'block';
                 datosDePolilinea = data.historicos_datos.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,

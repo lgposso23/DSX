@@ -261,6 +261,25 @@
             background-color: #000000; /* Color de fondo */
             color: #ffffff; /* Color del texto */
         }
+        table {
+            border-collapse: collapse;
+            margin: 1px auto;
+            color: rgb(255, 255, 255);
+            border-radius: 10px;
+            z-index: 998;
+            font-size: 14px;
+        }
+        th {
+            border-radius: 10px;
+            text-align: right;
+            padding: 1px 1px;
+            font-weight: normal;
+        } 
+        td {
+            text-align: left;
+            padding: 1px 5px;
+            border-radius: 10px;
+        }  
         @media only screen and (max-width: 600px) {
             /* Estilos para el header */
             #header {
@@ -363,6 +382,14 @@
                 <canvas id="gauge-canvas"></canvas>
                 <div id="gauge-label" style="margin-top: 5px;">RPM</div>
             </div>
+            <table id="tablaHistorica" style="display: none;">
+                <tr>
+                    <th>Viendo registros del </th>
+                    <td><strong><span id="fechaValue">Esperando datos...</span></strong></td>
+                    <th>a las </th>
+                    <td><strong><span id="timestampValue">Esperando datos...</span></strong></td>
+                </tr>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -395,7 +422,7 @@
           limitMax: false,
           limitMin: false,
           highDpiSupport: true,
-          colorStop: '#FFFFFF',
+          colorStop: '#00D007',
           strokeColor: '#FFFFFF'
         };
     </script>
