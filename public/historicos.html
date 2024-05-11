@@ -263,8 +263,8 @@
         }
         table {
             border-collapse: collapse;
-            position: absolute;
-            margin: 1px auto;
+            position: relative;
+            margin: 0 auto;
             color: rgb(255, 255, 255);
             border-radius: 10px;
             z-index: 1000000;
@@ -337,6 +337,15 @@
                 position: absolute;
                 z-index: 999;
             }
+            table {
+                border-collapse: collapse;
+                position: relative;
+                margin: 0 auto;
+                color: rgb(255, 255, 255);
+                border-radius: 10px;
+                z-index: 10000;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -383,7 +392,7 @@
                 <canvas id="gauge-canvas"></canvas>
                 <div id="gauge-label" style="margin-top: 5px;">RPM</div>
             </div>
-            <table id="tablaHistorica">
+            <table id="tablaHistorica"  style="display: none;">
                 <tr>
                     <th>Viendo registros del </th>
                     <td><strong><span id="fechaValue">Esperando datos...</span></strong></td>
