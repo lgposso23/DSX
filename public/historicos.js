@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
-                document.getElementById("tablaHistorica").style.display = 'block';
+                document.getElementById('tablaHistorica').style.display = 'block';
                 datosDePolilinea = data.historicos_datos.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,
