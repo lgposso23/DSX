@@ -142,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.length === 0) {
                     // Mostrar un popup indicando que no hay datos disponibles
                     alert('No se encontraron datos de ningún carro en esta ventana de tiempo');
-                    document.getElementById("tablaHistorica").classList.remove("tabla-oculta");
+                    document.getElementById("tablaHistorica").classList.add("tabla-oculta");
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
-                document.getElementById('tablaHistorica').style.display = 'block';
+                document.getElementById('tablaHistorica').classList.remove("tabla-oculta");
                 datosDePolilinea = data.historicos_datos.map(dato => ({
                     latLng: [dato.latitud, dato.longitud],
                     fechahora: dato.fechahora,
