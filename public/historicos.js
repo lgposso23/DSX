@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById("tablaHistorica").classList.add("tabla-oculta");
                     document.getElementById('slider').style.display = 'none';
                     polyline.remove();
-                    datosDePolilinea = null;
+                    polyline = null;
                     polyline2.remove();
-                    datosDePolilinea2 = null;
+                    polyline2 = null;
                     return;
                 }
                 document.getElementById('slider').style.display = 'block';
