@@ -77,32 +77,26 @@ document.addEventListener('DOMContentLoaded', () => {
     var bounds = L.latLngBounds();
 
     function centrarMapaEnUltimaCoordenada() {
-        fetch('/ultimos-datos')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const ultimoDato = data[0];
-                    marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                    gauge.set(ultimoDato.rpm);
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener los últimos datos:', error);
-            });
-        fetch('/ultimos-datos2')
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const ultimoDato = data[0];
-                    marker2.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener los últimos datos:', error);
-            });
-        bounds.extend(marker.getLatLng());
-        bounds.extend(marker2.getLatLng());
-        mymap.fitBounds(bounds);
+        Promise.all([
+            fetch('/ultimos-datos').then(response => response.json()),
+            fetch('/ultimos-datos2').then(response => response.json())
+        ]).then(data => {
+            const ultimoDato = data[0][0];  // Respuesta del primer fetch
+            const ultimoDato2 = data[1][0]; // Respuesta del segundo fetch
+    
+            marker.setLatLng([ultimoDato.latitud, ultimoDato.longitud]);
+            gauge.set(ultimoDato.rpm); // Asumiendo que gauge también necesita actualizarse
+    
+            marker2.setLatLng([ultimoDato2.latitud, ultimoDato2.longitud]);
+    
+            // Reiniciar y establecer los límites alrededor de las nuevas posiciones
+            bounds = L.latLngBounds();
+            bounds.extend(marker.getLatLng());
+            bounds.extend(marker2.getLatLng());
+            mymap.fitBounds(bounds);
+        }).catch(error => {
+            console.error('Error al obtener los últimos datos:', error);
+        });
     }
 
     centrarMapaEnUltimaCoordenada(); // Centrar el mapa al cargar la página
