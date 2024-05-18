@@ -64,7 +64,6 @@
         }
         button:hover {
             background-color: rgb(121, 255, 125);
-            border: 2px solid black;
         }
         #botonera {
             display: flex;
@@ -87,14 +86,20 @@
             filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
         }
         table {
-            border-collapse: collapse;
-            margin: 5px auto;
-            background-color: rgb(0, 0, 0);
+            border-collapse: separate;
+            border: 4px solid rgb(0, 208, 7);
+            position: relative;
+            margin: 0 auto;
+            font-family: Georgia, serif;
             color: rgb(255, 255, 255);
-            border-radius: 10px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 8px;
+            z-index: 1000000;
+            font-size: 14px;
+            transform: translateY(-10px);
         }
         th, td {
-            padding: 5px 20px;
+            padding: 2px 3px;
             text-align: left;
             border-radius: 100px;
             border: 1px solid black;
@@ -248,19 +253,18 @@
             <!-- Agrega el botón de centrar manualmente, inicialmente deshabilitado -->
             <button id="centrarManualmenteButton" style="display: none;" disabled>Centrar Manualmente</button> 
         </div>
-        
-        <table>
-            <tr>
-                <th>Fecha:</th>
-                <td><span id="fechaValue">Esperando datos...</span></td>
-                <th>Hora:</th>
-                <td><span id="timestampValue">Esperando datos...</span></td>
-            </tr>
-        </table>
         <div style="border: 5px solid rgb(0, 208, 7); padding: 5px;" id="mapid">
             <div>
                 <canvas id="gauge-canvas"></canvas>
                 <div id="gauge-label" style="margin-top: 5px;">RPM</div>
+                <table>
+                    <tr>
+                        <th>Fecha:</th>
+                        <td><span id="fechaValue">Esperando datos...</span></td>
+                        <th>Hora:</th>
+                        <td><span id="timestampValue">Esperando datos...</span></td>
+                    </tr>
+                </table>
             </div>  
         </div>
     </div>
@@ -307,7 +311,7 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos; // 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - alturaElementos + 30; // 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
