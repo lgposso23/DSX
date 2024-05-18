@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     var myIcon = L.icon({
         iconUrl: 'pics/Carro1.png',
         iconSize: [25, 15], // tamaño del ícono
-        iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
+        iconAnchor: [10, 5], // punto del ícono que corresponderá a la ubicación del marcador
     });
     var myIcon2 = L.icon({
         iconUrl: 'pics/Carro2.png',
         iconSize: [25, 15], // tamaño del ícono
-        iconAnchor: [0, 0], // punto del ícono que corresponderá a la ubicación del marcador
+        iconAnchor: [10, 5], // punto del ícono que corresponderá a la ubicación del marcador
     });
 
     // Añade una capa de mosaico de OpenStreetMap al mapa
