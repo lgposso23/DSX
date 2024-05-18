@@ -208,6 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
             mymap.addLayer(marker);
             mymap.addLayer(polyline2);
             mymap.addLayer(marker2);
+            bounds.extend(marker.getLatLng());
+            bounds.extend(marker2.getLatLng());
+            mymap.fitBounds(bounds, { padding: [50, 50] });
             break;
         case "Rojo":
             mymap.removeLayer(polyline2);
