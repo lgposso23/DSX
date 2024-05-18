@@ -5,8 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
 
     centrarManualmenteButton.addEventListener('click', function() {
-        // Centrar el mapa manualmente
-        centrarMapaEnUltimaCoordenada();
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
+        if (opcionSeleccionada==="Azul"){
+            mymap.panTo(marker2.getLatLng());
+        } 
+        if (opcionSeleccionada==="Rojo"){
+            mymap.panTo(marker.getLatLng());
+        }
+        if (opcionSeleccionada==="Ambos"){
+            bounds = L.latLngBounds();
+            bounds.extend(marker.getLatLng());
+            bounds.extend(marker2.getLatLng());
+            mymap.fitBounds(bounds, { padding: [50, 50] });
+        }
     });
 
     // Crea e inicializa el mapa
@@ -124,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     socket.on('updateData2', function(data2) {
         console.log('Datos recibidos del servidor:', data2);
+        document.getElementById('fechaValue').textContent = data2.fecha;
+        document.getElementById('timestampValue').textContent = data2.hora;
         moverMarcadorYActualizarHistorial2(data2.latitud, data2.longitud);
     });
     function toggleButtonVisibility() {
