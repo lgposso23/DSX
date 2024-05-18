@@ -120,7 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } 
             if (opcionSeleccionada==="Azul"){
                 mymap.panTo(marker2.getLatLng());
-            } else{
+            }
+            if (opcionSeleccionada==="Ambos"){
+                bounds = L.latLngBounds();
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
                 mymap.fitBounds(bounds, { padding: [50, 50] });
@@ -138,7 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } 
             if (opcionSeleccionada==="Rojo"){
                 mymap.panTo(marker.getLatLng());
-            } else {
+            }
+            if (opcionSeleccionada==="Ambos"){
+                bounds = L.latLngBounds();
                 bounds.extend(marker.getLatLng());
                 bounds.extend(marker2.getLatLng());
                 mymap.fitBounds(bounds, { padding: [50, 50] });
