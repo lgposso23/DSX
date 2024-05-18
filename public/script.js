@@ -105,27 +105,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Agrega un event listener para manejar el cambio en el menú desplegable
     document.getElementById("selectorCarros").addEventListener("change", cambioCarro);
   
-
-    // Función para mover el marcador y actualizar el historial
     function moverMarcadorYActualizarHistorial(latitud, longitud) {
-        // Mueve el marcador a la nueva ubicación
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
         marker.setLatLng([latitud, longitud]);
-        // Agrega la nueva ubicación al historial
         polyline.addLatLng([latitud, longitud]);
-        // Centra el mapa si el interruptor está activado
         if (document.getElementById('centrarMapaInterruptor').checked) {
-            mymap.setView([latitud, longitud]);
+            if (opcionSeleccionada==="Azul"){
+                mymap.panTo(marker2.getLatLng());
+            } 
+            if (opcionSeleccionada==="Rojo"){
+                mymap.panTo(marker.getLatLng());
+            }
+            if (opcionSeleccionada==="Ambos"){
+                bounds = L.latLngBounds();
+                bounds.extend(marker.getLatLng());
+                bounds.extend(marker2.getLatLng());
+                mymap.fitBounds(bounds, { padding: [50, 50] });
+            }
         }
     }
     function moverMarcadorYActualizarHistorial2(latitud, longitud) {
-        // Mueve el marcador a la nueva ubicación
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
         marker2.setLatLng([latitud, longitud]);
-        // Agrega la nueva ubicación al historial
         polyline2.addLatLng([latitud, longitud]);
+        if (document.getElementById('centrarMapaInterruptor').checked) {
+            if (opcionSeleccionada==="Azul"){
+                mymap.panTo(marker2.getLatLng());
+            } 
+            if (opcionSeleccionada==="Rojo"){
+                mymap.panTo(marker.getLatLng());
+            }
+            if (opcionSeleccionada==="Ambos"){
+                bounds = L.latLngBounds();
+                bounds.extend(marker.getLatLng());
+                bounds.extend(marker2.getLatLng());
+                mymap.fitBounds(bounds, { padding: [50, 50] });
+            }
+        }
     }
 
     // Escucha el evento 'updateData' del servidor Socket.IO
     socket.on('updateData', function(data) {
+        var opcionSeleccionada = document.getElementById("selectorCarros").value;
         console.log('Datos recibidos del servidor:', data);
         document.getElementById('fechaValue').textContent = data.fecha;
         document.getElementById('timestampValue').textContent = data.hora;
