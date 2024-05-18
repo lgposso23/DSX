@@ -208,18 +208,24 @@ document.addEventListener('DOMContentLoaded', () => {
             mymap.addLayer(marker);
             mymap.addLayer(polyline2);
             mymap.addLayer(marker2);
+            bounds = L.latLngBounds();
+            bounds.extend(marker.getLatLng());
+            bounds.extend(marker2.getLatLng());
+            mymap.fitBounds(bounds, { padding: [50, 50] });
             break;
         case "Rojo":
             mymap.removeLayer(polyline2);
             mymap.removeLayer(marker2);
             mymap.addLayer(polyline);
             mymap.addLayer(marker);
+            mymap.panTo(marker.getLatLng());
             break;
         case "Azul":
             mymap.removeLayer(polyline);
             mymap.removeLayer(marker);
             mymap.addLayer(polyline2);
             mymap.addLayer(marker2);
+            mymap.panTo(marker2.getLatLng());
             break;
         }
     }
