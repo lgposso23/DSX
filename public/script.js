@@ -91,9 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Llama a la función para manejar el cambio en el menú desplegable al cargar la página
-    cambioCarro();
-    
     // Agrega un event listener para manejar el cambio en el menú desplegable
     document.getElementById("selectorCarros").addEventListener("change", cambioCarro);
   
