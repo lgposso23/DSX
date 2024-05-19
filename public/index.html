@@ -149,7 +149,7 @@
             height: 100px; /* Cambia la altura según sea necesario */
             position: absolute; /* Posición fija para que permanezca en la esquina */
             bottom: 60px; /* Alineación con el borde inferior */
-            right: 55px; /* Alineación con el borde derecho */
+            right: 45px; /* Alineación con el borde derecho */
             z-index: 1000;
         }
         #gauge-label {
@@ -172,6 +172,13 @@
         #selectorCarros option {
             background-color: #000000; /* Color de fondo */
             color: #ffffff; /* Color del texto */
+        }
+        #toogleRPM {
+            color:#000000;
+            z-index: 1000000;
+            bottom: 20px;
+            right: 60px;
+            position: absolute;
         }
 
         @media only screen and (max-width: 600px) {
@@ -265,6 +272,7 @@
                         <td><span id="timestampValue">Esperando datos...</span></td>
                     </tr>
                 </table>
+                <button id="toogleRPM">Ocultar medidor RPM</button>
             </div>  
         </div>
     </div>
@@ -311,7 +319,7 @@
 
             // Calcular la altura del mapa para que ocupe el 95% de la pantalla, restando la altura de los elementos anteriores
             var alturaPantalla = window.innerHeight;
-            var alturaMapa = alturaPantalla - alturaElementos + 30; // 15% de la altura de la pantalla
+            var alturaMapa = alturaPantalla - alturaElementos + 25; // 15% de la altura de la pantalla
 
             // Aplicar la altura calculada al mapa, asegurándose de que no sea negativa
             var mapa = document.getElementById('mapid');
