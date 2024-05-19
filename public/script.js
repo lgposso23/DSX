@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('gauge-label').style.display = 'block';
             cuenta=1;
         }
+        console.log(cuenta);
     })
 
     // Crea e inicializa el mapa
