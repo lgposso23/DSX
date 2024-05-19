@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
     const interruptor = document.getElementById('centrarMapaInterruptor');
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
-    cuenta=1;
+    var cuenta=1;
 
     centrarManualmenteButton.addEventListener('click', function() {
         var opcionSeleccionada = document.getElementById("selectorCarros").value;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cuenta=1;
         }
         console.log(cuenta);
-    })
+    });
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid', {
