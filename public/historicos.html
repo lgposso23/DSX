@@ -287,6 +287,21 @@
             padding: 1px 5px;
             border-radius: 10px;
         }  
+        #toogleRPM {
+            color:#ffffff;
+            background-color: #000000;
+            z-index: 1000000;
+            border: 4px solid rgb(0, 208, 7);
+            border-radius: 4px;
+            bottom: -8px;
+            right: -8px;
+            width: 200px;
+            position: absolute;
+        }
+
+        #toogleRPM:hover {
+            background-color: rgb(113, 113, 113);
+        }
         @media only screen and (max-width: 600px) {
             /* Estilos para el header */
             #header {
@@ -406,6 +421,7 @@
                     <td><strong><span id="timestampValue">Esperando datos...</span></strong></td>
                 </tr>
             </table>
+            <button id="toogleRPM">Ocultar medidor RPM</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
