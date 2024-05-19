@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     var datosDePolilinea = [];
     var datosDePolilinea2 = [];
     var datosCombinados = [];
+    var cuenta = 1;
     const slider = document.getElementById('slider');
     document.getElementById('slider').style.display = 'none';
-    
     document.getElementById('filtrarDatos').disabled = true;
-    
+
     toogleRPM.addEventListener('click', function() {
         if (cuenta === 1) {
             document.getElementById('gauge-canvas').style.display = 'none';
