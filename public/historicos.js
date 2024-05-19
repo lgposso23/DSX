@@ -12,6 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('slider').style.display = 'none';
     
     document.getElementById('filtrarDatos').disabled = true;
+    
+    toogleRPM.addEventListener('click', function() {
+        if (cuenta === 1) {
+            document.getElementById('gauge-canvas').style.display = 'none';
+            document.getElementById('gauge-label').style.display = 'none';
+            cuenta = 0;
+        } else {
+            document.getElementById('gauge-canvas').style.display = 'block';
+            document.getElementById('gauge-label').style.display = 'block';
+            cuenta = 1;
+        }
+    });
 
     // Inicializar Flatpickr en los campos de fecha y hora
     const flatpickrInicio = flatpickr("#fechahoraInicio", {
