@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
     const interruptor = document.getElementById('centrarMapaInterruptor');
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
-    var cuenta=1;
+    var cuenta = 1;
 
     centrarManualmenteButton.addEventListener('click', function() {
         var opcionSeleccionada = document.getElementById("selectorCarros").value;
@@ -21,16 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    toogleRPM.addEventListener('click', function(){
-        if (cuenta===1){
+    toogleRPM.addEventListener('click', function() {
+        if (cuenta === 1) {
             document.getElementById('gauge-canvas').style.display = 'none';
             document.getElementById('gauge-label').style.display = 'none';
-            cuenta=0;
-        }
-        if (cuenta===0){
+            cuenta = 0;
+        } else {
             document.getElementById('gauge-canvas').style.display = 'block';
             document.getElementById('gauge-label').style.display = 'block';
-            cuenta=1;
+            cuenta = 1;
         }
         console.log(cuenta);
     });
