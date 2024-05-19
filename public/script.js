@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
     const interruptor = document.getElementById('centrarMapaInterruptor');
     const botonCentrarManualmente = document.getElementById('centrarManualmenteButton');
+    cuenta=1;
 
     centrarManualmenteButton.addEventListener('click', function() {
         var opcionSeleccionada = document.getElementById("selectorCarros").value;
@@ -19,6 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
             mymap.fitBounds(bounds, { padding: [50, 50] });
         }
     });
+
+    toogleRPM.addEventListener('click', function(){
+        if (cuenta===1){
+            document.getElementById('gauge-canvas').style.display = 'none';
+            document.getElementById('gauge-label').style.display = 'none';
+            cuenta=0;
+        }
+        if (cuenta===0){
+            document.getElementById('gauge-canvas').style.display = 'block';
+            document.getElementById('gauge-label').style.display = 'block';
+            cuenta=1;
+        }
+    })
 
     // Crea e inicializa el mapa
     var mymap = L.map('mapid', {
