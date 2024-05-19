@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cuenta === 1) {
             document.getElementById('gauge-canvas').style.display = 'none';
             document.getElementById('gauge-label').style.display = 'none';
+            toogleRPM.textContent = 'Mostrar medidor RPM';
             cuenta = 0;
         } else {
             document.getElementById('gauge-canvas').style.display = 'block';
             document.getElementById('gauge-label').style.display = 'block';
+            toogleRPM.textContent = 'Ocultar medidor RPM';
             cuenta = 1;
         }
     });
