@@ -26,7 +26,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-app.use(express.static('DSX/public'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configura la conexión a los clientes WebSocket
 io.on('connection', (socket) => {
